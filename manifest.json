@@ -1,6 +1,6 @@
 {
   "name": "Atril Digital",
-  "short_name": "Atril",
+  "short_name": "Atril Digital",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f172a",
@@ -19,4 +19,5 @@
       "type": "image/png"
     }
   ]
+
 }
