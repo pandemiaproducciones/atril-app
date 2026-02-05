@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ATRIL DIGITAL v7.1</title>
+    <title>Atril Digital</title>
     
-    <!-- ETIQUETAS PARA APP MÓVIL (PWA) -->
+    <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -64,7 +64,7 @@
             <img src="https://github.com/pandemiaproducciones/Atril-Digital/blob/main/logo.png?raw=true" class="w-24 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v7.1</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v7.3</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE BANDAS</p>
             <div class="space-y-3">
@@ -324,10 +324,10 @@
     </script>
 
     <script>
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwpdHttIY9SWkliI5PVzsw-jS5b8-t6_IyS55hcmBWm2I4J1dJUCm1Iwm4EvrctlDRz7g/exec";
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwRViK2PrI5uUDCMmY-yMk5HYK2NrnWTi0NJnh9yA5MdYwOtt8S4S8yLgGgaePJHQbGrA/exec";
         
-        let session = JSON.parse(localStorage.getItem('atril_v71')) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
-        let record = JSON.parse(localStorage.getItem('atril_rec_v71')) || {};
+        let session = JSON.parse(localStorage.getItem('atril_v73')) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
+        let record = JSON.parse(localStorage.getItem('atril_rec_v73')) || {};
         let editingCell = null;
         let isEditing = false;
         let originalDoc = null;
@@ -350,7 +350,7 @@
 
         function nav(id) {
             session.current = id;
-            localStorage.setItem('atril_v71', JSON.stringify(session));
+            localStorage.setItem('atril_v73', JSON.stringify(session));
             document.querySelectorAll('body > div').forEach(d => { if(d.id !== 'loader') d.classList.add('hidden'); d.classList.remove('flex'); });
             const target = document.getElementById(id);
             target.classList.remove('hidden');
@@ -389,7 +389,7 @@
             try {
                 const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`);
                 const d = await r.json();
-                if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_v71', JSON.stringify(session)); restore(); nav('screen-menu'); } 
+                if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_v73', JSON.stringify(session)); restore(); nav('screen-menu'); } 
                 else { alert("ERROR DE DATOS: " + (d.error || 'Desconocido')); restore(); nav('screen-menu'); }
             } catch(e) { console.error(e); alert("SIN CONEXIÓN: SE USARÁN DATOS GUARDADOS"); restore(); nav('screen-menu'); }
             loader(false);
@@ -674,7 +674,7 @@
         }
         function openGradoModal() { if (!session.config.grado || session.config.grado.length === 0) return alert("No hay grados configurados"); document.getElementById('modal-grupo').classList.remove('hidden'); let html = `<button onclick="setGrado('')" class="w-full p-3 bg-red-50 text-red-600 rounded-xl font-bold text-[10px] uppercase">LIMPIAR CELDA</button>`; session.config.grado.forEach(g => { html += `<button onclick="setGrado('${g}')" class="w-full p-3 bg-slate-50 rounded-xl font-bold text-[10px] uppercase">${g}</button>`; }); document.getElementById('lista-grados-modal').innerHTML = html; }
         function setGrado(v) { const cell = document.getElementById(`cell-${editingCell.h}-${editingCell.d}`); if(v === '') { cell.innerText = ""; } else { if(cell.innerText.trim() !== "") { if(!cell.innerText.includes(v)) cell.innerText += " / " + v; } else { cell.innerText = v; } } document.getElementById('modal-grupo').classList.add('hidden'); }
-        async function saveHorario() { loader(true, "GUARDANDO..."); const matriz = []; const numHoras = parseInt(document.getElementById('select-horas').value); for(let h=1; h<=numHoras; h++) { let fila = [h]; for(let d=0; d<5; d++) fila.push(document.getElementById(`cell-${h}-${d}`).innerText); matriz.push(fila); } try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })}); const res = await r.json(); if(res.success) { let newHorario = []; for(let i=0; i<matriz.length; i++) { let row = matriz[i]; newHorario.push({ hora: row[0], lunes: row[1], martes: row[2], miercoles: row[3], jueves: row[4], viernes: row[5] }); } session.horario = newHorario; localStorage.setItem('atril_v71', JSON.stringify(session)); alert("HORARIO GUARDADO"); } } catch(e) { alert("Error al guardar"); } loader(false); }
+        async function saveHorario() { loader(true, "GUARDANDO..."); const matriz = []; const numHoras = parseInt(document.getElementById('select-horas').value); for(let h=1; h<=numHoras; h++) { let fila = [h]; for(let d=0; d<5; d++) fila.push(document.getElementById(`cell-${h}-${d}`).innerText); matriz.push(fila); } try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })}); const res = await r.json(); if(res.success) { let newHorario = []; for(let i=0; i<matriz.length; i++) { let row = matriz[i]; newHorario.push({ hora: row[0], lunes: row[1], martes: row[2], miercoles: row[3], jueves: row[4], viernes: row[5] }); } session.horario = newHorario; localStorage.setItem('atril_v73', JSON.stringify(session)); alert("HORARIO GUARDADO"); } } catch(e) { alert("Error al guardar"); } loader(false); }
 
         // --- ASISTENCIA & ESTADÍSTICAS ---
         function restoreStatsFilter() {
@@ -761,13 +761,13 @@
             });
             document.getElementById('counter').innerText = `${Object.keys(record).length} Marcados`;
         }
-        function mark(n, st) { if (record[n] === st) { delete record[n]; } else { record[n] = st; } localStorage.setItem('atril_rec_v71', JSON.stringify(record)); renderList(activeSection); }
+        function mark(n, st) { if (record[n] === st) { delete record[n]; } else { record[n] = st; } localStorage.setItem('atril_rec_v73', JSON.stringify(record)); renderList(activeSection); }
         function getCol(s) { return { 'PRESENTE': 'bg-slate-900 text-white border-slate-900', 'AUSENTE': 'bg-red-50 text-red-600 border-red-100', 'RETARDO': 'bg-amber-50 text-amber-600 border-amber-100', 'EXCUSA': 'bg-blue-50 text-blue-600 border-blue-100'}[s]; }
         async function finalize() {
             if(!Object.keys(record).length) return alert("NO HAY MARCACIONES");
             loader(true, "GUARDANDO...");
             const data = Object.entries(record).map(([n, e]) => ({ fecha: session.date, tipo_actividad: session.type, nombre_actividad: session.act, proceso: session.process, musico: n, estado: e }));
-            try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); const res = await r.json(); if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_v71'); nav('screen-menu'); } } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
+            try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); const res = await r.json(); if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_v73'); nav('screen-menu'); } } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
             loader(false);
         }
         function generateWAReport() {
