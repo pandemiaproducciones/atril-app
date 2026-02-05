@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atril-v84-beta-cache';
+const CACHE_NAME = 'atril-v841-beta-cache';
 const urlsToCache = [
   './beta.html',
   './manifest.json',
