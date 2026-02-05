@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atril-v781-cache';
+const CACHE_NAME = 'atril-v79-cache';
 const urlsToCache = [
   './',
   './index.html',
@@ -53,6 +53,7 @@ self.addEventListener('activate', event => {
   );
 
 });
+
 
 
 
