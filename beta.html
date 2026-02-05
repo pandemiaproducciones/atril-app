@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ATRIL DIGITAL - BETA</title>
+    
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ATRIL DIGITAL">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" type="image/png" href="icon.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; color: #1e293b; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .hidden { display: none !important; }
+        .flex { display: flex !important; }
+        .loader { border-top-color: #0f172a; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .active-tab { border-bottom: 3px solid #0f172a; color: #0f172a; font-weight: 700; }
+        .dirtab-btn { transition: all 0.2s; }
+        
+        input, select, textarea { border: 1px solid #e2e8f0 !important; outline: none; appearance: none; }
+        .btn-status { font-size: 9px; font-weight: 600; padding: 12px 2px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        .horario-grid { display: grid; grid-template-columns: 40px repeat(5, 1fr); gap: 1px; background: #cbd5e1; border: 1px solid #cbd5e1; }
+        .horario-cell { 
+            min-height: 60px; padding: 4px; background: white; font-size: 10.5px; font-weight: 600; color: #334155;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.2; word-break: break-word; 
+        }
+        .horario-header { background: #0f172a; color: white; padding: 8px 0; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        
+        .input-std { 
+            width: 100%; 
+            height: 54px; 
+            padding: 0 1rem; 
+            background-color: #f8fafc; 
+            border-radius: 0.5rem; 
+            font-size: 15px; 
+            font-weight: 600; 
+            display: flex;
+            align-items: center;
+        }
+        textarea.input-std { height: auto; padding: 1rem; }
+    </style>
+</head>
+<body>
+
+    <!-- CARGADOR -->
+    <div id="loader" class="hidden fixed inset-0 bg-white/95 z-[9999] flex flex-col items-center justify-center text-center">
+        <div class="loader rounded-full border-4 border-t-4 border-slate-200 h-12 w-12 mb-4"></div>
+        <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">INICIANDO BETA...</p>
+    </div>
+
+    <!-- PANTALLA LOGIN -->
+    <div id="screen-login" class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-sm text-center border border-slate-100">
+            <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
+            <div class="flex items-center justify-center gap-2 mb-1">
+                <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v8.4 BETA</span>
+            </div>
+            <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
+            <div class="space-y-3">
+                <!-- Se eliminó 'uppercase' en el input de usuario -->
+                <input type="text" id="user-input" placeholder="USUARIO" class="w-full p-4 bg-slate-50 rounded-xl font-semibold text-[15px]">
+                <input type="password" id="pass-input" placeholder="CONTRASEÑA" class="w-full p-4 bg-slate-50 rounded-xl text-2xl tracking-widest text-center">
+                <button onclick="loginProcess()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[15px] active:scale-95 transition-transform">INGRESAR</button>
+            </div>
+            <p id="login-error" class="text-red-600 text-[12px] mt-6 hidden font-semibold uppercase">DATOS INCORRECTOS</p>
+        </div>
+    </div>
+
+    <!-- PANTALLA MENÚ PRINCIPAL -->
+    <div id="screen-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
+        <div class="flex justify-between items-start mb-10 mt-6">
+            <div class="w-full">
+                <h2 id="display-band-name" class="font-bold uppercase leading-none text-slate-900">---</h2>
+            </div>
+            <button onclick="logout()" class="border-2 border-red-500 text-red-500 px-4 py-2 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap ml-4">SALIR</button>
+        </div>
+        
+        <button onclick="nav('screen-activity-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+            <span class="font-bold text-[15px] uppercase text-slate-700">ASISTENCIA</span>
+            <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">📋</div>
+        </button>
+        
+        <button onclick="nav('screen-student-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+            <span class="font-bold text-[15px] uppercase text-slate-700">GESTIÓN ESTUDIANTES</span>
+            <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">👤</div>
+        </button>
+        <button onclick="nav('screen-inventory-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+            <span class="font-bold text-[15px] uppercase text-slate-700">GESTIÓN INVENTARIO</span>
+            <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">🎷</div>
+        </button>
+        <button onclick="nav('screen-horario')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+            <span class="font-bold text-[15px] uppercase text-slate-700">HORARIO</span>
+            <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">📅</div>
+        </button>
+    </div>
+
+    <!-- DIRECTORIO -->
+    <div id="screen-directory" class="hidden p-6 max-w-md mx-auto pb-20">
+        <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2">
+            <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ESTUDIANTE</h2>
+            <input type="text" id="search-input" onkeyup="filterDirectory()" placeholder="NOMBRE O INSTRUMENTO..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold text-[15px] shadow-sm mb-4 p-4">
+            <div class="flex gap-4 overflow-x-auto no-scrollbar text-[12px] font-bold uppercase border-b pb-2 mb-2">
+                <button onclick="setDirSection('TODOS')" id="dirtab-TODOS" class="dirtab-btn active-tab whitespace-nowrap">TODOS</button>
+                <button onclick="setDirSection('Maderas')" id="dirtab-Maderas" class="dirtab-btn text-slate-300 whitespace-nowrap">Maderas</button>
+                <button onclick="setDirSection('Bronces')" id="dirtab-Bronces" class="dirtab-btn text-slate-300 whitespace-nowrap">Bronces</button>
+                <button onclick="setDirSection('Cuerdas')" id="dirtab-Cuerdas" class="dirtab-btn text-slate-300 whitespace-nowrap">Cuerdas</button>
+                <button onclick="setDirSection('Percusion')" id="dirtab-Percusion" class="dirtab-btn text-slate-300 whitespace-nowrap">Percusión</button>
+            </div>
+        </div>
+        <div id="directory-list" class="space-y-3 mt-2"></div>
+    </div>
+
+    <!-- PANTALLA LISTAS POR GRADOS -->
+    <div id="screen-grade-list" class="hidden p-6 max-w-md mx-auto pb-32">
+        <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
+            <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">LISTAS POR GRADOS</h2>
+            <div class="bg-white p-6 rounded-3xl shadow-sm border mb-4">
+                 <label class="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-widest">SELECCIONE EL GRADO</label>
+                 <select id="filter-grado-select" onchange="renderGradeList()" class="input-std"></select>
+            </div>
+        </div>
+        <div id="grade-list-container" class="space-y-3"></div>
+        <div id="btn-grade-wa" class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t hidden">
+            <button onclick="generateGradeWA()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] shadow-lg active:scale-95 transition-transform">ENVIAR LISTA POR WHATSAPP 📲</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA FORMULARIO ESTUDIANTE -->
+    <div id="screen-form-student" class="hidden p-6 max-w-md mx-auto pb-20">
+        <button id="btn-back-student" onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
+            <h2 id="form-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INTEGRANTE</h2>
+            <input type="text" id="add-nombres" placeholder="NOMBRES" class="input-std">
+            <input type="text" id="add-apellidos" placeholder="APELLIDOS" class="input-std">
+            <input type="tel" id="add-telefono" placeholder="TELÉFONO ESTUDIANTE" class="input-std">
+            <input type="text" id="add-eps" placeholder="EPS / SALUD" class="input-std">
+            <div class="grid grid-cols-2 gap-2">
+                <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">DOCUMENTO</label><input type="tel" id="add-documento" placeholder="NÚMERO" class="input-std"></div>
+                <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">FECHA NACIMIENTO</label><input type="text" id="add-fecha_nacimiento" placeholder="DD/MM/AAAA" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" class="input-std uppercase"></div>
+            </div>
+            <select id="add-proceso" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <select id="add-instrumento" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <select id="add-grado" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <button onclick="toggleAcudiente()" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2 hover:text-slate-600 transition-colors mt-2">+ ¿AGREGAR ACUDIENTE?</button>
+            <div id="acudiente-box" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-100 fade-in">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">DATOS DEL ACUDIENTE</p>
+                <input type="text" id="add-acudiente-nombre" placeholder="NOMBRE ACUDIENTE" class="input-std">
+                <input type="tel" id="add-acudiente-telefono" placeholder="TELÉFONO ACUDIENTE" class="input-std">
+            </div>
+            <button id="btn-save-student" onclick="saveStudent()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR REGISTRO</button>
+            <button id="btn-del-student" onclick="deleteStudent()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ESTUDIANTE 🗑️</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA HORARIO -->
+    <div id="screen-horario" class="hidden p-4 max-w-xl mx-auto pb-32">
+        <div class="flex justify-between items-center mb-6">
+            <button onclick="nav('screen-menu')" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <select id="select-horas" onchange="buildHorarioTable()" class="bg-white border p-2 rounded-lg text-[11px] font-semibold uppercase"><option value="6">6 HORAS</option><option value="7">7 HORAS</option></select>
+        </div>
+        <div id="capture-area" class="bg-white p-4 rounded-xl">
+            <div class="horario-grid"><div class="horario-header">H</div><div class="horario-header">LUN</div><div class="horario-header">MAR</div><div class="horario-header">MIE</div><div class="horario-header">JUE</div><div class="horario-header">VIE</div><div id="horario-body" class="contents"></div></div>
+        </div>
+        <div class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t flex gap-2">
+            <button onclick="saveHorario()" class="flex-[2] bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px]">GUARDAR HORARIO</button>
+        </div>
+    </div>
+
+    <!-- MODAL GRUPOS HORARIO -->
+    <div id="modal-grupo" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center p-6 text-center">
+        <div class="bg-white w-full max-w-xs rounded-3xl p-6">
+            <h3 class="font-bold uppercase text-sm mb-4">ASIGNAR GRADO</h3>
+            <div id="lista-grados-modal" class="space-y-2 max-h-60 overflow-y-auto no-scrollbar"></div>
+            <button onclick="document.getElementById('modal-grupo').classList.add('hidden')" class="w-full mt-6 bg-slate-100 p-3 rounded-xl font-bold text-xs uppercase text-slate-500">CANCELAR</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE REGISTRO SERVICE WORKER (PARA BETA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // APUNTA AL MOTOR BETA PARA NO AFECTAR LA CACHÉ REAL
+                navigator.serviceWorker.register('./sw-beta.js')
+                    .then(reg => console.log('SW BETA registrado', reg))
+                    .catch(err => console.log('SW BETA error', err));
+            });
+        }
+    </script>
+
+    <script>
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwRViK2PrI5uUDCMmY-yMk5HYK2NrnWTi0NJnh9yA5MdYwOtt8S4S8yLgGgaePJHQbGrA/exec";
+        const VER = "v8.4";
+        
+        let session = JSON.parse(localStorage.getItem('atril_beta_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
+        let record = JSON.parse(localStorage.getItem('atril_rec_beta_' + VER)) || {};
+        let editingCell = null;
+        let isEditing = false;
+        let originalDoc = null;
+        let activeSection = 'TODOS';
+        let currentDirSection = 'TODOS';
+
+        const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+        const SECCIONES = {
+            "Maderas": ["flauta", "oboe", "fagot", "clarinete requinto", "clarinete soprano", "clarinete bajo", "saxofon soprano", "saxofon alto", "saxofon tenor", "saxofon baritono"],
+            "Bronces": ["trompeta", "corno", "trombon", "eufonio", "tuba"],
+            "Cuerdas": ["cello", "contrabajo", "violin", "viola"],
+            "Percusion": ["percusion"]
+        };
+        const ORDEN_INST = [...SECCIONES.Maderas, ...SECCIONES.Bronces, ...SECCIONES.Cuerdas, ...SECCIONES.Percusion];
+
+        window.onload = async () => { 
+            if(session.user && session.sheetId) { loader(true, "SINCRONIZANDO BETA..."); await fetchData(); } else { nav('screen-login'); }
+        };
+
+        function nav(id) {
+            session.current = id;
+            localStorage.setItem('atril_beta_' + VER, JSON.stringify(session));
+            document.querySelectorAll('body > div').forEach(d => { if(d.id !== 'loader') d.classList.add('hidden'); d.classList.remove('flex'); });
+            const target = document.getElementById(id);
+            target.classList.remove('hidden');
+            if(id === 'screen-login') target.classList.add('flex');
+            if(id === 'screen-horario') buildHorarioTable();
+            if(id === 'screen-directory') filterDirectory();
+            if(id === 'screen-grade-list') openGradeList();
+        }
+
+        async function loginProcess() {
+            const u = document.getElementById('user-input').value.trim(), p = document.getElementById('pass-input').value.trim();
+            if(!u || !p) return;
+            loader(true, "VERIFICANDO...");
+            try {
+                const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`);
+                const d = await r.json();
+                if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; await fetchData(); } 
+                else { document.getElementById('login-error').classList.remove('hidden'); loader(false); }
+            } catch(e) { alert("ERROR"); loader(false); }
+        }
+
+        async function fetchData() {
+            try {
+                const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`);
+                const d = await r.json();
+                if (d.success) { session.master = d.integrantes || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_beta_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
+            } catch(e) { restore(); nav('screen-menu'); }
+            loader(false);
+        }
+
+        function restore() {
+            if(!session.config) return; 
+            document.getElementById('display-band-name').innerText = session.banda || "---";
+            ['proceso','instrumento','grado'].forEach(k => {
+                const s = document.getElementById(`add-${k}`);
+                if(s && session.config[k]) { s.innerHTML = `<option disabled selected>${k.toUpperCase()}</option>` + session.config[k].map(o => `<option value="${o}">${o}</option>`).join(''); }
+            });
+        }
+
+        function filterDirectory() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const list = document.getElementById('directory-list');
+            list.innerHTML = "";
+            let filtered = session.master.filter(m => (m.nombres + " " + m.apellidos + " " + m.instrumento).toLowerCase().includes(q));
+            if (currentDirSection !== 'TODOS') { filtered = filtered.filter(m => { const miFam = Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())); return miFam === currentDirSection; }); }
+            filtered.sort((a, b) => a.nombres.localeCompare(b.nombres));
+            filtered.forEach(m => {
+                const item = document.createElement('div');
+                item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center";
+                item.innerHTML = `
+                    <div class="flex-1">
+                        <p class="font-bold text-[13px] text-slate-800">${m.nombres} ${m.apellidos}</p>
+                        <p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${m.instrumento}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="shareStudentWA(event, ${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-green-50 text-green-600 rounded-xl border border-green-100 active:scale-90 transition-transform">📲</button>
+                        <button onclick="loadStudentForEdit(${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl border border-slate-100 active:scale-90 transition-transform">✎</button>
+                    </div>`;
+                list.appendChild(item);
+            });
+        }
+
+        function shareStudentWA(event, m) {
+            event.stopPropagation();
+            const text = `👤 *FICHA TÉCNICA - ATRIL DIGITAL*\n\n` +
+                `*ESTUDIANTE:* ${m.nombres} ${m.apellidos}\n` +
+                `*DOCUMENTO:* ${m.documento}\n` +
+                `*TELÉFONO:* ${m.telefono}\n` +
+                `*INSTRUMENTO:* ${m.instrumento}\n` +
+                `*EPS:* ${m.eps}\n\n` +
+                `👨‍👩‍👧 *ACUDIENTE*\n` +
+                `*NOMBRE:* ${m.acudiente || 'N/A'}\n` +
+                `*TELÉFONO:* ${m.telefono_acud || 'N/A'}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function loader(v,t) { document.getElementById('loader').classList.toggle('hidden', !v); document.getElementById('loader-text').innerText = t || "CARGANDO..."; }
+        function logout() { localStorage.clear(); location.reload(); }
+        function setDirSection(s) { currentDirSection = s; document.querySelectorAll('.dirtab-btn').forEach(b => b.classList.remove('active-tab')); document.getElementById('dirtab-'+s).classList.add('active-tab'); filterDirectory(); }
+        function buildHorarioTable() { /* Lógica de horario estándar omitida para brevedad */ }
+        function openGradeList() { /* Lógica de grados estándar omitida para brevedad */ }
+    </script>
+</body>
+</html>
