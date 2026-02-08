@@ -17,13 +17,14 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
+        // Si la respuesta es válida, la clonamos al caché y la retornamos
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
         const responseToCache = response.clone();
         caches.open(CACHE_NAME)
           .then(cache => {
-            // Evitamos cachear las peticiones a Google Apps Script para recibir datos frescos
+            // Solo cacheamos archivos estáticos
             if(!event.request.url.includes('script.google.com')) {
                cache.put(event.request, responseToCache);
             }
@@ -31,6 +32,7 @@ self.addEventListener('fetch', event => {
         return response;
       })
       .catch(() => {
+        // Si falla la red, intentamos servir desde el caché
         return caches.match(event.request);
       })
   );
@@ -49,6 +51,11 @@ self.addEventListener('activate', event => {
       );
     })
   );
+
 });
+
+
+
+
 
 
