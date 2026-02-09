@@ -22,19 +22,7 @@
         .flex { display: flex !important; }
         
         /* CARGADOR CENTRADO */
-        #loader { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100vw; 
-            height: 100vh; 
-            background-color: rgba(255, 255, 255, 0.95); 
-            z-index: 9999; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-        }
+        #loader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .loader { border-top-color: #0f172a; animation: spinner 1.5s linear infinite; }
         @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
@@ -45,24 +33,36 @@
         .btn-status { font-size: 9px; font-weight: 600; padding: 12px 2px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        .horario-grid { display: grid; grid-template-columns: 40px repeat(5, 1fr); gap: 1px; background: #cbd5e1; border: 1px solid #cbd5e1; }
+        /* ESTILOS HORARIO DINÁMICO v9.0 */
+        .horario-scroll-container { overflow-x: auto; white-space: nowrap; border-radius: 12px; border: 1px solid #cbd5e1; }
+        /* Grid de 8 columnas: Hora + 7 días. Anchos fijos para forzar scroll */
+        .horario-grid { 
+            display: grid; 
+            grid-template-columns: 80px repeat(7, 120px); 
+            gap: 1px; 
+            background: #cbd5e1; 
+            min-width: 920px; 
+        }
         .horario-cell { 
-            min-height: 60px; padding: 4px; background: white; font-size: 10.5px; font-weight: 600; color: #334155;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.2; word-break: break-word; 
+            min-height: 70px; padding: 0; background: white; 
         }
-        .horario-header { background: #0f172a; color: white; padding: 8px 0; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        /* Input de texto libre (textarea) para el horario */
+        .horario-input {
+            width: 100%; height: 100%; min-height: 70px; border: none !important; 
+            text-align: center; font-size: 11px; font-weight: 600; color: #334155; 
+            background: transparent; padding: 8px; resize: none; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .horario-input:focus { background: #f0f9ff; }
         
-        .input-std { 
-            width: 100%; 
-            height: 54px; 
-            padding: 0 1rem; 
-            background-color: #f8fafc; 
-            border-radius: 0.5rem; 
-            font-size: 15px; 
-            font-weight: 600; 
-            display: flex;
-            align-items: center;
+        .horario-header { background: #0f172a; color: white; padding: 12px 0; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center;}
+        
+        /* Input especial para la hora */
+        .horario-time-input {
+            width: 100%; height: 100%; background: #f1f5f9; text-align: center; border: none !important; font-size: 11px; font-weight: 700; color: #0f172a; padding: 4px;
         }
+
+        .input-std { width: 100%; height: 54px; padding: 0 1rem; background-color: #f8fafc; border-radius: 0.5rem; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
         textarea.input-std { height: auto; padding: 1rem; }
     </style>
 </head>
@@ -80,7 +80,7 @@
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v8.7</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.0</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -130,7 +130,7 @@
         <button onclick="nav('screen-process-list')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR PROCESO</span><span class="text-2xl">📜</span></button>
     </div>
 
-    <!-- PANTALLA LISTAS POR PROCESO (ACTUALIZADA v8.7) -->
+    <!-- PANTALLA LISTAS POR PROCESO -->
     <div id="screen-process-list" class="hidden p-6 max-w-md mx-auto pb-32">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
             <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <!-- DIRECTORIO (MODIFICADO v8.7: TARJETA NO CLICKEABLE) -->
+    <!-- DIRECTORIO -->
     <div id="screen-directory" class="hidden p-6 max-w-md mx-auto pb-20">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2">
             <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -206,14 +206,33 @@
         </div>
     </div>
 
-    <!-- PANTALLA HORARIO -->
-    <div id="screen-horario" class="hidden p-4 max-w-xl mx-auto pb-32">
-        <div class="flex justify-between items-center mb-6">
-            <button onclick="nav('screen-menu')" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
-            <select id="select-horas" onchange="buildHorarioTable()" class="bg-white border p-2 rounded-lg text-[11px] font-semibold uppercase"><option value="6">6 HORAS</option><option value="7">7 HORAS</option></select>
-        </div>
-        <div id="capture-area" class="bg-white p-4 rounded-xl">
-            <div class="horario-grid"><div class="horario-header">H</div><div class="horario-header">LUN</div><div class="horario-header">MAR</div><div class="horario-header">MIE</div><div class="horario-header">JUE</div><div class="horario-header">VIE</div><div id="horario-body" class="contents"></div></div>
+    <!-- PANTALLA HORARIO (DINÁMICO v9.0) -->
+    <div id="screen-horario" class="hidden p-4 w-full h-full pb-32">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="nav('screen-menu')" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
+                <div class="flex gap-2">
+                    <button onclick="addHorarioRow()" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-blue-100">+ FILA</button>
+                    <button onclick="removeHorarioRow()" class="bg-red-50 text-red-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-red-100">- FILA</button>
+                </div>
+            </div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-center">DESLIZA HACIA EL LADO PARA VER TODOS LOS DÍAS →</p>
+            
+            <!-- Contenedor con Scroll Horizontal -->
+            <div class="horario-scroll-container">
+                <div class="horario-grid">
+                    <div class="horario-header">HORA</div>
+                    <div class="horario-header">LUNES</div>
+                    <div class="horario-header">MARTES</div>
+                    <div class="horario-header">MIÉRCOLES</div>
+                    <div class="horario-header">JUEVES</div>
+                    <div class="horario-header">VIERNES</div>
+                    <div class="horario-header bg-slate-800">SÁBADO</div>
+                    <div class="horario-header bg-slate-800">DOMINGO</div>
+                    
+                    <div id="horario-body" class="contents"></div>
+                </div>
+            </div>
         </div>
         <div class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t flex gap-2">
             <button onclick="saveHorario()" class="flex-[2] bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px]">GUARDAR HORARIO</button>
@@ -229,15 +248,6 @@
             <select id="event-type" onchange="toggleEventDesc()" class="w-full h-[52px] px-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"><option value="ENSAYO">ENSAYO</option><option value="PRESENTACIÓN">PRESENTACIÓN</option></select>
             <div id="event-desc-box" class="hidden"><input type="text" id="event-desc" placeholder="NOMBRE DEL EVENTO" class="w-full p-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"></div>
             <button onclick="prepareProcess()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">TOMAR ASISTENCIA</button>
-        </div>
-    </div>
-
-    <!-- MODAL GRUPOS HORARIO -->
-    <div id="modal-grupo" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center p-6 text-center">
-        <div class="bg-white w-full max-w-xs rounded-3xl p-6">
-            <h3 class="font-bold uppercase text-sm mb-4">ASIGNAR GRADO</h3>
-            <div id="lista-grados-modal" class="space-y-2 max-h-60 overflow-y-auto no-scrollbar"></div>
-            <button onclick="document.getElementById('modal-grupo').classList.add('hidden')" class="w-full mt-6 bg-slate-100 p-3 rounded-xl font-bold text-xs uppercase text-slate-500">CANCELAR</button>
         </div>
     </div>
 
@@ -356,8 +366,8 @@
     </script>
 
     <script>
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwRViK2PrI5uUDCMmY-yMk5HYK2NrnWTi0NJnh9yA5MdYwOtt8S4S8yLgGgaePJHQbGrA/exec";
-        const VER = "v8.7"; // VERSIÓN ACTUALIZADA
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbzt1OS-jL2WTloOKmI4aRmvkrEEhgDGfrt2BIIk2KGF-4J3XR6WluzlqxQVjdkdg-5FTg/exec";
+        const VER = "v9.0"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
@@ -368,7 +378,8 @@
         let currentDirSection = 'TODOS';
         let originalSerial = null; let originalCodigo = null; let originalRasgos = { inst: "", marca: "", modelo: "" };
 
-        const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+        // ACTUALIZACIÓN DE DÍAS (v9.0)
+        const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
         const SECCIONES = {
             "Maderas": ["flauta", "oboe", "fagot", "clarinete requinto", "clarinete soprano", "clarinete bajo", "saxofon soprano", "saxofon alto", "saxofon tenor", "saxofon baritono"],
             "Bronces": ["trompeta", "corno", "trombon", "eufonio", "tuba"],
@@ -390,7 +401,9 @@
             if(id === 'screen-login') target.classList.add('flex');
             if(id === 'screen-activity') document.getElementById('event-date').value = new Date().toISOString().split('T')[0];
             if(id === 'screen-horario') {
-                if(session.horario && session.horario.length >= 7) document.getElementById('select-horas').value = "7"; else document.getElementById('select-horas').value = "6";
+                if(!session.horario || session.horario.length === 0) {
+                     session.horario = [{hora: "HORA 1"}];
+                }
                 buildHorarioTable();
             }
             if(id === 'screen-directory') filterDirectory();
@@ -415,7 +428,8 @@
             if(!u || !p) return;
             loader(true, "VERIFICANDO...");
             try {
-                const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`);
+                // Se agregó credentials: 'omit' para solucionar problema de cookies múltiples cuentas
+                const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; loader(true, "DESCARGANDO DATOS..."); await fetchData(); } 
                 else { document.getElementById('login-error').innerText = d.message || "ERROR DE ACCESO"; document.getElementById('login-error').classList.remove('hidden'); loader(false); }
@@ -424,7 +438,7 @@
 
         async function fetchData() {
             try {
-                const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`);
+                const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
                 else { alert("ERROR DE DATOS: " + (d.error || 'Desconocido')); restore(); nav('screen-menu'); }
@@ -509,7 +523,6 @@
             if(filtered.length === 0) { list.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-4 font-bold uppercase">NO SE ENCONTRARON RESULTADOS</p>`; return; }
             filtered.forEach(m => {
                 const item = document.createElement('div');
-                // Se eliminó 'cursor-pointer' y el onclick general para evitar edición accidental
                 item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center transition-transform";
                 item.innerHTML = `
                     <div class="flex-1">
@@ -574,7 +587,11 @@
             if(!d.nombres || !d.documento) return alert("FALTAN DATOS OBLIGATORIOS");
             loader(true, isEditing ? "ACTUALIZANDO..." : "GUARDANDO...");
             const payload = { action: isEditing ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: originalDoc };
-            try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify(payload) }); const res = await r.json(); if(res.success) { alert(isEditing ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO"); await fetchData(); nav('screen-student-menu'); } else { alert("ERROR: " + (res.error || "No se pudo guardar")); } } catch(e) { alert("ERROR AL GUARDAR"); }
+            try { 
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
+                const res = await r.json(); 
+                if(res.success) { alert(isEditing ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO"); await fetchData(); nav('screen-student-menu'); } else { alert("ERROR: " + (res.error || "No se pudo guardar")); } 
+            } catch(e) { alert("ERROR AL GUARDAR"); }
             loader(false);
         }
 
@@ -583,7 +600,7 @@
             if(!confirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará permanentemente al estudiante y no se puede deshacer.")) return;
             loader(true, "ELIMINANDO...");
             try {
-                const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc }) });
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc }) });
                 const res = await r.json();
                 if(res.success) { alert("ESTUDIANTE ELIMINADO"); await fetchData(); nav('screen-directory'); } 
                 else { alert("ERROR AL ELIMINAR: " + res.error); }
@@ -635,7 +652,7 @@
             window.open(url, '_blank');
         }
 
-        // --- LISTAS POR PROCESO (ACTUALIZADO v8.7: GRADO INCLUIDO EN WA) ---
+        // --- LISTAS POR PROCESO (ACTUALIZADO v9.0) ---
         function openProcessList() {
             const sel = document.getElementById('filter-process-select');
             if(session.config.proceso) {
@@ -682,7 +699,6 @@
             const proceso = document.getElementById('filter-process-select').value;
             if(!proceso) return;
             let filtered = session.master.filter(m => String(m.proceso) === String(proceso));
-            // Ordenar por Instrumento
             filtered.sort((a, b) => {
                 const idxA = ORDEN_INST.indexOf(String(a.instrumento).toLowerCase());
                 const idxB = ORDEN_INST.indexOf(String(b.instrumento).toLowerCase());
@@ -695,7 +711,6 @@
 
             if(filtered.length === 0) return alert("LISTA VACÍA");
             let msg = `📜 *LISTADO OFICIAL - ${proceso}* \n${session.banda.toUpperCase()}\n\n`;
-            // SE AGREGO GRADO AL TEXTO
             filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento} - ${m.grado || 'S/G'})\n`; });
             const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
@@ -779,7 +794,11 @@
             };
             loader(true, isEditing ? "ACTUALIZANDO..." : "GUARDANDO...");
             const payload = { action: isEditing ? 'editInstrumento' : 'addInstrumento', sheetId: session.sheetId, datos: d, originalSerial: originalSerial, originalCodigo: originalCodigo, originalInstrumento: originalRasgos.inst, originalMarca: originalRasgos.marca, originalModelo: originalRasgos.modelo };
-            try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify(payload) }); const res = await r.json(); if(res.success) { alert(isEditing ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO"); await fetchData(); nav('screen-inventory-menu'); } else { alert("ERROR: NO SE PUDO GUARDAR/EDITAR"); } } catch(e) { alert("ERROR DE CONEXIÓN"); }
+            try { 
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
+                const res = await r.json(); 
+                if(res.success) { alert(isEditing ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO"); await fetchData(); nav('screen-inventory-menu'); } else { alert("ERROR: NO SE PUDO GUARDAR/EDITAR"); } 
+            } catch(e) { alert("ERROR DE CONEXIÓN"); }
             loader(false);
         }
 
@@ -789,7 +808,7 @@
             loader(true, "ELIMINANDO...");
             try {
                 const payload = { action: 'deleteInstrumento', sheetId: session.sheetId, serial: originalSerial, codigo: originalCodigo, instrumento: originalRasgos.inst };
-                const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify(payload) });
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) });
                 const res = await r.json();
                 if(res.success) { alert("ACTIVO ELIMINADO"); await fetchData(); nav('screen-inventory-list'); } 
                 else { alert("ERROR AL ELIMINAR: " + res.error); }
@@ -797,24 +816,74 @@
             loader(false);
         }
 
-        // --- HORARIO ---
+        // --- HORARIO DINÁMICO v9.0 ---
         function buildHorarioTable() {
             const hBox = document.getElementById('horario-body'); hBox.innerHTML = "";
-            const numHoras = parseInt(document.getElementById('select-horas').value);
-            for(let h=1; h<=numHoras; h++) {
-                const hc = document.createElement('div'); hc.className="horario-header"; hc.innerText=h; hBox.appendChild(hc);
-                for(let d=0; d<5; d++) {
-                    const cell = document.createElement('div'); cell.className="horario-cell";
-                    cell.id = `cell-${h}-${d}`;
-                    if(session.horario[h-1]) { let diaKey = DIAS_KEYS[d]; if(session.horario[h-1][diaKey]) cell.innerText = session.horario[h-1][diaKey]; }
-                    cell.onclick = () => { editingCell = {h,d}; openGradoModal(); };
+            session.horario.forEach((fila, index) => {
+                // COLUMNA 1: Input para la hora
+                const timeCell = document.createElement('div');
+                timeCell.className = "horario-cell p-0";
+                const input = document.createElement('input');
+                input.type = "text";
+                input.className = "horario-time-input";
+                input.value = fila.hora || `HORA ${index + 1}`;
+                input.onchange = (e) => { session.horario[index].hora = e.target.value; };
+                timeCell.appendChild(input);
+                hBox.appendChild(timeCell);
+
+                // COLUMNAS 2-8: Días (TEXTO LIBRE)
+                DIAS_KEYS.forEach((dia, dIndex) => {
+                    const cell = document.createElement('div'); 
+                    cell.className = "horario-cell";
+                    // Creamos textarea para permitir saltos de línea y texto libre
+                    const area = document.createElement('textarea');
+                    area.className = "horario-input";
+                    area.value = fila[dia] || "";
+                    area.onchange = (e) => { session.horario[index][dia] = e.target.value; };
+                    cell.appendChild(area);
                     hBox.appendChild(cell);
-                }
+                });
+            });
+        }
+
+        function addHorarioRow() {
+            session.horario.push({ hora: "" });
+            buildHorarioTable();
+        }
+
+        function removeHorarioRow() {
+            if(session.horario.length > 0) {
+                session.horario.pop();
+                buildHorarioTable();
             }
         }
-        function openGradoModal() { if (!session.config.grado || session.config.grado.length === 0) return alert("NO HAY GRADOS CONFIGURADOS"); document.getElementById('modal-grupo').classList.remove('hidden'); let html = `<button onclick="setGrado('')" class="w-full p-3 bg-red-50 text-red-600 rounded-xl font-bold text-[10px] uppercase">LIMPIAR CELDA</button>`; session.config.grado.forEach(g => { html += `<button onclick="setGrado('${g}')" class="w-full p-3 bg-slate-50 rounded-xl font-bold text-[10px] uppercase">${g}</button>`; }); document.getElementById('lista-grados-modal').innerHTML = html; }
-        function setGrado(v) { const cell = document.getElementById(`cell-${editingCell.h}-${editingCell.d}`); if(v === '') { cell.innerText = ""; } else { if(cell.innerText.trim() !== "") { if(!cell.innerText.includes(v)) cell.innerText += " / " + v; } else { cell.innerText = v; } } document.getElementById('modal-grupo').classList.add('hidden'); }
-        async function saveHorario() { loader(true, "GUARDANDO..."); const matriz = []; const numHoras = parseInt(document.getElementById('select-horas').value); for(let h=1; h<=numHoras; h++) { let fila = [h]; for(let d=0; d<5; d++) fila.push(document.getElementById(`cell-${h}-${d}`).innerText); matriz.push(fila); } try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })}); const res = await r.json(); if(res.success) { let newHorario = []; for(let i=0; i<matriz.length; i++) { let row = matriz[i]; newHorario.push({ hora: row[0], lunes: row[1], martes: row[2], miercoles: row[3], jueves: row[4], viernes: row[5] }); } session.horario = newHorario; localStorage.setItem('atril_' + VER, JSON.stringify(session)); alert("HORARIO GUARDADO"); } } catch(e) { alert("ERROR AL GUARDAR"); } loader(false); }
+
+        async function saveHorario() { 
+            loader(true, "GUARDANDO HORARIO..."); 
+            // Convertir a matriz
+            const matriz = session.horario.map(fila => {
+                return [
+                    fila.hora || "",
+                    fila.lunes || "",
+                    fila.martes || "",
+                    fila.miercoles || "",
+                    fila.jueves || "",
+                    fila.viernes || "",
+                    fila.sabado || "",
+                    fila.domingo || ""
+                ];
+            });
+
+            try { 
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })}); 
+                const res = await r.json(); 
+                if(res.success) { 
+                    localStorage.setItem('atril_' + VER, JSON.stringify(session)); 
+                    alert("HORARIO GUARDADO"); 
+                } 
+            } catch(e) { alert("ERROR AL GUARDAR"); } 
+            loader(false); 
+        }
 
         // --- ASISTENCIA & ESTADÍSTICAS ---
         function restoreStatsFilter() {
@@ -832,7 +901,7 @@
             
             loader(true, "CALCULANDO KARDEX...");
             try {
-                const r = await fetch(`${MOTOR_URL}?action=getEstadisticas&sheetId=${session.sheetId}&proceso=${encodeURIComponent(proc)}&mes=${mes}`);
+                const r = await fetch(`${MOTOR_URL}?action=getEstadisticas&sheetId=${session.sheetId}&proceso=${encodeURIComponent(proc)}&mes=${mes}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if(d.success) {
                     document.getElementById('report-title-text').innerText = proc;
@@ -907,7 +976,11 @@
             if(!Object.keys(record).length) return alert("NO HAY MARCACIONES");
             loader(true, "GUARDANDO...");
             const data = Object.entries(record).map(([n, e]) => ({ fecha: session.date, tipo_actividad: session.type, nombre_actividad: session.act, proceso: session.process, musico: n, estado: e }));
-            try { const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); const res = await r.json(); if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_' + VER); nav('screen-menu'); } } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
+            try { 
+                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); 
+                const res = await r.json(); 
+                if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_' + VER); nav('screen-menu'); } 
+            } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
             loader(false);
         }
         function generateWAReport() {
