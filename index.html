@@ -77,7 +77,7 @@
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v10.2</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v10.3</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -352,7 +352,7 @@
 
     <script>
         const MOTOR_URL = "https://script.google.com/macros/s/AKfycbynZ_sWWOR3fjA29alsYGMZtbe1N7WA7gaLtcybNBWNg8zgrP2db0rUxNZGu8H661M/exec";
-        const VER = "v10.2"; 
+        const VER = "v10.3"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
@@ -431,8 +431,8 @@
                 htmlName = `<span class="text-xl leading-tight block">${nombre}</span>`;
             } else {
                 const linea1 = palabras.slice(0, 2).join(" ");
-                const linea2 = palabras.slice(2).join(" ");
-                htmlName = `<span class="text-[13px] text-slate-400 block mb-1 font-medium tracking-wide uppercase">${linea1}</span><span class="text-xl leading-tight block font-bold">${linea2}</span>`;
+                const linea2 = palabras.slice(Palabras.length > 2 ? 2 : 1).join(" "); // Ajuste por si el nombre es corto
+                htmlName = `<span class="text-[13px] text-slate-400 block mb-1 font-medium tracking-wide uppercase">${palabras.slice(0, 2).join(" ")}</span><span class="text-xl leading-tight block font-bold">${palabras.slice(2).join(" ")}</span>`;
             }
             document.getElementById('display-band-name').innerHTML = htmlName;
 
