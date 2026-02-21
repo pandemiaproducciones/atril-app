@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ATRIL DIGITAL v11.7</title>
+    <title>ATRIL DIGITAL v11.9</title>
     
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
@@ -32,7 +32,7 @@
         .btn-status { font-size: 9px; font-weight: 600; padding: 12px 2px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* ESTILOS HORARIO DINÁMICO v11.7 */
+        /* ESTILOS HORARIO DINÁMICO v11.9 */
         .horario-scroll-container { overflow-x: auto; white-space: nowrap; border-radius: 12px; border: 1px solid #cbd5e1; }
         .horario-grid { 
             display: grid; 
@@ -61,16 +61,16 @@
     <!-- CARGADOR -->
     <div id="loader" class="hidden">
         <div class="loader rounded-full border-4 border-t-4 border-slate-200 h-12 w-12 mb-4"></div>
-        <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">SINCRONIZANDO v11.7...</p>
+        <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">CONECTANDO v11.9...</p>
     </div>
 
     <!-- PANTALLA LOGIN -->
     <div id="screen-login" class="flex items-center justify-center min-h-screen p-4">
-        <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-sm text-center border border-slate-100">
+        <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-sm text-center border border-slate-100">
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v11.7</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v11.9</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -155,6 +155,43 @@
         <div id="directory-list" class="space-y-3 mt-2"></div>
     </div>
 
+    <!-- SUB-MENÚ INVENTARIO -->
+    <div id="screen-inventory-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
+        <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
+        <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">INVENTARIO</h2>
+        <button onclick="prepareNewInstrument()" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">AGREGAR ACTIVO +</span><span class="text-2xl">🎺</span></button>
+        <button onclick="nav('screen-inventory-list')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">VER INVENTARIO</span><span class="text-2xl">📦</span></button>
+    </div>
+
+    <!-- LISTA INVENTARIO -->
+    <div id="screen-inventory-list" class="hidden p-6 max-w-md mx-auto pb-20">
+        <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
+            <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ACTIVO</h2>
+            <input type="text" id="search-inv-input" onkeyup="filterInventory()" placeholder="Instrumento, Serial, Código..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold text-[15px] shadow-sm p-4">
+        </div>
+        <div id="inventory-list-container" class="space-y-3 mt-2"></div>
+    </div>
+
+    <!-- PANTALLA FORMULARIO INVENTARIO -->
+    <div id="screen-form-inventory" class="hidden p-6 max-w-md mx-auto pb-20">
+        <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
+            <h2 id="form-inv-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INSTRUMENTO</h2>
+            <div><select id="inv-instrumento-select" onchange="checkOtroInst()" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase mb-2"></select><input type="text" id="inv-instrumento-input" placeholder="Escriba el nombre del instrumento..." class="hidden input-std"></div>
+            <div class="grid grid-cols-2 gap-2"><input type="text" id="inv-marca" placeholder="MARCA" class="input-std"><input type="text" id="inv-modelo" placeholder="MODELO" class="input-std"></div>
+            <div class="grid grid-cols-2 gap-2"><input type="text" id="inv-serial" placeholder="SERIAL (FÁBRICA)" class="input-std border-slate-300"><input type="text" id="inv-codigo" placeholder="CÓDIGO INTERNO" class="input-std"></div>
+            <input type="text" id="inv-color" placeholder="COLOR / ACABADO" class="input-std">
+            <select id="inv-condicion" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <select id="inv-estado" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <select id="inv-origen" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
+            <textarea id="inv-accesorios" placeholder="ACCESORIOS (BOQUILLA, ESTUCHE...)" class="input-std h-24"></textarea>
+            <textarea id="inv-observaciones" placeholder="OBSERVACIONES GENERALES" class="input-std h-24"></textarea>
+            <button id="btn-save-inv" onclick="saveInstrument()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR ACTIVO</button>
+            <button id="btn-del-inv" onclick="deleteInstrument()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ACTIVO 🗑️</button>
+        </div>
+    </div>
+
     <!-- PANTALLA FILTRO ESTADÍSTICAS -->
     <div id="screen-stats-filter" class="hidden p-6 max-w-md mx-auto">
         <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -191,30 +228,22 @@
         <button onclick="nav('screen-stats-filter')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">ESTADÍSTICAS</span><span class="text-2xl">📊</span></button>
     </div>
 
-    <!-- FORMULARIO ESTUDIANTE -->
-    <div id="screen-form-student" class="hidden p-6 max-w-md mx-auto pb-20">
-        <button id="btn-back-student" onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase">← VOLVER</button>
-        <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
-            <h2 id="form-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INTEGRANTE</h2>
-            <input type="text" id="add-nombres" placeholder="NOMBRES" class="input-std">
-            <input type="text" id="add-apellidos" placeholder="APELLIDOS" class="input-std">
-            <input type="tel" id="add-telefono" placeholder="TELÉFONO" class="input-std">
-            <input type="text" id="add-eps" placeholder="EPS / SALUD" class="input-std">
-            <div class="grid grid-cols-2 gap-2">
-                <input type="tel" id="add-documento" placeholder="DOCUMENTO" class="input-std">
-                <input type="text" id="add-fecha_nacimiento" placeholder="DD/MM/AAAA" onfocus="(this.type='date')" class="input-std">
-            </div>
-            <select id="add-proceso" class="input-std uppercase"></select>
-            <select id="add-instrumento" class="input-std uppercase"></select>
-            <select id="add-grado" class="input-std uppercase"></select>
-            <button onclick="toggleAcudiente()" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase py-2 tracking-widest">+ ¿AGREGAR ACUDIENTE?</button>
-            <div id="acudiente-box" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border">
-                <input type="text" id="add-acudiente-nombre" placeholder="NOMBRE ACUDIENTE" class="input-std">
-                <input type="tel" id="add-acudiente-telefono" placeholder="TELÉFONO ACUDIENTE" class="input-std">
-            </div>
-            <button id="btn-save-student" onclick="saveStudent()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">GUARDAR REGISTRO</button>
-            <button id="btn-del-student" onclick="deleteStudent()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ESTUDIANTE 🗑️</button>
+    <!-- PANTALLA CONFIGURAR ASISTENCIA -->
+    <div id="screen-activity" class="hidden p-6 max-w-md mx-auto">
+        <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-6">
+            <h2 class="text-lg font-bold uppercase text-slate-900">DATOS DE LA JORNADA</h2>
+            <input type="date" id="event-date" class="w-full h-[52px] px-4 bg-slate-50 rounded-xl font-semibold text-[15px]">
+            <select id="event-type" onchange="toggleEventDesc()" class="w-full h-[52px] px-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"><option value="ENSAYO">ENSAYO</option><option value="PRESENTACIÓN">PRESENTACIÓN</option></select>
+            <div id="event-desc-box" class="hidden"><input type="text" id="event-desc" placeholder="NOMBRE DEL EVENTO" class="w-full p-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"></div>
+            <button onclick="prepareProcess()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">CONTINUAR</button>
         </div>
+    </div>
+
+    <!-- SELECCIÓN PROCESO ASISTENCIA -->
+    <div id="screen-process" class="hidden p-6 max-w-md mx-auto space-y-3">
+        <button onclick="nav('screen-activity')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <div id="process-buttons" class="space-y-3"></div>
     </div>
 
     <!-- PANTALLA LISTA ASISTENCIA -->
@@ -235,19 +264,67 @@
         </div>
         <div id="musicos-box" class="p-6 space-y-3"></div>
         <div class="fixed bottom-0 bg-white/90 w-full p-4 border-t flex gap-2">
-            <button onclick="generateWAReport()" class="flex-1 bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">REPORTE WHATSAPP</button>
-            <button onclick="finalize()" class="flex-1 bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">GUARDAR ASISTENCIA</button>
+            <button onclick="generateWAReport()" class="flex-1 bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[11px] active:scale-95 transition-transform">REPORTE WA</button>
+            <button onclick="finalize()" class="flex-1 bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px] active:scale-95 transition-transform">GUARDAR</button>
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL v11.7 -->
+    <!-- FORMULARIO ESTUDIANTE -->
+    <div id="screen-form-student" class="hidden p-6 max-w-md mx-auto pb-20">
+        <button id="btn-back-student" onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
+            <h2 id="form-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INTEGRANTE</h2>
+            <input type="text" id="add-nombres" placeholder="NOMBRES" class="input-std">
+            <input type="text" id="add-apellidos" placeholder="APELLIDOS" class="input-std">
+            <input type="tel" id="add-telefono" placeholder="TELÉFONO" class="input-std">
+            <input type="text" id="add-eps" placeholder="EPS / SALUD" class="input-std">
+            <div class="grid grid-cols-2 gap-2">
+                <input type="tel" id="add-documento" placeholder="DOCUMENTO" class="input-std">
+                <input type="text" id="add-fecha_nacimiento" placeholder="DD/MM/AAAA" onfocus="(this.type='date')" class="input-std">
+            </div>
+            <select id="add-proceso" class="input-std uppercase"></select>
+            <select id="add-instrumento" class="input-std uppercase"></select>
+            <select id="add-grado" class="input-std uppercase"></select>
+            <button onclick="toggleAcudiente()" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase py-2">+ ACUDIENTE?</button>
+            <div id="acudiente-box" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border">
+                <input type="text" id="add-acudiente-nombre" placeholder="NOMBRE ACUDIENTE" class="input-std">
+                <input type="tel" id="add-acudiente-telefono" placeholder="TELÉFONO ACUDIENTE" class="input-std">
+            </div>
+            <button id="btn-save-student" onclick="saveStudent()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">GUARDAR REGISTRO</button>
+            <button id="btn-del-student" onclick="deleteStudent()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-4 border border-red-100">ELIMINAR 🗑️</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA HORARIO -->
+    <div id="screen-horario" class="hidden p-4 w-full h-full pb-32">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="nav('screen-menu')" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
+                <div class="flex gap-2">
+                    <button onclick="addHorarioRow()" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-blue-100">+ FILA</button>
+                    <button onclick="removeHorarioRow()" class="bg-red-50 text-red-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-red-100">- FILA</button>
+                </div>
+            </div>
+            <div class="horario-scroll-container">
+                <div class="horario-grid">
+                    <div class="horario-header">HORA</div>
+                    <div class="horario-header">LUNES</div><div class="horario-header">MARTES</div><div class="horario-header">MIÉRCOLES</div><div class="horario-header">JUEVES</div><div class="horario-header">VIERNES</div><div class="horario-header bg-slate-800">SÁBADO</div><div class="horario-header bg-slate-800">DOMINGO</div>
+                    <div id="horario-body" class="contents"></div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t"><button onclick="saveHorario()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px]">GUARDAR HORARIO</button></div>
+    </div>
+
+    <!-- SCRIPT PRINCIPAL v11.9 -->
     <script>
         const MOTOR_URL = "https://script.google.com/macros/s/AKfycbxXUXNBcmXrYVawUjVOSa7O3O9RM4ne2P_zLJsQe3OlnFOEbzkZ0utr_NO6P3R3lLTxZQ/exec";
-        const VER = "v11.7"; 
+        const VER = "v11.9"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
         let isEditing = false; let originalDoc = null; let currentDirSection = 'TODOS'; let activeSection = 'TODOS';
+        let originalSerial = null; let originalCodigo = null; let originalRasgos = { inst: "", marca: "", modelo: "" };
 
         const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
         const SECCIONES = {
@@ -258,7 +335,7 @@
         };
         const ORDEN_INST = [...SECCIONES.Maderas, ...SECCIONES.Bronces, ...SECCIONES.Cuerdas, ...SECCIONES.Percusion];
 
-        window.onload = async () => { if(session.user && session.sheetId) { loader(true, "SINCRONIZANDO v11.7..."); await fetchData(); } else { nav('screen-login'); } };
+        window.onload = async () => { if(session.user && session.sheetId) { loader(true, "SINCRONIZANDO v11.9..."); await fetchData(); } else { nav('screen-login'); } };
 
         function nav(id) {
             session.current = id; localStorage.setItem('atril_' + VER, JSON.stringify(session));
@@ -271,6 +348,7 @@
             if(id === 'screen-stats-filter') restoreStatsFilter();
             if(id === 'screen-grade-list') openGradeList();
             if(id === 'screen-process-list') openProcessList();
+            if(id === 'screen-inventory-list') filterInventory();
         }
 
         async function loginProcess() {
@@ -288,17 +366,14 @@
             try {
                 const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
-                if (d.success) { session.master = d.integrantes || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
+                if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
             } catch(e) { restore(); nav('screen-menu'); } loader(false);
         }
 
         function restore() {
             const nombre = session.banda || "---"; const palabras = nombre.split(" "); let htmlName = "";
             if (palabras.length <= 2) htmlName = `<span class="text-xl block leading-tight font-bold">${nombre}</span>`;
-            else { 
-                const l1 = palabras.slice(0, 2).join(" "); const l2 = palabras.slice(2).join(" "); 
-                htmlName = `<span class="text-[12px] text-slate-400 block font-medium uppercase tracking-wide mb-1">${l1}</span><span class="text-xl block font-bold leading-tight">${l2}</span>`; 
-            }
+            else { const l1 = palabras.slice(0, 2).join(" "); const l2 = palabras.slice(2).join(" "); htmlName = `<span class="text-[12px] text-slate-400 block font-medium uppercase tracking-wide mb-1">${l1}</span><span class="text-xl block font-bold leading-tight">${l2}</span>`; }
             document.getElementById('display-band-name').innerHTML = htmlName;
             if(session.config) {
                 ['proceso','instrumento','grado'].forEach(k => {
@@ -307,118 +382,24 @@
                 });
                 if(session.config.proceso) {
                     const sb = document.getElementById('process-buttons');
-                    if(sb) sb.innerHTML = session.config.proceso.map(p => `<button onclick="initAt('${p}')" class="w-full p-6 bg-white rounded-2xl shadow-sm border font-bold text-left uppercase text-[13px] text-slate-700 active:scale-95 transition-transform">${p}</button>`).join('');
+                    if(sb) sb.innerHTML = session.config.proceso.map(p => `<button onclick="initAt('${p}')" class="w-full p-6 bg-white rounded-2xl shadow-sm border font-bold text-left uppercase text-[13px] active:scale-95 transition-transform">${p}</button>`).join('');
                 }
+                if(session.config.instrumento) {
+                    let instOpts = `<option disabled selected>SELECCIONE INSTRUMENTO</option>` + session.config.instrumento.map(i => `<option value="${i}">${i}</option>`).join('') + `<option value="OTRO">🔵 OTRO...</option>`;
+                    document.getElementById('inv-instrumento-select').innerHTML = instOpts;
+                }
+                const loadS = (id, arr, ph) => { let o = `<option disabled selected>${ph}</option>`; if(arr) arr.forEach(x => o += `<option value="${x}">${x}</option>`); document.getElementById(id).innerHTML = o; };
+                loadS('inv-condicion', session.config.condicion, 'CONDICIÓN');
+                loadS('inv-estado', session.config.estado, 'ESTADO');
+                loadS('inv-origen', session.config.origen, 'ORIGEN');
             }
         }
 
-        // --- LISTAS POR GRADOS ---
-        function openGradeList() {
-            const sel = document.getElementById('filter-grado-select');
-            if(session.config.grado) sel.innerHTML = `<option disabled selected>SELECCIONE...</option>` + session.config.grado.map(g => `<option value="${g}">${g}</option>`).join('');
-            document.getElementById('grade-list-container').innerHTML = "";
-            document.getElementById('btn-grade-wa').classList.add('hidden');
-        }
-        function renderGradeList() {
-            const grado = document.getElementById('filter-grado-select').value;
-            const box = document.getElementById('grade-list-container');
-            const btnWA = document.getElementById('btn-grade-wa');
-            box.innerHTML = "";
-            let filtered = session.master.filter(m => m.grado === grado).sort((a, b) => a.apellidos.localeCompare(b.apellidos));
-            if(filtered.length === 0) { box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY REGISTROS</p>`; return; }
-            filtered.forEach(m => {
-                const item = document.createElement('div'); item.className = "bg-white p-4 rounded-xl border shadow-sm flex justify-between items-center";
-                item.innerHTML = `<div><p class="font-bold text-[13px]">${m.apellidos} ${m.nombres}</p><p class="text-[10px] font-bold text-slate-400 uppercase">${m.instrumento}</p></div><div class="bg-slate-100 text-[9px] font-bold px-2 py-1 rounded uppercase">${m.grado}</div>`;
-                box.appendChild(item);
-            });
-            btnWA.classList.remove('hidden');
-        }
-        function generateGradeWA() {
-            const grado = document.getElementById('filter-grado-select').value;
-            let filtered = session.master.filter(m => m.grado === grado).sort((a, b) => a.apellidos.localeCompare(b.apellidos));
-            let msg = `🎓 *LISTADO GRADO ${grado}*\n\n`;
-            filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento})\n`; });
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // --- LISTAS POR PROCESO ---
-        function openProcessList() {
-            const sel = document.getElementById('filter-process-select');
-            if(session.config.proceso) sel.innerHTML = `<option disabled selected>SELECCIONE...</option>` + session.config.proceso.map(p => `<option value="${p}">${p}</option>`).join('');
-            document.getElementById('process-list-container').innerHTML = "";
-            document.getElementById('btn-process-wa').classList.add('hidden');
-        }
-        function renderProcessList() {
-            const proc = document.getElementById('filter-process-select').value;
-            const box = document.getElementById('process-list-container');
-            box.innerHTML = "";
-            let filtered = session.master.filter(m => m.proceso === proc).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
-            if(!filtered.length) { box.innerHTML = `<p class="text-center text-slate-400 font-bold uppercase py-10">NO HAY REGISTROS</p>`; return; }
-            filtered.forEach(m => {
-                const item = document.createElement('div'); item.className = "bg-white p-4 rounded-xl border shadow-sm flex justify-between items-center";
-                item.innerHTML = `<div><p class="font-bold text-[13px]">${m.apellidos} ${m.nombres}</p><p class="text-[10px] font-bold text-slate-400 uppercase">${m.instrumento}</p></div><div class="bg-slate-100 text-[9px] font-bold px-2 py-1 rounded uppercase">${m.proceso}</div>`;
-                box.appendChild(item);
-            });
-            document.getElementById('btn-process-wa').classList.remove('hidden');
-        }
-        function generateProcessWA() {
-            const proc = document.getElementById('filter-process-select').value;
-            let filtered = session.master.filter(m => m.proceso === proc).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
-            let msg = `📜 *LISTADO PROCESO ${proc}*\n\n`;
-            filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento})\n`; });
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // --- KARDEX / ESTADÍSTICAS ---
-        function restoreStatsFilter() {
-            const sel = document.getElementById('stat-proceso');
-            if (session.config && session.config.proceso) sel.innerHTML = session.config.proceso.map(p => `<option value="${p}">${p}</option>`).join('');
-            document.getElementById('stat-mes').value = new Date().getMonth() + 1;
-        }
-        async function getReport() {
-            const proc = document.getElementById('stat-proceso').value, mes = document.getElementById('stat-mes').value;
-            const mesNombre = document.getElementById('stat-mes').options[document.getElementById('stat-mes').selectedIndex].text;
-            loader(true, "GENERANDO KARDEX...");
-            try {
-                const r = await fetch(`${MOTOR_URL}?action=getEstadisticas&sheetId=${session.sheetId}&proceso=${encodeURIComponent(proc)}&mes=${mes}`);
-                const d = await r.json();
-                if(d.success) {
-                    document.getElementById('report-title-text').innerText = proc;
-                    document.getElementById('report-mes-text').innerText = mesNombre;
-                    document.getElementById('report-events-count').innerText = `${d.totalEventos} EVENTOS`;
-                    renderReportCards(d.stats, proc);
-                    nav('screen-stats-report');
-                }
-            } catch(e) { alert("ERROR"); } loader(false);
-        }
-        function renderReportCards(stats, proc) {
-            const box = document.getElementById('stats-container'); box.innerHTML = "";
-            let filtrados = session.master.filter(m => m.proceso === proc).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
-            filtrados.forEach(m => {
-                const n = `${m.nombres} ${m.apellidos}`, s = stats[n] || { P: 0, A: 0, R: 0, E: 0 };
-                const card = document.createElement('div'); card.className = "bg-white p-5 rounded-2xl border shadow-sm";
-                card.innerHTML = `<div class="mb-3 border-b pb-2"><p class="font-bold text-[14px]">${n}</p><p class="text-[10px] font-bold text-slate-400 uppercase">${m.instrumento}</p></div><div class="grid grid-cols-2 gap-2 text-[11px] font-bold"><div class="bg-slate-50 p-2 rounded flex justify-between"><span>PRESENTE</span><span>${s.P}</span></div><div class="bg-red-50 text-red-600 p-2 rounded flex justify-between"><span>AUSENTE</span><span>${s.A}</span></div><div class="bg-amber-50 text-amber-600 p-2 rounded flex justify-between"><span>RETARDO</span><span>${s.R}</span></div><div class="bg-blue-50 text-blue-600 p-2 rounded flex justify-between"><span>EXCUSA</span><span>${s.E}</span></div></div>`;
-                box.appendChild(card);
-            });
-        }
-
-        // --- DIRECTORIO & WHATSAPP ---
-        function setDirSection(s) { currentDirSection = s; document.querySelectorAll('.dirtab-btn').forEach(b => b.classList.toggle('active-tab', b.id === `dirtab-${s}`)); filterDirectory(); }
-        function filterDirectory() {
-            const q = document.getElementById('search-input').value.toLowerCase(); const list = document.getElementById('directory-list'); list.innerHTML = "";
-            let filtered = session.master.filter(m => (m.nombres + " " + m.apellidos + " " + m.instrumento).toLowerCase().includes(q));
-            if (currentDirSection !== 'TODOS') filtered = filtered.filter(m => Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())) === currentDirSection);
-            filtered.forEach(m => {
-                const item = document.createElement('div'); item.className = "bg-white p-4 rounded-xl border border-slate-100 flex justify-between items-center shadow-sm";
-                item.innerHTML = `<div><p class="font-bold text-[13px]">${m.nombres} ${m.apellidos}</p><p class="text-[10px] font-bold text-slate-400 uppercase">${m.instrumento}</p></div><div class="flex gap-2"><button onclick="shareStudentWA(event, ${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-green-50 text-green-600 rounded-xl border active:scale-90 transition-transform">📲</button><button onclick="loadStudentForEdit(${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl border active:scale-90 transition-transform">✎</button></div>`;
-                list.appendChild(item);
-            });
-        }
-        function shareStudentWA(e, m) { e.stopPropagation(); const text = `👤 *FICHA TÉCNICA - ${session.banda.toUpperCase()}*\n\n*ESTUDIANTE:* ${m.nombres} ${m.apellidos}\n*DOCUMENTO:* ${m.documento}\n*TELÉFONO:* ${m.telefono}\n*INSTRUMENTO:* ${m.instrumento}\n*GRADO:* ${m.grado}\n*EPS:* ${m.eps}\n\n👨‍👩‍👧 *ACUDIENTE:* ${m.acudiente || 'N/A'}\n*TEL:* ${m.telefono_acud || 'N/A'}`; window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank'); }
-
         // --- ASISTENCIA ---
+        function toggleEventDesc() { document.getElementById('event-desc-box').classList.toggle('hidden', document.getElementById('event-type').value !== 'PRESENTACIÓN'); }
         function prepareProcess() {
-            session.date = document.getElementById('event-date').value, session.type = document.getElementById('event-type').value;
+            session.date = document.getElementById('event-date').value;
+            session.type = document.getElementById('event-type').value;
             session.act = (session.type === 'ENSAYO' ? 'ENSAYO' : document.getElementById('event-desc').value).toUpperCase();
             if(!session.date || !session.act) return alert("FALTAN DATOS");
             nav('screen-process');
@@ -428,7 +409,7 @@
             activeSection = secc;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active-tab', b.id === `tab-${secc}`));
             const box = document.getElementById('musicos-box'); box.innerHTML = "";
-            let filtered = session.master.filter(m => m.proceso === session.process).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
+            let filtered = session.master.filter(m => String(m.proceso) === String(session.process)).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
             if (activeSection !== 'TODOS') filtered = filtered.filter(m => Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())) === activeSection);
             filtered.forEach(m => {
                 const n = `${m.nombres} ${m.apellidos}`, s = record[n] || '';
@@ -465,53 +446,64 @@
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // --- GESTIÓN ESTUDIANTES CRUD ---
-        function prepareNewStudent() {
-            isEditing = false; originalDoc = null;
-            document.getElementById('form-title').innerText = "NUEVO INTEGRANTE";
-            document.getElementById('btn-save-student').innerText = "GUARDAR REGISTRO";
-            document.getElementById('btn-save-student').classList.replace('bg-blue-600', 'bg-slate-900');
-            document.getElementById('btn-del-student').classList.add('hidden');
-            document.querySelectorAll('#screen-form-student input').forEach(i => i.value = "");
-            document.querySelectorAll('#screen-form-student select').forEach(s => s.selectedIndex = 0);
-            nav('screen-form-student');
+        // --- ESTUDIANTES ---
+        function filterDirectory() {
+            const q = document.getElementById('search-input').value.toLowerCase(); const list = document.getElementById('directory-list'); list.innerHTML = "";
+            let filtered = session.master.filter(m => (m.nombres + " " + m.apellidos + " " + m.instrumento).toLowerCase().includes(q));
+            if (currentDirSection !== 'TODOS') filtered = filtered.filter(m => Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())) === currentDirSection);
+            filtered.forEach(m => {
+                const item = document.createElement('div'); item.className = "bg-white p-4 rounded-xl border flex justify-between items-center";
+                item.innerHTML = `<div><p class="font-bold text-[13px]">${m.nombres} ${m.apellidos}</p><p class="text-[10px] font-bold text-slate-400 uppercase">${m.instrumento}</p></div><div class="flex gap-2"><button onclick="shareStudentWA(event, ${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-green-50 text-green-600 rounded-xl border">📲</button><button onclick="loadStudentForEdit(${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl border">✎</button></div>`;
+                list.appendChild(item);
+            });
         }
-        function loadStudentForEdit(m) {
-            isEditing = true; originalDoc = m.documento;
-            document.getElementById('form-title').innerText = "EDITAR ESTUDIANTE";
-            document.getElementById('btn-save-student').innerText = "ACTUALIZAR DATOS";
-            document.getElementById('btn-save-student').classList.replace('bg-slate-900', 'bg-blue-600');
-            document.getElementById('btn-del-student').classList.remove('hidden'); 
-            document.getElementById('add-nombres').value = m.nombres; document.getElementById('add-apellidos').value = m.apellidos;
-            document.getElementById('add-telefono').value = m.telefono; document.getElementById('add-eps').value = m.eps;
-            document.getElementById('add-documento').value = m.documento; document.getElementById('add-fecha_nacimiento').value = m.fecha_nacimiento;
-            document.getElementById('add-proceso').value = m.proceso; document.getElementById('add-instrumento').value = m.instrumento; document.getElementById('add-grado').value = m.grado;
-            document.getElementById('add-acudiente-nombre').value = m.acudiente; document.getElementById('add-acudiente-telefono').value = m.telefono_acud;
-            nav('screen-form-student');
+        function shareStudentWA(e, m) { e.stopPropagation(); const text = `👤 *FICHA TÉCNICA*\n*ESTUDIANTE:* ${m.nombres} ${m.apellidos}\n*TEL:* ${m.telefono}\n*INST:* ${m.instrumento}`; window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank'); }
+
+        // --- INVENTARIO ---
+        function prepareNewInstrument() {
+            isEditing = false; originalSerial = null; originalCodigo = null; originalRasgos = {};
+            document.getElementById('form-inv-title').innerText = "NUEVO ACTIVO";
+            document.getElementById('btn-save-inv').innerText = "GUARDAR ACTIVO";
+            document.querySelectorAll('#screen-form-inventory input, #screen-form-inventory textarea').forEach(i => i.value = "");
+            document.querySelectorAll('#screen-form-inventory select').forEach(s => s.selectedIndex = 0);
+            nav('screen-form-inventory');
         }
-        async function saveStudent() {
-            const d = { nombres: document.getElementById('add-nombres').value, apellidos: document.getElementById('add-apellidos').value, documento: document.getElementById('add-documento').value, instrumento: document.getElementById('add-instrumento').value, proceso: document.getElementById('add-proceso').value, grado: document.getElementById('add-grado').value, telefono: document.getElementById('add-telefono').value, eps: document.getElementById('add-eps').value, fecha_nacimiento: document.getElementById('add-fecha_nacimiento').value, acudiente: document.getElementById('add-acudiente-nombre').value, telefono_acud: document.getElementById('add-acudiente-telefono').value };
-            if(!d.nombres || !d.documento) return alert("FALTAN DATOS");
+        function checkOtroInst() { const sel = document.getElementById('inv-instrumento-select').value; document.getElementById('inv-instrumento-input').classList.toggle('hidden', sel !== 'OTRO'); }
+        function filterInventory() {
+            const q = document.getElementById('search-inv-input').value.toLowerCase(); const list = document.getElementById('inventory-list-container'); list.innerHTML = "";
+            let filtered = session.inventario.filter(i => (i.instrumento + " " + i.marca + " " + i.codigo + " " + i.serial).toLowerCase().includes(q));
+            filtered.forEach(i => {
+                const item = document.createElement('div'); item.className = "bg-white p-4 rounded-xl border shadow-sm cursor-pointer";
+                item.onclick = () => loadInstrumentForEdit(i);
+                item.innerHTML = `<div class="flex justify-between"><div><p class="font-bold text-[13px]">${i.instrumento}</p><p class="text-[10px] text-slate-500">${i.marca} | ${i.serial}</p></div><div class="text-[9px] font-bold uppercase text-slate-300">C: ${i.codigo}</div></div>`;
+                list.appendChild(item);
+            });
+        }
+        function loadInstrumentForEdit(i) {
+            isEditing = true; originalSerial = i.serial; originalCodigo = i.codigo; originalRasgos = { inst: i.instrumento, marca: i.marca, modelo: i.modelo };
+            document.getElementById('form-inv-title').innerText = "EDITAR ACTIVO";
+            document.getElementById('inv-marca').value = i.marca; document.getElementById('inv-serial').value = i.serial; document.getElementById('inv-codigo').value = i.codigo;
+            document.getElementById('inv-condicion').value = i.condicion; document.getElementById('inv-estado').value = i.estado;
+            nav('screen-form-inventory');
+        }
+        async function saveInstrument() {
+            let inst = document.getElementById('inv-instrumento-select').value; if(inst === 'OTRO') inst = document.getElementById('inv-instrumento-input').value;
+            const d = { codigo: document.getElementById('inv-codigo').value, instrumento: inst, marca: document.getElementById('inv-marca').value, modelo: document.getElementById('inv-modelo').value, serial: document.getElementById('inv-serial').value, condicion: document.getElementById('inv-condicion').value, estado: document.getElementById('inv-estado').value };
             loader(true, "GUARDANDO...");
-            const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: isEditing ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: originalDoc })});
-            const res = await r.json(); if(res.success) { await fetchData(); nav('screen-student-menu'); } loader(false);
-        }
-        async function deleteStudent() {
-            if(!confirm("¿ELIMINAR ESTUDIANTE?")) return; loader(true, "ELIMINANDO...");
-            const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc })});
-            const res = await r.json(); if(res.success) { await fetchData(); nav('screen-directory'); } loader(false);
+            const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: isEditing ? 'editInstrumento' : 'addInstrumento', sheetId: session.sheetId, datos: d, originalSerial: originalSerial, originalCodigo: originalCodigo, originalInstrumento: originalRasgos.inst })});
+            if((await r.json()).success) { await fetchData(); nav('screen-inventory-menu'); } loader(false);
         }
 
         // --- HORARIO ---
         function buildHorarioTable() {
             const b = document.getElementById('horario-body'); b.innerHTML = "";
-            session.horario.forEach((fila, idx) => {
-                const tCell = document.createElement('div'); tCell.className = "horario-cell";
-                const inp = document.createElement('input'); inp.className = "horario-time-input"; inp.value = fila.hora || ""; inp.onchange = (e) => session.horario[idx].hora = e.target.value;
-                tCell.appendChild(inp); b.appendChild(tCell);
+            session.horario.forEach((f, idx) => {
+                const tC = document.createElement('div'); tC.className = "horario-cell";
+                const inp = document.createElement('input'); inp.className = "horario-time-input"; inp.value = f.hora || ""; inp.onchange = (e) => session.horario[idx].hora = e.target.value;
+                tC.appendChild(inp); b.appendChild(tC);
                 DIAS_KEYS.forEach(dia => {
                     const c = document.createElement('div'); c.className = "horario-cell";
-                    const a = document.createElement('textarea'); a.className = "horario-input"; a.value = fila[dia] || ""; a.onchange = (e) => session.horario[idx][dia] = e.target.value;
+                    const a = document.createElement('textarea'); a.className = "horario-input"; a.value = f[dia] || ""; a.onchange = (e) => session.horario[idx][dia] = e.target.value;
                     c.appendChild(a); b.appendChild(c);
                 });
             });
@@ -521,15 +513,14 @@
         async function saveHorario() { 
             loader(true, "GUARDANDO..."); 
             const matriz = session.horario.map(f => [f.hora||"", f.lunes||"", f.martes||"", f.miercoles||"", f.jueves||"", f.viernes||"", f.sabado||"", f.domingo||""]);
-            try {
-                const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })});
-                const res = await r.json(); if(res.success) alert("GUARDADO"); 
-            } catch(e) { alert("ERROR"); } loader(false);
+            const r = await fetch(MOTOR_URL, { method: 'POST', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })});
+            if((await r.json()).success) alert("GUARDADO"); loader(false);
         }
 
         function loader(v,t) { document.getElementById('loader').classList.toggle('hidden', !v); document.getElementById('loader-text').innerText = t || "CARGANDO..."; }
         function logout() { localStorage.clear(); location.reload(); }
         function toggleAcudiente() { document.getElementById('acudiente-box').classList.toggle('hidden'); }
+        function setDirSection(s) { currentDirSection = s; document.querySelectorAll('.dirtab-btn').forEach(b => b.classList.toggle('active-tab', b.id === `dirtab-${s}`)); filterDirectory(); }
     </script>
 </body>
 </html>
