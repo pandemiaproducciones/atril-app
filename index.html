@@ -80,7 +80,7 @@
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.2</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.4</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -366,8 +366,9 @@
     </script>
 
     <script>
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbxt410dcHZLAlLU0NkhdJZkJ6xPIvQEZJFPSGi2wikAjslV3hjcsPIbjKMwQoemS1FcNQ/exec";
-        const VER = "v9.2"; 
+        // ¡NUEVA URL DE MOTOR INYECTADA!
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwR1nM4loPF4AxPIqR9UA-_pawfktOHY0Tdt4Y5GEuY0MQ7hD4FIviyIDWiXhesfPwXpA/exec";
+        const VER = "v9.4"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
@@ -428,6 +429,7 @@
             if(!u || !p) return;
             loader(true, "VERIFICANDO...");
             try {
+                // Se agregó credentials: 'omit' para solucionar problema de cookies múltiples cuentas
                 const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; loader(true, "DESCARGANDO DATOS..."); await fetchData(); } 
@@ -815,7 +817,7 @@
             loader(false);
         }
 
-        // --- HORARIO DINÁMICO v9.0 ---
+        // --- HORARIO DINÁMICO ---
         function buildHorarioTable() {
             const hBox = document.getElementById('horario-body'); hBox.innerHTML = "";
             session.horario.forEach((fila, index) => {
@@ -967,17 +969,36 @@
         }
         function mark(n, st) { if (record[n] === st) { delete record[n]; } else { record[n] = st; } localStorage.setItem('atril_rec_' + VER, JSON.stringify(record)); renderList(activeSection); }
         function getCol(s) { return { 'PRESENTE': 'bg-slate-900 text-white border-slate-900', 'AUSENTE': 'bg-red-50 text-red-600 border-red-100', 'RETARDO': 'bg-amber-50 text-amber-600 border-amber-100', 'EXCUSA': 'bg-blue-50 text-blue-600 border-blue-100'}[s]; }
+        
         async function finalize() {
             if(!Object.keys(record).length) return alert("NO HAY MARCACIONES");
             loader(true, "GUARDANDO...");
-            const data = Object.entries(record).map(([n, e]) => ({ fecha: session.date, tipo_actividad: session.type, nombre_actividad: session.act, proceso: session.process, musico: n, estado: e }));
+            
+            // LIMPIEZA EXTREMA: Quitamos espacios ocultos en todos los textos
+            const data = Object.entries(record).map(([n, e]) => ({ 
+                fecha: session.date.trim(), 
+                tipo_actividad: session.type.trim(), 
+                nombre_actividad: session.act.trim(), 
+                proceso: session.process.trim(), 
+                musico: n.trim(), 
+                estado: e.trim() 
+            }));
+            
             try { 
                 const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); 
                 const res = await r.json(); 
-                if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_' + VER); nav('screen-menu'); } 
+                if(res.success) { 
+                    alert("¡GUARDADO!"); 
+                    record = {}; 
+                    localStorage.removeItem('atril_rec_' + VER); 
+                    nav('screen-menu'); 
+                } else {
+                    alert("ERROR AL GUARDAR");
+                }
             } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
             loader(false);
         }
+
         function generateWAReport() {
             if(Object.keys(record).length === 0) return alert("NO HAS MARCADO ASISTENCIA AÚN.");
             let ausentes = []; let retardos = [];
