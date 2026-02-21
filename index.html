@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ATRIL DIGITAL</title>
     
+    <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -67,17 +68,19 @@
 </head>
 <body>
 
+    <!-- CARGADOR -->
     <div id="loader" class="hidden">
         <div class="loader rounded-full border-4 border-t-4 border-slate-200 h-12 w-12 mb-4"></div>
         <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">INICIANDO...</p>
     </div>
 
+    <!-- PANTALLA LOGIN -->
     <div id="screen-login" class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-sm text-center border border-slate-100">
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.0</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.1</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -89,6 +92,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA MENÚ PRINCIPAL -->
     <div id="screen-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
         <div class="flex justify-between items-start mb-10 mt-6">
             <div class="w-full">
@@ -116,6 +120,7 @@
         </button>
     </div>
 
+    <!-- SUB-MENÚ ESTUDIANTES -->
     <div id="screen-student-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
         <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
         <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">GESTIÓN ESTUDIANTES</h2>
@@ -125,6 +130,7 @@
         <button onclick="nav('screen-process-list')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR PROCESO</span><span class="text-2xl">📜</span></button>
     </div>
 
+    <!-- PANTALLA LISTAS POR PROCESO -->
     <div id="screen-process-list" class="hidden p-6 max-w-md mx-auto pb-32">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
             <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -140,6 +146,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA LISTAS POR GRADOS -->
     <div id="screen-grade-list" class="hidden p-6 max-w-md mx-auto pb-32">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
             <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -155,6 +162,7 @@
         </div>
     </div>
 
+    <!-- DIRECTORIO -->
     <div id="screen-directory" class="hidden p-6 max-w-md mx-auto pb-20">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2">
             <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -171,6 +179,7 @@
         <div id="directory-list" class="space-y-3 mt-2"></div>
     </div>
 
+    <!-- PANTALLA FORMULARIO ESTUDIANTE -->
     <div id="screen-form-student" class="hidden p-6 max-w-md mx-auto pb-20">
         <button id="btn-back-student" onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
@@ -197,6 +206,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA HORARIO (DINÁMICO v9.0) -->
     <div id="screen-horario" class="hidden p-4 w-full h-full pb-32">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-6">
@@ -208,6 +218,7 @@
             </div>
             <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-center">DESLIZA HACIA EL LADO PARA VER TODOS LOS DÍAS →</p>
             
+            <!-- Contenedor con Scroll Horizontal -->
             <div class="horario-scroll-container">
                 <div class="horario-grid">
                     <div class="horario-header">HORA</div>
@@ -228,6 +239,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA CONFIGURAR ASISTENCIA -->
     <div id="screen-activity" class="hidden p-6 max-w-md mx-auto">
         <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-6">
@@ -239,11 +251,13 @@
         </div>
     </div>
 
+    <!-- PANTALLA SELECCION PROCESO ASISTENCIA -->
     <div id="screen-process" class="hidden p-6 max-w-md mx-auto space-y-3">
         <button onclick="nav('screen-activity')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div id="process-buttons" class="space-y-3"></div>
     </div>
 
+    <!-- PANTALLA LISTA ASISTENCIA -->
     <div id="screen-list" class="hidden min-h-screen pb-44">
         <div class="bg-white p-6 sticky top-0 z-20 shadow-sm border-b">
             <div class="flex justify-between items-center mb-4">
@@ -266,6 +280,7 @@
         </div>
     </div>
 
+    <!-- SUB-MENÚ INVENTARIO -->
     <div id="screen-inventory-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
         <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
         <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">INVENTARIO</h2>
@@ -273,6 +288,7 @@
         <button onclick="openInventoryList()" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">VER INVENTARIO</span><span class="text-2xl">📦</span></button>
     </div>
 
+    <!-- PANTALLA LISTA INVENTARIO -->
     <div id="screen-inventory-list" class="hidden p-6 max-w-md mx-auto pb-20">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
             <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
@@ -282,6 +298,7 @@
         <div id="inventory-list-container" class="space-y-3 mt-2"></div>
     </div>
 
+    <!-- PANTALLA FORMULARIO INVENTARIO -->
     <div id="screen-form-inventory" class="hidden p-6 max-w-md mx-auto pb-20">
         <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
@@ -300,6 +317,7 @@
         </div>
     </div>
 
+    <!-- PANTALLA FILTRO ESTADÍSTICAS -->
     <div id="screen-stats-filter" class="hidden p-6 max-w-md mx-auto">
         <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-xl space-y-6">
@@ -315,6 +333,7 @@
         </div>
     </div>
 
+    <!-- REPORTE ESTADÍSTICAS -->
     <div id="screen-stats-report" class="hidden min-h-screen pb-20">
         <div class="bg-white p-6 sticky top-0 z-20 shadow-sm border-b">
             <div class="flex justify-between items-center mb-4">
@@ -327,6 +346,7 @@
         <div id="stats-container" class="p-6 space-y-3"></div>
     </div>
 
+    <!-- SUB-MENÚ ASISTENCIA -->
     <div id="screen-activity-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
         <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
         <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">ASISTENCIA</h2>
@@ -334,6 +354,7 @@
         <button onclick="nav('screen-stats-filter')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">ESTADÍSTICAS DE ASISTENCIA</span><span class="text-2xl">📊</span></button>
     </div>
 
+    <!-- SCRIPT DE REGISTRO SERVICE WORKER -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -346,7 +367,7 @@
 
     <script>
         const MOTOR_URL = "https://script.google.com/macros/s/AKfycbyeWfKRsff56OxmY7Trm4PL8uViMh9Y6WV4t51PRO3joRffn_RKPGVIGInJE-Ktix1Uyw/exec";
-        const VER = "v9.0"; 
+        const VER = "v9.1"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
