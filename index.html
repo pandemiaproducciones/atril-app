@@ -33,7 +33,7 @@
         .btn-status { font-size: 9px; font-weight: 600; padding: 12px 2px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* ESTILOS HORARIO DINÁMICO v9.0 */
+        /* ESTILOS HORARIO DINÁMICO */
         .horario-scroll-container { overflow-x: auto; white-space: nowrap; border-radius: 12px; border: 1px solid #cbd5e1; }
         /* Grid de 8 columnas: Hora + 7 días. Anchos fijos para forzar scroll */
         .horario-grid { 
@@ -80,7 +80,7 @@
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.1</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.2</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -206,7 +206,7 @@
         </div>
     </div>
 
-    <!-- PANTALLA HORARIO (DINÁMICO v9.0) -->
+    <!-- PANTALLA HORARIO -->
     <div id="screen-horario" class="hidden p-4 w-full h-full pb-32">
         <div class="max-w-4xl mx-auto">
             <div class="flex justify-between items-center mb-6">
@@ -366,8 +366,8 @@
     </script>
 
     <script>
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbyeWfKRsff56OxmY7Trm4PL8uViMh9Y6WV4t51PRO3joRffn_RKPGVIGInJE-Ktix1Uyw/exec";
-        const VER = "v9.1"; 
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbxt410dcHZLAlLU0NkhdJZkJ6xPIvQEZJFPSGi2wikAjslV3hjcsPIbjKMwQoemS1FcNQ/exec";
+        const VER = "v9.2"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
@@ -378,7 +378,7 @@
         let currentDirSection = 'TODOS';
         let originalSerial = null; let originalCodigo = null; let originalRasgos = { inst: "", marca: "", modelo: "" };
 
-        // ACTUALIZACIÓN DE DÍAS (v9.0)
+        // ACTUALIZACIÓN DE DÍAS
         const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
         const SECCIONES = {
             "Maderas": ["flauta", "oboe", "fagot", "clarinete requinto", "clarinete soprano", "clarinete bajo", "saxofon soprano", "saxofon alto", "saxofon tenor", "saxofon baritono"],
@@ -428,7 +428,6 @@
             if(!u || !p) return;
             loader(true, "VERIFICANDO...");
             try {
-                // Se agregó credentials: 'omit' para solucionar problema de cookies múltiples cuentas
                 const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; loader(true, "DESCARGANDO DATOS..."); await fetchData(); } 
@@ -652,7 +651,7 @@
             window.open(url, '_blank');
         }
 
-        // --- LISTAS POR PROCESO (ACTUALIZADO v9.0) ---
+        // --- LISTAS POR PROCESO ---
         function openProcessList() {
             const sel = document.getElementById('filter-process-select');
             if(session.config.proceso) {
@@ -820,7 +819,6 @@
         function buildHorarioTable() {
             const hBox = document.getElementById('horario-body'); hBox.innerHTML = "";
             session.horario.forEach((fila, index) => {
-                // COLUMNA 1: Input para la hora
                 const timeCell = document.createElement('div');
                 timeCell.className = "horario-cell p-0";
                 const input = document.createElement('input');
@@ -831,11 +829,9 @@
                 timeCell.appendChild(input);
                 hBox.appendChild(timeCell);
 
-                // COLUMNAS 2-8: Días (TEXTO LIBRE)
                 DIAS_KEYS.forEach((dia, dIndex) => {
                     const cell = document.createElement('div'); 
                     cell.className = "horario-cell";
-                    // Creamos textarea para permitir saltos de línea y texto libre
                     const area = document.createElement('textarea');
                     area.className = "horario-input";
                     area.value = fila[dia] || "";
@@ -860,7 +856,6 @@
 
         async function saveHorario() { 
             loader(true, "GUARDANDO HORARIO..."); 
-            // Convertir a matriz
             const matriz = session.horario.map(fila => {
                 return [
                     fila.hora || "",
