@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atril-v96-cache';
+const CACHE_NAME = 'atril-v99-cache';
 const urlsToCache = [
   './',
   './index.html',
