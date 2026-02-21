@@ -1,12 +1,11 @@
 {
-  "name": "Atril Digital",
-  "short_name": "Atril Digital",
+  "name": "ATRIL DIGITAL v11.6",
+  "short_name": "ATRIL v11.6",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "orientation": "portrait",
-  "scope": "./",
   "icons": [
     {
       "src": "icon.png",
@@ -19,5 +18,4 @@
       "type": "image/png"
     }
   ]
-
 }
