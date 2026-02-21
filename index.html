@@ -64,6 +64,10 @@
 
         .input-std { width: 100%; height: 54px; padding: 0 1rem; background-color: #f8fafc; border-radius: 0.5rem; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
         textarea.input-std { height: auto; padding: 1rem; }
+        
+        /* Animación para modales */
+        .scale-in { animation: scaleIn 0.2s ease-out; }
+        @keyframes scaleIn { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -74,13 +78,32 @@
         <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">INICIANDO...</p>
     </div>
 
+    <!-- MODAL DE ALERTA -->
+    <div id="custom-alert" class="hidden fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full text-center border border-slate-100 scale-in">
+            <p id="custom-alert-text" class="text-[13px] font-bold text-slate-800 uppercase mb-6"></p>
+            <button onclick="document.getElementById('custom-alert').classList.add('hidden')" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[12px] active:scale-95 transition-transform">ENTENDIDO</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN -->
+    <div id="custom-confirm" class="hidden fixed inset-0 z-[10000] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+        <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full text-center border border-slate-100 scale-in">
+            <p id="custom-confirm-text" class="text-[13px] font-bold text-slate-800 uppercase mb-6 whitespace-pre-wrap"></p>
+            <div class="flex gap-2">
+                <button onclick="executeConfirm(false)" class="flex-1 bg-slate-100 text-slate-600 p-4 rounded-xl font-bold uppercase text-[12px] active:scale-95 transition-transform">CANCELAR</button>
+                <button onclick="executeConfirm(true)" class="flex-1 bg-red-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] active:scale-95 transition-transform">SÍ, ELIMINAR</button>
+            </div>
+        </div>
+    </div>
+
     <!-- PANTALLA LOGIN -->
     <div id="screen-login" class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-sm text-center border border-slate-100">
             <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.4</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v9.6</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <div class="space-y-3">
@@ -366,9 +389,26 @@
     </script>
 
     <script>
-        // ¡NUEVA URL DE MOTOR INYECTADA!
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwR1nM4loPF4AxPIqR9UA-_pawfktOHY0Tdt4Y5GEuY0MQ7hD4FIviyIDWiXhesfPwXpA/exec";
-        const VER = "v9.4"; 
+        // FUNCIONES MODALES PERSONALIZADAS
+        function showAlert(msg) {
+            document.getElementById('custom-alert-text').innerText = msg;
+            document.getElementById('custom-alert').classList.remove('hidden');
+        }
+
+        function showConfirm(msg, callback) {
+            document.getElementById('custom-confirm-text').innerText = msg;
+            document.getElementById('custom-confirm').classList.remove('hidden');
+            window.currentConfirmCallback = callback;
+        }
+
+        function executeConfirm(res) {
+            document.getElementById('custom-confirm').classList.add('hidden');
+            if(res && window.currentConfirmCallback) window.currentConfirmCallback();
+        }
+
+        // NUEVA URL INYECTADA
+        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbwSSKp4HFKdZAv2Q6KF7w7Tpr7saUKoX7qLHcLUORNzs2Mbggj69DlGDbcLsRMAdDCaww/exec";
+        const VER = "v9.6"; 
         
         let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
         let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
@@ -396,9 +436,9 @@
         function nav(id) {
             session.current = id;
             localStorage.setItem('atril_' + VER, JSON.stringify(session));
-            document.querySelectorAll('body > div').forEach(d => { if(d.id !== 'loader') d.classList.add('hidden'); d.classList.remove('flex'); });
+            document.querySelectorAll('body > div').forEach(d => { if(d.id !== 'loader' && !d.id.startsWith('custom-')) d.classList.add('hidden'); d.classList.remove('flex'); });
             const target = document.getElementById(id);
-            target.classList.remove('hidden');
+            if(target) target.classList.remove('hidden');
             if(id === 'screen-login') target.classList.add('flex');
             if(id === 'screen-activity') document.getElementById('event-date').value = new Date().toISOString().split('T')[0];
             if(id === 'screen-horario') {
@@ -429,12 +469,11 @@
             if(!u || !p) return;
             loader(true, "VERIFICANDO...");
             try {
-                // Se agregó credentials: 'omit' para solucionar problema de cookies múltiples cuentas
                 const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; loader(true, "DESCARGANDO DATOS..."); await fetchData(); } 
                 else { document.getElementById('login-error').innerText = d.message || "ERROR DE ACCESO"; document.getElementById('login-error').classList.remove('hidden'); loader(false); }
-            } catch(e) { alert("ERROR DE CONEXIÓN: " + e.message); loader(false); }
+            } catch(e) { showAlert("ERROR DE CONEXIÓN: " + e.message); loader(false); }
         }
 
         async function fetchData() {
@@ -442,8 +481,8 @@
                 const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`, { method: 'GET', credentials: 'omit' });
                 const d = await r.json();
                 if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
-                else { alert("ERROR DE DATOS: " + (d.error || 'Desconocido')); restore(); nav('screen-menu'); }
-            } catch(e) { console.error(e); alert("SIN CONEXIÓN: SE USARÁN DATOS GUARDADOS"); restore(); nav('screen-menu'); }
+                else { showAlert("ERROR DE DATOS: " + (d.error || 'Desconocido')); restore(); nav('screen-menu'); }
+            } catch(e) { console.error(e); showAlert("SIN CONEXIÓN: SE USARÁN DATOS GUARDADOS"); restore(); nav('screen-menu'); }
             loader(false);
         }
 
@@ -585,28 +624,29 @@
                 eps: document.getElementById('add-eps').value, acudiente: document.getElementById('add-acudiente-nombre').value,
                 telefono_acud: document.getElementById('add-acudiente-telefono').value
             };
-            if(!d.nombres || !d.documento) return alert("FALTAN DATOS OBLIGATORIOS");
+            if(!d.nombres || !d.documento) return showAlert("FALTAN DATOS OBLIGATORIOS");
             loader(true, isEditing ? "ACTUALIZANDO..." : "GUARDANDO...");
             const payload = { action: isEditing ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: originalDoc };
             try { 
                 const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
                 const res = await r.json(); 
-                if(res.success) { alert(isEditing ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO"); await fetchData(); nav('screen-student-menu'); } else { alert("ERROR: " + (res.error || "No se pudo guardar")); } 
-            } catch(e) { alert("ERROR AL GUARDAR"); }
+                if(res.success) { showAlert(isEditing ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO"); await fetchData(); nav('screen-student-menu'); } else { showAlert("ERROR: " + (res.error || "No se pudo guardar")); } 
+            } catch(e) { showAlert("ERROR AL GUARDAR"); }
             loader(false);
         }
 
-        async function deleteStudent() {
+        function deleteStudent() {
             if(!isEditing || !originalDoc) return;
-            if(!confirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará permanentemente al estudiante y no se puede deshacer.")) return;
-            loader(true, "ELIMINANDO...");
-            try {
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc }) });
-                const res = await r.json();
-                if(res.success) { alert("ESTUDIANTE ELIMINADO"); await fetchData(); nav('screen-directory'); } 
-                else { alert("ERROR AL ELIMINAR: " + res.error); }
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
-            loader(false);
+            showConfirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará permanentemente al estudiante y no se puede deshacer.", async () => {
+                loader(true, "ELIMINANDO...");
+                try {
+                    const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc }) });
+                    const res = await r.json();
+                    if(res.success) { showAlert("ESTUDIANTE ELIMINADO"); await fetchData(); nav('screen-directory'); } 
+                    else { showAlert("ERROR AL ELIMINAR: " + res.error); }
+                } catch(e) { showAlert("ERROR DE CONEXIÓN"); }
+                loader(false);
+            });
         }
 
         // --- LISTAS POR GRADOS ---
@@ -646,7 +686,7 @@
             if(!grado) return;
             let filtered = session.master.filter(m => m.grado === grado);
             filtered.sort((a, b) => a.apellidos.localeCompare(b.apellidos, 'es', {sensitivity: 'base'}));
-            if(filtered.length === 0) return alert("LISTA VACÍA");
+            if(filtered.length === 0) return showAlert("LISTA VACÍA");
             let msg = `🎓 *LISTADO GRADO ${grado}* \n${session.banda.toUpperCase()}\n\n`;
             filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento})\n`; });
             const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
@@ -710,7 +750,7 @@
                 return 0;
             });
 
-            if(filtered.length === 0) return alert("LISTA VACÍA");
+            if(filtered.length === 0) return showAlert("LISTA VACÍA");
             let msg = `📜 *LISTADO OFICIAL - ${proceso}* \n${session.banda.toUpperCase()}\n\n`;
             filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento} - ${m.grado || 'S/G'})\n`; });
             const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
@@ -784,7 +824,7 @@
         async function saveInstrument() {
             let instName = document.getElementById('inv-instrumento-select').value;
             if (instName === "OTRO") instName = document.getElementById('inv-instrumento-input').value;
-            if (!instName) return alert("FALTA EL INSTRUMENTO");
+            if (!instName) return showAlert("FALTA EL INSTRUMENTO");
             const d = {
                 codigo: document.getElementById('inv-codigo').value, instrumento: instName,
                 marca: document.getElementById('inv-marca').value, modelo: document.getElementById('inv-modelo').value,
@@ -798,23 +838,24 @@
             try { 
                 const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
                 const res = await r.json(); 
-                if(res.success) { alert(isEditing ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO"); await fetchData(); nav('screen-inventory-menu'); } else { alert("ERROR: NO SE PUDO GUARDAR/EDITAR"); } 
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
+                if(res.success) { showAlert(isEditing ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO"); await fetchData(); nav('screen-inventory-menu'); } else { showAlert("ERROR: NO SE PUDO GUARDAR/EDITAR"); } 
+            } catch(e) { showAlert("ERROR DE CONEXIÓN"); }
             loader(false);
         }
 
-        async function deleteInstrument() {
+        function deleteInstrument() {
             if(!isEditing) return;
-            if(!confirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará el instrumento del inventario y no se puede deshacer.")) return;
-            loader(true, "ELIMINANDO...");
-            try {
-                const payload = { action: 'deleteInstrumento', sheetId: session.sheetId, serial: originalSerial, codigo: originalCodigo, instrumento: originalRasgos.inst };
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) });
-                const res = await r.json();
-                if(res.success) { alert("ACTIVO ELIMINADO"); await fetchData(); nav('screen-inventory-list'); } 
-                else { alert("ERROR AL ELIMINAR: " + res.error); }
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
-            loader(false);
+            showConfirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará el instrumento del inventario y no se puede deshacer.", async () => {
+                loader(true, "ELIMINANDO...");
+                try {
+                    const payload = { action: 'deleteInstrumento', sheetId: session.sheetId, serial: originalSerial, codigo: originalCodigo, instrumento: originalRasgos.inst };
+                    const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) });
+                    const res = await r.json();
+                    if(res.success) { showAlert("ACTIVO ELIMINADO"); await fetchData(); nav('screen-inventory-list'); } 
+                    else { showAlert("ERROR AL ELIMINAR: " + res.error); }
+                } catch(e) { showAlert("ERROR DE CONEXIÓN"); }
+                loader(false);
+            });
         }
 
         // --- HORARIO DINÁMICO ---
@@ -876,9 +917,9 @@
                 const res = await r.json(); 
                 if(res.success) { 
                     localStorage.setItem('atril_' + VER, JSON.stringify(session)); 
-                    alert("HORARIO GUARDADO"); 
+                    showAlert("HORARIO GUARDADO"); 
                 } 
-            } catch(e) { alert("ERROR AL GUARDAR"); } 
+            } catch(e) { showAlert("ERROR AL GUARDAR"); } 
             loader(false); 
         }
 
@@ -907,7 +948,7 @@
                     renderReportCards(d.stats, d.totalEventos, proc);
                     nav('screen-stats-report');
                 }
-            } catch(e) { alert("ERROR AL OBTENER ESTADÍSTICAS"); }
+            } catch(e) { showAlert("ERROR AL OBTENER ESTADÍSTICAS"); }
             loader(false);
         }
 
@@ -945,8 +986,8 @@
             session.date = document.getElementById('event-date').value;
             session.type = document.getElementById('event-type').value;
             session.act = (session.type === 'ENSAYO' ? 'ENSAYO' : document.getElementById('event-desc').value).toUpperCase();
-            if(!session.date || !session.act) return alert("FALTAN DATOS");
-            if(!session.config.proceso || session.config.proceso.length === 0) return alert("ERROR: NO SE CARGARON LOS PROCESOS. REINICIA SESIÓN.");
+            if(!session.date || !session.act) return showAlert("FALTAN DATOS");
+            if(!session.config.proceso || session.config.proceso.length === 0) return showAlert("ERROR: NO SE CARGARON LOS PROCESOS. REINICIA SESIÓN.");
             nav('screen-process');
         }
         function initAt(p) { session.process = p; document.getElementById('info-header').innerText = `${p} • ${session.act}`; nav('screen-list'); renderList('TODOS'); }
@@ -971,7 +1012,7 @@
         function getCol(s) { return { 'PRESENTE': 'bg-slate-900 text-white border-slate-900', 'AUSENTE': 'bg-red-50 text-red-600 border-red-100', 'RETARDO': 'bg-amber-50 text-amber-600 border-amber-100', 'EXCUSA': 'bg-blue-50 text-blue-600 border-blue-100'}[s]; }
         
         async function finalize() {
-            if(!Object.keys(record).length) return alert("NO HAY MARCACIONES");
+            if(!Object.keys(record).length) return showAlert("NO HAY MARCACIONES");
             loader(true, "GUARDANDO...");
             
             // LIMPIEZA EXTREMA: Quitamos espacios ocultos en todos los textos
@@ -988,19 +1029,19 @@
                 const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); 
                 const res = await r.json(); 
                 if(res.success) { 
-                    alert("¡GUARDADO!"); 
+                    showAlert("¡GUARDADO!"); 
                     record = {}; 
                     localStorage.removeItem('atril_rec_' + VER); 
                     nav('screen-menu'); 
                 } else {
-                    alert("ERROR AL GUARDAR");
+                    showAlert("ERROR AL GUARDAR");
                 }
-            } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
+            } catch(e) { showAlert("ERROR DE COMUNICACIÓN"); }
             loader(false);
         }
 
         function generateWAReport() {
-            if(Object.keys(record).length === 0) return alert("NO HAS MARCADO ASISTENCIA AÚN.");
+            if(Object.keys(record).length === 0) return showAlert("NO HAS MARCADO ASISTENCIA AÚN.");
             let ausentes = []; let retardos = [];
             for (const [nombre, estado] of Object.entries(record)) {
                 let estudiante = session.master.find(m => `${m.nombres} ${m.apellidos}` === nombre);
@@ -1008,7 +1049,7 @@
                 if (estado === 'AUSENTE') ausentes.push(`${nombre} (${inst})`);
                 if (estado === 'RETARDO') retardos.push(`${nombre} (${inst})`);
             }
-            if(ausentes.length === 0 && retardos.length === 0) return alert("NO HAY AUSENTES NI RETARDOS PARA REPORTAR.");
+            if(ausentes.length === 0 && retardos.length === 0) return showAlert("NO HAY AUSENTES NI RETARDOS PARA REPORTAR.");
             const fechaParts = session.date.split('-'); const fechaFormato = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
             let msg = `📅 REPORTE ASISTENCIA ${session.banda.toUpperCase()}\nProceso: ${session.process}\nFecha: ${fechaFormato}\n\n`;
             if(ausentes.length > 0) { msg += `🔴 *AUSENTES:*\n`; ausentes.forEach((a, i) => msg += `${i+1}. ${a}\n`); msg += `\n`; }
