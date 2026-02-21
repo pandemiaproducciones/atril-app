@@ -1,12 +1,15 @@
-const CACHE_NAME = 'atril-v110-cache';
+const CACHE_NAME = 'atril-v11.6-cache';
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './icon.png'
+  './icon.png',
+  'https://cdn.tailwindcss.com',
+  'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
@@ -17,45 +20,32 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Si la respuesta es válida, la clonamos al caché y la retornamos
         if (!response || response.status !== 200 || response.type !== 'basic') {
           return response;
         }
         const responseToCache = response.clone();
         caches.open(CACHE_NAME)
           .then(cache => {
-            // Solo cacheamos archivos estáticos
-            if(!event.request.url.includes('script.google.com')) {
-               cache.put(event.request, responseToCache);
-            }
+             if(!event.request.url.includes('script.google.com')) {
+                cache.put(event.request, responseToCache);
+             }
           });
         return response;
       })
-      .catch(() => {
-        // Si falla la red, intentamos servir desde el caché
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
 });
 
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
-
 });
-
-
-
-
-
-
