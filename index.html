@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Se permite el zoom: si algo se ve mal, el usuario siempre puede alejar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ATRIL DIGITAL v13.0</title>
+    <title>ATRIL DIGITAL v13.1</title>
 
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
@@ -88,7 +88,7 @@
             <img src="logo.png" alt="Atril Digital" class="logo" width="160" height="160" onerror="this.style.display='none'">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.0</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.1</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <form id="login-form" class="space-y-3" autocomplete="on">
@@ -396,7 +396,7 @@
     //  CONFIGURACIÓN
     // =====================================================================
     const MOTOR_URL = "https://script.google.com/macros/s/AKfycby8yhGP8kzOanc3WYWunInGWEV1M4qYdCKiC9PU1EVEIIJhqrH_9nN8rHQ3750Fm25kwA/exec";
-    const VER = "v13.0";
+    const VER = "v13.1";
     const KEY_SESSION = 'atril_session';
     const KEY_PEND = 'atril_pendiente';
     const ESTADOS = ['PRESENTE', 'AUSENTE', 'RETARDO', 'EXCUSA'];
@@ -464,7 +464,16 @@
             } else {
                 r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(datos), signal: ctrl.signal });
             }
-            return await r.json();
+            const texto = await r.text();
+            try { return JSON.parse(texto); }
+            catch (e) {
+                // El servidor respondió algo que no son datos: se muestra el motivo para poder diagnosticarlo
+                const limpio = texto.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+                return { success: false, error: `RESPUESTA INESPERADA (${r.status}): ${limpio || 'VACÍA'}` };
+            }
+        } catch (e) {
+            const motivo = e.name === 'AbortError' ? 'EL SERVIDOR TARDÓ DEMASIADO' : (e.message || 'SIN CONEXIÓN');
+            return { success: false, error: `${(metodo || 'POST')}: ${motivo}`, red: true };
         } finally { clearTimeout(timer); }
     }
     const errTxt = (res, def) => (res && (res.error || res.message)) || def;
@@ -567,6 +576,7 @@
                 if (!silencioso) loader(false);
                 return true;
             }
+            if (d.red) { aviso("SIN CONEXIÓN: SE USAN LOS DATOS GUARDADOS", 'error'); if (!silencioso) loader(false); return !!(session.master && session.master.length); }
             if (String(d.error || '').includes('NO AUTORIZADO')) { aviso(d.error, 'error'); setTimeout(() => cerrarSesion(true), 2500); return false; }
             aviso("ERROR AL CARGAR DATOS: " + errTxt(d, 'DESCONOCIDO'), 'error');
         } catch (e) {
