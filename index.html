@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Se permite el zoom: si algo se ve mal, el usuario siempre puede alejar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ATRIL DIGITAL v13.1</title>
+    <title>ATRIL DIGITAL v13.2</title>
 
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
@@ -88,7 +88,7 @@
             <img src="logo.png" alt="Atril Digital" class="logo" width="160" height="160" onerror="this.style.display='none'">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.1</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.2</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <form id="login-form" class="space-y-3" autocomplete="on">
@@ -396,7 +396,7 @@
     //  CONFIGURACIÓN
     // =====================================================================
     const MOTOR_URL = "https://script.google.com/macros/s/AKfycby8yhGP8kzOanc3WYWunInGWEV1M4qYdCKiC9PU1EVEIIJhqrH_9nN8rHQ3750Fm25kwA/exec";
-    const VER = "v13.1";
+    const VER = "v13.2";
     const KEY_SESSION = 'atril_session';
     const KEY_PEND = 'atril_pendiente';
     const ESTADOS = ['PRESENTE', 'AUSENTE', 'RETARDO', 'EXCUSA'];
@@ -452,8 +452,19 @@
         $('loader').classList.toggle('hidden', !v);
     }
 
-    // Comunicación con Google Sheets (con tiempo límite de 45 segundos)
+    // Comunicación con Google Sheets.
+    // Los guardados van por POST; si ese envío falla por la red, se reintenta por GET (la vía de las lecturas).
     async function api(datos, metodo) {
+        if (metodo === 'GET') return apiRaw(datos, 'GET');
+        const res = await apiRaw(datos, 'POST');
+        if (!res.red) return res;
+        const res2 = await apiRaw({ payload: JSON.stringify(datos) }, 'GET');
+        if (res2.red) res2.error = `${res.error} / ${res2.error}`;
+        return res2;
+    }
+
+    // Una sola petición (con tiempo límite de 45 segundos)
+    async function apiRaw(datos, metodo) {
         const ctrl = new AbortController();
         const timer = setTimeout(() => ctrl.abort(), 45000);
         try {

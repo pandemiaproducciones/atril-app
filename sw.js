@@ -1,7 +1,7 @@
 // ATRIL DIGITAL - Service Worker v13.0
 // Estrategia: siempre intenta traer la versión más nueva de internet.
 // Si no hay internet, usa la copia guardada en el celular.
-const CACHE_NAME = 'atril-v13.1';
+const CACHE_NAME = 'atril-v13.2';
 const ARCHIVOS = ['./', './index.html', './manifest.json', './icon.png', './logo.png'];
 
 self.addEventListener('install', event => {
