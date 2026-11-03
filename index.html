@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Se permite el zoom: si algo se ve mal, el usuario siempre puede alejar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ATRIL DIGITAL v13.2</title>
+    <title>ATRIL DIGITAL v13.3</title>
 
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
@@ -69,6 +69,13 @@
         .logo { width: 160px; height: 160px; max-width: 160px; object-fit: contain; display: block; margin: 0 auto 24px; }
 
         .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+        /* iPhone con la app instalada: el contenido empieza debajo de la hora y la batería */
+        :root { --sat: env(safe-area-inset-top, 0px); }
+        body { padding-top: var(--sat); }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: var(--sat); background: #f8fafc; z-index: 60; }
+        .sticky.top-0 { top: var(--sat); }
+        #screen-login.min-h-screen, #screen-list.min-h-screen, #screen-stats-report.min-h-screen { min-height: calc(100vh - var(--sat)); }
     </style>
 </head>
 <body>
@@ -88,7 +95,7 @@
             <img src="logo.png" alt="Atril Digital" class="logo" width="160" height="160" onerror="this.style.display='none'">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.2</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.3</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <form id="login-form" class="space-y-3" autocomplete="on">
@@ -396,7 +403,7 @@
     //  CONFIGURACIÓN
     // =====================================================================
     const MOTOR_URL = "https://script.google.com/macros/s/AKfycby8yhGP8kzOanc3WYWunInGWEV1M4qYdCKiC9PU1EVEIIJhqrH_9nN8rHQ3750Fm25kwA/exec";
-    const VER = "v13.2";
+    const VER = "v13.3";
     const KEY_SESSION = 'atril_session';
     const KEY_PEND = 'atril_pendiente';
     const ESTADOS = ['PRESENTE', 'AUSENTE', 'RETARDO', 'EXCUSA'];
