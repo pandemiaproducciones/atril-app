@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Se permite el zoom: si algo se ve mal, el usuario siempre puede alejar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ATRIL DIGITAL v13.3</title>
+    <title>ATRIL DIGITAL v13.4</title>
 
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
@@ -95,7 +95,7 @@
             <img src="logo.png" alt="Atril Digital" class="logo" width="160" height="160" onerror="this.style.display='none'">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.3</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.4</span>
             </div>
             <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE AGRUPACIONES</p>
             <form id="login-form" class="space-y-3" autocomplete="on">
@@ -212,7 +212,7 @@
             <input type="tel" id="add-telefono" placeholder="TELÉFONO ESTUDIANTE" class="input-std">
             <input type="text" id="add-eps" placeholder="EPS / SALUD" class="input-std">
             <div class="grid grid-cols-2 gap-2">
-                <div class="flex flex-col min-w-0"><label for="add-documento" class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">DOCUMENTO *</label><input type="text" inputmode="numeric" id="add-documento" placeholder="NÚMERO" class="input-std"></div>
+                <div class="flex flex-col min-w-0"><label for="add-documento" class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">DOCUMENTO</label><input type="text" inputmode="numeric" id="add-documento" placeholder="NÚMERO" class="input-std"></div>
                 <div class="flex flex-col min-w-0"><label for="add-fecha_nacimiento" class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">FECHA NACIMIENTO</label><input type="date" id="add-fecha_nacimiento" class="input-std text-[14px]"></div>
             </div>
             <select id="add-proceso" class="select-std"></select>
@@ -403,7 +403,7 @@
     //  CONFIGURACIÓN
     // =====================================================================
     const MOTOR_URL = "https://script.google.com/macros/s/AKfycby8yhGP8kzOanc3WYWunInGWEV1M4qYdCKiC9PU1EVEIIJhqrH_9nN8rHQ3750Fm25kwA/exec";
-    const VER = "v13.3";
+    const VER = "v13.4";
     const KEY_SESSION = 'atril_session';
     const KEY_PEND = 'atril_pendiente';
     const ESTADOS = ['PRESENTE', 'AUSENTE', 'RETARDO', 'EXCUSA'];
@@ -740,15 +740,16 @@
             eps: $('add-eps').value.trim(), acudiente: $('add-acudiente-nombre').value.trim(),
             telefono_acud: $('add-acudiente-telefono').value.trim()
         };
-        if (!d.nombres || !d.documento) return aviso("FALTAN DATOS OBLIGATORIOS: NOMBRES Y DOCUMENTO", 'error');
+        if (!d.nombres) return aviso("FALTA EL NOMBRE DEL ESTUDIANTE", 'error');
+        if (!editStudent && !d.documento) return aviso("FALTA EL DOCUMENTO DEL ESTUDIANTE", 'error');
         if (!d.proceso) return aviso("SELECCIONA EL PROCESO", 'error');
         const editando = !!editStudent;
-        const otro = session.master.find(m => norm(m.documento) === norm(d.documento) && (!editando || norm(m.documento) !== norm(editStudent.documento)));
+        const otro = d.documento && session.master.find(m => m !== editStudent && norm(m.documento) === norm(d.documento));
         if (otro) return aviso(`YA EXISTE ${nombreDe(otro)} CON ESE DOCUMENTO`, 'error');
 
         loader(true, editando ? "ACTUALIZANDO..." : "GUARDANDO...");
         try {
-            const res = await api({ action: editando ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: editando ? editStudent.documento : null, fila: editando ? editStudent.fila : null });
+            const res = await api({ action: editando ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: editando ? editStudent.documento : null, originalNombres: editando ? editStudent.nombres : null, originalApellidos: editando ? editStudent.apellidos : null, fila: editando ? editStudent.fila : null });
             if (res.success) {
                 aviso(editando ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO", 'ok');
                 await fetchData(false);
@@ -763,7 +764,7 @@
         if (!confirm(`⚠️ ¿ELIMINAR A ${nombreDe(editStudent).toUpperCase()}?\n\nEsta acción no se puede deshacer.`)) return;
         loader(true, "ELIMINANDO...");
         try {
-            const res = await api({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: editStudent.documento, fila: editStudent.fila });
+            const res = await api({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: editStudent.documento, nombres: editStudent.nombres, apellidos: editStudent.apellidos, fila: editStudent.fila });
             if (res.success) { aviso("ESTUDIANTE ELIMINADO", 'ok'); editStudent = null; await fetchData(false); nav('screen-directory'); }
             else aviso("ERROR AL ELIMINAR: " + errTxt(res, ''), 'error');
         } catch (e) { aviso("ERROR DE CONEXIÓN", 'error'); }
