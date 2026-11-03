@@ -2,996 +2,1243 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ATRIL DIGITAL v12.0</title>
-    
+    <!-- Se permite el zoom: si algo se ve mal, el usuario siempre puede alejar -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ATRIL DIGITAL v13.0</title>
+
     <!-- PWA META TAGS -->
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ATRIL DIGITAL">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="icon" type="image/png" href="icon.png">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ESTILOS INCLUIDOS EN EL ARCHIVO (ya no dependen de internet) -->
+    <style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.sticky{position:sticky}.bottom-0{bottom:0}.left-0{left:0}.top-0{top:0}.z-10{z-index:10}.z-20{z-index:20}.float-right{float:right}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-4{margin-left:1rem}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-10{margin-top:2.5rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.contents{display:contents}.hidden{display:none}.h-10{height:2.5rem}.h-2{height:.5rem}.h-3{height:.75rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-2{width:.5rem}.w-3{width:.75rem}.w-full{width:100%}.min-w-0{min-width:0}.max-w-4xl{max-width:56rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.resize{resize:both}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.whitespace-nowrap{white-space:nowrap}.break-words{overflow-wrap:break-word}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-100{--tw-border-opacity:1;border-color:rgb(254 243 199/var(--tw-border-opacity,1))}.border-amber-200{--tw-border-opacity:1;border-color:rgb(253 230 138/var(--tw-border-opacity,1))}.border-blue-100{--tw-border-opacity:1;border-color:rgb(219 234 254/var(--tw-border-opacity,1))}.border-green-100{--tw-border-opacity:1;border-color:rgb(220 252 231/var(--tw-border-opacity,1))}.border-red-100{--tw-border-opacity:1;border-color:rgb(254 226 226/var(--tw-border-opacity,1))}.border-red-500{--tw-border-opacity:1;border-color:rgb(239 68 68/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-50{--tw-border-opacity:1;border-color:rgb(248 250 252/var(--tw-border-opacity,1))}.border-slate-900{--tw-border-opacity:1;border-color:rgb(15 23 42/var(--tw-border-opacity,1))}.bg-\[\#f8fafc\]{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}.bg-blue-50{--tw-bg-opacity:1;background-color:rgb(239 246 255/var(--tw-bg-opacity,1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235/var(--tw-bg-opacity,1))}.bg-green-50{--tw-bg-opacity:1;background-color:rgb(240 253 244/var(--tw-bg-opacity,1))}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94/var(--tw-bg-opacity,1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74/var(--tw-bg-opacity,1))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242/var(--tw-bg-opacity,1))}.bg-red-500{--tw-bg-opacity:1;background-color:rgb(239 68 68/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-300{--tw-bg-opacity:1;background-color:rgb(203 213 225/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.p-10{padding:2.5rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-2{padding-bottom:.5rem}.pb-20{padding-bottom:5rem}.pb-32{padding-bottom:8rem}.pb-4{padding-bottom:1rem}.pb-44{padding-bottom:11rem}.pt-2{padding-top:.5rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[12px\]{font-size:12px}.text-\[13px\]{font-size:13px}.text-\[14px\]{font-size:14px}.text-\[15px\]{font-size:15px}.text-\[18px\]{font-size:18px}.text-\[8px\]{font-size:8px}.text-\[9px\]{font-size:9px}.text-lg{font-size:1.125rem}.text-lg,.text-xl{line-height:1.75rem}.text-xl{font-size:1.25rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-none{line-height:1}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-.025em}.tracking-tighter{letter-spacing:-.05em}.tracking-wide{letter-spacing:.025em}.tracking-widest{letter-spacing:.1em}.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6/var(--tw-text-opacity,1))}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235/var(--tw-text-opacity,1))}.text-green-600{--tw-text-opacity:1;color:rgb(22 163 74/var(--tw-text-opacity,1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68/var(--tw-text-opacity,1))}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38/var(--tw-text-opacity,1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.underline{text-decoration-line:underline}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-lg,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.outline{outline-style:solid}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.active\:scale-90:active{--tw-scale-x:.9;--tw-scale-y:.9}.active\:scale-90:active,.active\:scale-95:active{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95}</style>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; color: #1e293b; user-select: none; -webkit-tap-highlight-color: transparent; }
-        .hidden { display: none !important; }
+        html { -webkit-text-size-adjust: 100%; }
+        body { font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; background-color: #f8fafc; color: #1e293b; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+        button, .no-select { user-select: none; -webkit-user-select: none; }
+        img { max-width: 100%; height: auto; }
         .flex { display: flex !important; }
-        
+        .hidden { display: none !important; }
+
         /* CARGADOR CENTRADO */
-        #loader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(255, 255, 255, 0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .loader { border-top-color: #0f172a; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .active-tab { border-bottom: 3px solid #0f172a; color: #0f172a; font-weight: 700; }
-        .dirtab-btn { transition: all 0.2s; }
-        
-        input, select, textarea { border: 1px solid #e2e8f0 !important; outline: none; appearance: none; }
+        #loader { position: fixed; inset: 0; background-color: rgba(255, 255, 255, 0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .spinner { width: 48px; height: 48px; border-radius: 9999px; border: 4px solid #e2e8f0; border-top-color: #0f172a; animation: spinner 1.1s linear infinite; margin-bottom: 16px; }
+        @keyframes spinner { to { transform: rotate(360deg); } }
+
+        /* AVISOS (reemplazan las ventanas de alerta) */
+        #toast { position: fixed; left: 50%; bottom: 110px; transform: translateX(-50%) translateY(20px); opacity: 0; z-index: 10000; max-width: calc(100vw - 32px); width: max-content; padding: 14px 20px; border-radius: 14px; font-size: 12px; font-weight: 700; text-transform: uppercase; text-align: center; color: white; background: #0f172a; box-shadow: 0 10px 30px rgba(15,23,42,.25); transition: opacity .25s, transform .25s; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast.error { background: #dc2626; }
+        #toast.ok { background: #16a34a; }
+
+        .active-tab { border-bottom: 3px solid #0f172a; color: #0f172a !important; font-weight: 700; }
+        .dirtab-btn, .tab-btn { transition: all 0.2s; }
+
+        /* 16px evita que el iPhone haga zoom solo al tocar un campo */
+        input, select, textarea { border: 1px solid #e2e8f0 !important; outline: none; appearance: none; -webkit-appearance: none; font-size: 16px; }
+        input:focus, select:focus, textarea:focus { border-color: #94a3b8 !important; }
+        select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px !important; }
         .btn-status { font-size: 9px; font-weight: 600; padding: 12px 2px; border-radius: 8px; text-transform: uppercase; transition: 0.2s; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* ESTILOS HORARIO DINÁMICO v12.0 */
-        .horario-scroll-container { overflow-x: auto; white-space: nowrap; border-radius: 12px; border: 1px solid #cbd5e1; }
-        /* Grid de 8 columnas: Hora + 7 días. Anchos fijos para forzar scroll */
-        .horario-grid { 
-            display: grid; 
-            grid-template-columns: 80px repeat(7, 120px); 
-            gap: 1px; 
-            background: #cbd5e1; 
-            min-width: 920px; 
-        }
-        .horario-cell { 
-            min-height: 70px; padding: 0; background: white; 
-        }
-        /* Input de texto libre (textarea) para el horario */
-        .horario-input {
-            width: 100%; height: 100%; min-height: 70px; border: none !important; 
-            text-align: center; font-size: 11px; font-weight: 600; color: #334155; 
-            background: transparent; padding: 8px; resize: none; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .horario-input:focus { background: #f0f9ff; }
-        
-        .horario-header { background: #0f172a; color: white; padding: 12px 0; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center;}
-        
-        /* Input especial para la hora */
-        .horario-time-input {
-            width: 100%; height: 100%; background: #f1f5f9; text-align: center; border: none !important; font-size: 11px; font-weight: 700; color: #0f172a; padding: 4px;
-        }
+        .no-scrollbar { scrollbar-width: none; }
 
-        .input-std { width: 100%; height: 54px; padding: 0 1rem; background-color: #f8fafc; border-radius: 0.5rem; font-size: 15px; font-weight: 600; display: flex; align-items: center; }
-        textarea.input-std { height: auto; padding: 1rem; }
+        /* HORARIO */
+        .horario-scroll-container { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid #cbd5e1; }
+        .horario-grid { display: grid; grid-template-columns: 80px repeat(7, 120px); gap: 1px; background: #cbd5e1; min-width: 920px; }
+        .horario-cell { min-height: 70px; padding: 0; background: white; }
+        .horario-input { width: 100%; height: 100%; min-height: 70px; border: none !important; text-align: center; font-size: 12px; font-weight: 600; color: #334155; background: transparent; padding: 8px; resize: none; overflow: hidden; }
+        .horario-input:focus { background: #f0f9ff; }
+        .horario-header { background: #0f172a; color: white; padding: 12px 0; text-align: center; font-size: 9px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; }
+        .horario-time-input { width: 100%; height: 100%; min-height: 70px; background: #f1f5f9; text-align: center; border: none !important; font-size: 12px; font-weight: 700; color: #0f172a; padding: 4px; }
+
+        .input-std { width: 100%; height: 54px; padding: 0 1rem; background-color: #f8fafc; border-radius: 0.5rem; font-size: 16px; font-weight: 600; }
+        textarea.input-std { height: auto; min-height: 96px; padding: 1rem; }
+        .select-std { width: 100%; padding: 14px 12px; background-color: #f8fafc; border-radius: 0.5rem; font-size: 14px; font-weight: 600; text-transform: uppercase; }
+
+        /* Logo con tamaño fijo: nunca puede salir gigante */
+        .logo { width: 160px; height: 160px; max-width: 160px; object-fit: contain; display: block; margin: 0 auto 24px; }
+
+        .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
     </style>
 </head>
 <body>
 
     <!-- CARGADOR -->
     <div id="loader" class="hidden">
-        <div class="loader rounded-full border-4 border-t-4 border-slate-200 h-12 w-12 mb-4"></div>
-        <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">INICIANDO v12.0...</p>
+        <div class="spinner"></div>
+        <p id="loader-text" class="text-[12px] font-bold uppercase tracking-widest text-slate-500">CARGANDO...</p>
     </div>
 
+    <!-- AVISO -->
+    <p id="toast" role="status" aria-live="polite"></p>
+
     <!-- PANTALLA LOGIN -->
-    <div id="screen-login" class="flex items-center justify-center min-h-screen p-4">
+    <div id="screen-login" class="screen flex items-center justify-center min-h-screen p-4">
         <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-sm text-center border border-slate-100">
-            <img src="https://github.com/pandemiaproducciones/atril-app/blob/main/logo.png?raw=true" class="w-40 mx-auto mb-6">
+            <img src="logo.png" alt="Atril Digital" class="logo" width="160" height="160" onerror="this.style.display='none'">
             <div class="flex items-center justify-center gap-2 mb-1">
                 <h1 class="text-2xl font-bold uppercase tracking-tighter">ATRIL DIGITAL</h1>
-                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v12.0</span>
+                <span class="bg-slate-900 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">v13.0</span>
             </div>
-            <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase text-balance">SISTEMA INTEGRAL DE AGRUPACIONES</p>
-            <div class="space-y-3">
-                <input type="text" id="user-input" placeholder="USUARIO" class="w-full p-4 bg-slate-50 rounded-xl font-semibold text-[15px]">
-                <input type="password" id="pass-input" placeholder="CONTRASEÑA" class="w-full p-4 bg-slate-50 rounded-xl text-2xl tracking-widest text-center">
-                <button onclick="loginProcess()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[15px] active:scale-95 transition-transform">INGRESAR</button>
-            </div>
+            <p class="text-slate-400 text-[11px] mb-8 font-semibold tracking-widest uppercase">SISTEMA INTEGRAL DE AGRUPACIONES</p>
+            <form id="login-form" class="space-y-3" autocomplete="on">
+                <input type="text" id="user-input" placeholder="USUARIO" autocomplete="username" autocapitalize="none" class="w-full p-4 bg-slate-50 rounded-xl font-semibold">
+                <input type="password" id="pass-input" placeholder="CONTRASEÑA" autocomplete="current-password" class="w-full p-4 bg-slate-50 rounded-xl tracking-widest text-center">
+                <button type="submit" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[15px] active:scale-95 transition-transform">INGRESAR</button>
+            </form>
             <p id="login-error" class="text-red-600 text-[12px] mt-6 hidden font-semibold uppercase">DATOS INCORRECTOS</p>
         </div>
     </div>
 
     <!-- PANTALLA MENÚ PRINCIPAL -->
-    <div id="screen-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
+    <div id="screen-menu" class="screen hidden p-6 max-w-md mx-auto space-y-4">
         <div class="flex justify-between items-start mb-10 mt-6">
-            <div class="w-full">
-                <h2 id="display-band-name" class="font-bold uppercase leading-none text-slate-900">---</h2>
+            <div class="w-full min-w-0">
+                <h2 id="display-band-name" class="font-bold uppercase leading-none text-slate-900 break-words">---</h2>
             </div>
-            <button onclick="logout()" class="border-2 border-red-500 text-red-500 px-4 py-2 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap ml-4">SALIR</button>
+            <button data-act="logout" class="border-2 border-red-500 text-red-500 px-4 py-2 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap ml-4">SALIR</button>
         </div>
-        
-        <button onclick="nav('screen-activity-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+
+        <button id="pending-banner" data-act="resume" class="hidden w-full bg-amber-50 border border-amber-200 text-amber-700 p-4 rounded-2xl text-left">
+            <span class="block text-[10px] font-bold uppercase tracking-widest">⚠️ ASISTENCIA SIN GUARDAR</span>
+            <span id="pending-text" class="block text-[13px] font-bold uppercase mt-1"></span>
+            <span class="block text-[11px] font-semibold mt-1 underline">TOCA AQUÍ PARA CONTINUAR</span>
+        </button>
+
+        <button data-nav="screen-activity-menu" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
             <span class="font-bold text-[15px] uppercase text-slate-700">ASISTENCIA</span>
             <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">📋</div>
         </button>
-        
-        <button onclick="nav('screen-student-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+        <button data-nav="screen-student-menu" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
             <span class="font-bold text-[15px] uppercase text-slate-700">GESTIÓN ESTUDIANTES</span>
             <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">👤</div>
         </button>
-        <button onclick="nav('screen-inventory-menu')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+        <button data-nav="screen-inventory-menu" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
             <span class="font-bold text-[15px] uppercase text-slate-700">GESTIÓN INVENTARIO</span>
             <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">🎷</div>
         </button>
-        <button onclick="nav('screen-horario')" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
+        <button data-nav="screen-horario" class="w-full bg-white p-6 rounded-2xl shadow-sm border flex justify-between items-center">
             <span class="font-bold text-[15px] uppercase text-slate-700">HORARIO</span>
             <div class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-xl">📅</div>
         </button>
+        <button data-act="refresh" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase tracking-widest py-4">↻ ACTUALIZAR DATOS</button>
+        <p id="sync-info" class="text-center text-[10px] font-semibold text-slate-300 uppercase"></p>
     </div>
 
     <!-- SUB-MENÚ ESTUDIANTES -->
-    <div id="screen-student-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
-        <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
+    <div id="screen-student-menu" class="screen hidden p-6 max-w-md mx-auto space-y-4">
+        <button data-nav="screen-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
         <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">GESTIÓN ESTUDIANTES</h2>
-        <button onclick="prepareNewStudent()" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">AGREGAR ESTUDIANTE +</span><span class="text-2xl">📝</span></button>
-        <button onclick="openDirectory()" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">DIRECTORIO ESTUDIANTES</span><span class="text-2xl">📂</span></button>
-        <button onclick="nav('screen-grade-list')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR GRADOS</span><span class="text-2xl">🎓</span></button>
-        <button onclick="nav('screen-process-list')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR PROCESO</span><span class="text-2xl">📜</span></button>
+        <button data-act="new-student" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">AGREGAR ESTUDIANTE +</span><span class="text-2xl">📝</span></button>
+        <button data-nav="screen-directory" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">DIRECTORIO ESTUDIANTES</span><span class="text-2xl">📂</span></button>
+        <button data-nav="screen-grade-list" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR GRADOS</span><span class="text-2xl">🎓</span></button>
+        <button data-nav="screen-process-list" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">LISTAS POR PROCESO</span><span class="text-2xl">📜</span></button>
     </div>
 
-    <!-- PANTALLA LISTAS POR PROCESO -->
-    <div id="screen-process-list" class="hidden p-6 max-w-md mx-auto pb-32">
+    <!-- LISTAS POR PROCESO -->
+    <div id="screen-process-list" class="screen hidden p-6 max-w-md mx-auto pb-32">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
-            <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <button data-nav="screen-student-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
             <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">LISTAS POR PROCESO</h2>
             <div class="bg-white p-6 rounded-3xl shadow-sm border mb-4">
-                 <label class="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-widest">SELECCIONE EL PROCESO</label>
-                 <select id="filter-process-select" onchange="renderProcessList()" class="input-std"></select>
+                <label for="filter-process-select" class="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-widest">SELECCIONE EL PROCESO</label>
+                <select id="filter-process-select" class="input-std"></select>
             </div>
         </div>
         <div id="process-list-container" class="space-y-3"></div>
-        <div id="btn-process-wa" class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t hidden">
-            <button onclick="generateProcessWA()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] shadow-lg active:scale-95 transition-transform">ENVIAR LISTA POR WHATSAPP 📲</button>
+        <div id="btn-process-wa" class="fixed bottom-0 left-0 w-full p-6 safe-bottom bg-white/90 border-t hidden">
+            <button data-act="wa-process" class="w-full max-w-md mx-auto block bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] shadow-lg active:scale-95 transition-transform">ENVIAR LISTA POR WHATSAPP 📲</button>
         </div>
     </div>
 
-    <!-- PANTALLA LISTAS POR GRADOS -->
-    <div id="screen-grade-list" class="hidden p-6 max-w-md mx-auto pb-32">
+    <!-- LISTAS POR GRADOS -->
+    <div id="screen-grade-list" class="screen hidden p-6 max-w-md mx-auto pb-32">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
-            <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <button data-nav="screen-student-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
             <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">LISTAS POR GRADOS</h2>
             <div class="bg-white p-6 rounded-3xl shadow-sm border mb-4">
-                 <label class="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-widest">SELECCIONE EL GRADO</label>
-                 <select id="filter-grado-select" onchange="renderGradeList()" class="input-std"></select>
+                <label for="filter-grado-select" class="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-widest">SELECCIONE EL GRADO</label>
+                <select id="filter-grado-select" class="input-std"></select>
             </div>
         </div>
         <div id="grade-list-container" class="space-y-3"></div>
-        <div id="btn-grade-wa" class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t hidden">
-            <button onclick="generateGradeWA()" class="w-full bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] shadow-lg active:scale-95 transition-transform">ENVIAR LISTA POR WHATSAPP 📲</button>
+        <div id="btn-grade-wa" class="fixed bottom-0 left-0 w-full p-6 safe-bottom bg-white/90 border-t hidden">
+            <button data-act="wa-grade" class="w-full max-w-md mx-auto block bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[12px] shadow-lg active:scale-95 transition-transform">ENVIAR LISTA POR WHATSAPP 📲</button>
         </div>
     </div>
 
     <!-- DIRECTORIO -->
-    <div id="screen-directory" class="hidden p-6 max-w-md mx-auto pb-20">
+    <div id="screen-directory" class="screen hidden p-6 max-w-md mx-auto pb-20">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2">
-            <button onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
-            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ESTUDIANTE</h2>
-            <input type="text" id="search-input" onkeyup="filterDirectory()" placeholder="NOMBRE O INSTRUMENTO..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold text-[15px] shadow-sm mb-4 p-4">
+            <button data-nav="screen-student-menu" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ESTUDIANTE <span id="dir-count" class="text-slate-300 text-[12px]"></span></h2>
+            <input type="search" id="search-input" placeholder="NOMBRE, INSTRUMENTO O DOCUMENTO..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold shadow-sm mb-4 p-4">
             <div class="flex gap-4 overflow-x-auto no-scrollbar text-[12px] font-bold uppercase border-b pb-2 mb-2">
-                <button onclick="setDirSection('TODOS')" id="dirtab-TODOS" class="dirtab-btn active-tab whitespace-nowrap">TODOS</button>
-                <button onclick="setDirSection('Maderas')" id="dirtab-Maderas" class="dirtab-btn text-slate-300 whitespace-nowrap">Maderas</button>
-                <button onclick="setDirSection('Bronces')" id="dirtab-Bronces" class="dirtab-btn text-slate-300 whitespace-nowrap">Bronces</button>
-                <button onclick="setDirSection('Cuerdas')" id="dirtab-Cuerdas" class="dirtab-btn text-slate-300 whitespace-nowrap">Cuerdas</button>
-                <button onclick="setDirSection('Percusion')" id="dirtab-Percusion" class="dirtab-btn text-slate-300 whitespace-nowrap">Percusión</button>
+                <button data-dir="TODOS" class="dirtab-btn active-tab whitespace-nowrap">TODOS</button>
+                <button data-dir="Maderas" class="dirtab-btn text-slate-300 whitespace-nowrap">MADERAS</button>
+                <button data-dir="Bronces" class="dirtab-btn text-slate-300 whitespace-nowrap">BRONCES</button>
+                <button data-dir="Cuerdas" class="dirtab-btn text-slate-300 whitespace-nowrap">CUERDAS</button>
+                <button data-dir="Percusion" class="dirtab-btn text-slate-300 whitespace-nowrap">PERCUSIÓN</button>
+                <button data-dir="Otros" class="dirtab-btn text-slate-300 whitespace-nowrap">OTROS</button>
             </div>
         </div>
         <div id="directory-list" class="space-y-3 mt-2"></div>
     </div>
 
-    <!-- PANTALLA FORMULARIO ESTUDIANTE -->
-    <div id="screen-form-student" class="hidden p-6 max-w-md mx-auto pb-20">
-        <button id="btn-back-student" onclick="nav('screen-student-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+    <!-- FORMULARIO ESTUDIANTE -->
+    <div id="screen-form-student" class="screen hidden p-6 max-w-md mx-auto pb-20">
+        <button id="btn-back-student" data-nav="screen-student-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
             <h2 id="form-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INTEGRANTE</h2>
-            <input type="text" id="add-nombres" placeholder="NOMBRES" class="input-std">
-            <input type="text" id="add-apellidos" placeholder="APELLIDOS" class="input-std">
+            <input type="text" id="add-nombres" placeholder="NOMBRES *" autocapitalize="words" class="input-std">
+            <input type="text" id="add-apellidos" placeholder="APELLIDOS" autocapitalize="words" class="input-std">
             <input type="tel" id="add-telefono" placeholder="TELÉFONO ESTUDIANTE" class="input-std">
             <input type="text" id="add-eps" placeholder="EPS / SALUD" class="input-std">
             <div class="grid grid-cols-2 gap-2">
-                <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">DOCUMENTO</label><input type="tel" id="add-documento" placeholder="NÚMERO" class="input-std"></div>
-                <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">FECHA NACIMIENTO</label><input type="text" id="add-fecha_nacimiento" placeholder="DD/MM/AAAA" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" class="input-std uppercase"></div>
+                <div class="flex flex-col min-w-0"><label for="add-documento" class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">DOCUMENTO *</label><input type="text" inputmode="numeric" id="add-documento" placeholder="NÚMERO" class="input-std"></div>
+                <div class="flex flex-col min-w-0"><label for="add-fecha_nacimiento" class="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-tighter">FECHA NACIMIENTO</label><input type="date" id="add-fecha_nacimiento" class="input-std text-[14px]"></div>
             </div>
-            <select id="add-proceso" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <select id="add-instrumento" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <select id="add-grado" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <button onclick="toggleAcudiente()" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2 hover:text-slate-600 transition-colors mt-2">+ ¿AGREGAR ACUDIENTE?</button>
-            <div id="acudiente-box" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-100 fade-in">
+            <select id="add-proceso" class="select-std"></select>
+            <select id="add-instrumento" class="select-std"></select>
+            <select id="add-grado" class="select-std"></select>
+            <button data-act="toggle-acud" class="w-full text-center text-[11px] font-bold text-slate-400 uppercase tracking-widest py-2">+ ¿AGREGAR ACUDIENTE?</button>
+            <div id="acudiente-box" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">DATOS DEL ACUDIENTE</p>
                 <input type="text" id="add-acudiente-nombre" placeholder="NOMBRE ACUDIENTE" class="input-std">
                 <input type="tel" id="add-acudiente-telefono" placeholder="TELÉFONO ACUDIENTE" class="input-std">
             </div>
-            <button id="btn-save-student" onclick="saveStudent()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR REGISTRO</button>
-            <button id="btn-del-student" onclick="deleteStudent()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ESTUDIANTE 🗑️</button>
+            <button id="btn-save-student" data-act="save-student" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR REGISTRO</button>
+            <button id="btn-del-student" data-act="delete-student" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ESTUDIANTE 🗑️</button>
         </div>
     </div>
 
-    <!-- PANTALLA HORARIO (DINÁMICO v12.0) -->
-    <div id="screen-horario" class="hidden p-4 w-full h-full pb-32">
+    <!-- HORARIO -->
+    <div id="screen-horario" class="screen hidden p-4 w-full pb-32">
         <div class="max-w-4xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <button onclick="nav('screen-menu')" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
-                <div class="flex gap-2">
-                    <button onclick="addHorarioRow()" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-blue-100">+ FILA</button>
-                    <button onclick="removeHorarioRow()" class="bg-red-50 text-red-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-red-100">- FILA</button>
+            <div class="flex justify-between items-center mb-6 gap-2">
+                <button data-nav="screen-menu" class="text-slate-400 font-bold text-[12px] uppercase tracking-widest">← VOLVER</button>
+                <div class="flex gap-2 flex-wrap justify-end">
+                    <button data-act="export-horario" class="bg-amber-50 text-amber-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-amber-100">📸 EXPORTAR</button>
+                    <button data-act="add-row" class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-blue-100">+ FILA</button>
+                    <button data-act="del-row" class="bg-red-50 text-red-600 px-3 py-2 rounded-lg text-[10px] font-bold uppercase border border-red-100">- FILA</button>
                 </div>
             </div>
             <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 text-center">DESLIZA HACIA EL LADO PARA VER TODOS LOS DÍAS →</p>
-            
-            <!-- Contenedor con Scroll Horizontal -->
             <div class="horario-scroll-container">
-                <div class="horario-grid">
+                <div class="horario-grid" id="horario-grid-export">
                     <div class="horario-header">HORA</div>
                     <div class="horario-header">LUNES</div>
                     <div class="horario-header">MARTES</div>
                     <div class="horario-header">MIÉRCOLES</div>
                     <div class="horario-header">JUEVES</div>
                     <div class="horario-header">VIERNES</div>
-                    <div class="horario-header bg-slate-800">SÁBADO</div>
-                    <div class="horario-header bg-slate-800">DOMINGO</div>
-                    
+                    <div class="horario-header" style="background:#1e293b">SÁBADO</div>
+                    <div class="horario-header" style="background:#1e293b">DOMINGO</div>
                     <div id="horario-body" class="contents"></div>
                 </div>
             </div>
+            <p id="horario-dirty" class="hidden text-center text-[11px] font-bold text-amber-600 uppercase mt-4">⚠️ HAY CAMBIOS SIN GUARDAR</p>
         </div>
-        <div class="fixed bottom-0 left-0 w-full p-6 bg-white/90 border-t flex gap-2">
-            <button onclick="saveHorario()" class="flex-[2] bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px]">GUARDAR HORARIO</button>
+        <div class="fixed bottom-0 left-0 w-full p-6 safe-bottom bg-white/90 border-t flex gap-2">
+            <button data-act="save-horario" class="w-full max-w-md mx-auto bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px]">GUARDAR HORARIO</button>
         </div>
     </div>
 
-    <!-- PANTALLA CONFIGURAR ASISTENCIA -->
-    <div id="screen-activity" class="hidden p-6 max-w-md mx-auto">
-        <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+    <!-- SUB-MENÚ ASISTENCIA -->
+    <div id="screen-activity-menu" class="screen hidden p-6 max-w-md mx-auto space-y-4">
+        <button data-nav="screen-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
+        <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">ASISTENCIA</h2>
+        <button data-nav="screen-activity" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">TOMAR ASISTENCIA +</span><span class="text-2xl">📝</span></button>
+        <button data-nav="screen-stats-filter" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">ESTADÍSTICAS DE ASISTENCIA</span><span class="text-2xl">📊</span></button>
+    </div>
+
+    <!-- CONFIGURAR JORNADA -->
+    <div id="screen-activity" class="screen hidden p-6 max-w-md mx-auto">
+        <button data-nav="screen-activity-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-6">
             <h2 class="text-lg font-bold uppercase text-slate-900">DATOS DE LA JORNADA</h2>
-            <input type="date" id="event-date" class="w-full h-[52px] px-4 bg-slate-50 rounded-xl font-semibold text-[15px]">
-            <select id="event-type" onchange="toggleEventDesc()" class="w-full h-[52px] px-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"><option value="ENSAYO">ENSAYO</option><option value="PRESENTACIÓN">PRESENTACIÓN</option></select>
-            <div id="event-desc-box" class="hidden"><input type="text" id="event-desc" placeholder="NOMBRE DEL EVENTO" class="w-full p-4 bg-slate-50 rounded-xl font-semibold text-[15px] uppercase"></div>
-            <button onclick="prepareProcess()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">TOMAR ASISTENCIA</button>
+            <input type="date" id="event-date" class="input-std">
+            <select id="event-type" class="input-std uppercase"><option value="ENSAYO">ENSAYO</option><option value="PRESENTACIÓN">PRESENTACIÓN</option></select>
+            <div id="event-desc-box" class="hidden"><input type="text" id="event-desc" placeholder="NOMBRE DEL EVENTO" class="input-std uppercase"></div>
+            <button data-act="prepare-process" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px]">TOMAR ASISTENCIA</button>
         </div>
     </div>
 
-    <!-- PANTALLA SELECCION PROCESO ASISTENCIA -->
-    <div id="screen-process" class="hidden p-6 max-w-md mx-auto space-y-3">
-        <button onclick="nav('screen-activity')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+    <!-- SELECCIÓN DE PROCESO -->
+    <div id="screen-process" class="screen hidden p-6 max-w-md mx-auto space-y-3">
+        <button data-nav="screen-activity" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SELECCIONE EL PROCESO</p>
         <div id="process-buttons" class="space-y-3"></div>
     </div>
 
-    <!-- PANTALLA LISTA ASISTENCIA -->
-    <div id="screen-list" class="hidden min-h-screen pb-44">
+    <!-- LISTA DE ASISTENCIA -->
+    <div id="screen-list" class="screen hidden min-h-screen pb-44">
         <div class="bg-white p-6 sticky top-0 z-20 shadow-sm border-b">
             <div class="flex justify-between items-center mb-4">
-                <button onclick="nav('screen-process')" class="text-slate-400 font-bold text-[12px] uppercase">← ATRÁS</button>
+                <button data-nav="screen-process" class="text-slate-400 font-bold text-[12px] uppercase">← ATRÁS</button>
                 <span id="counter" class="text-[11px] bg-slate-100 text-slate-500 px-3 py-1 rounded-full font-bold uppercase">0 MARCADOS</span>
             </div>
-            <p id="info-header" class="font-bold text-[13px] uppercase mb-4 text-slate-400"></p>
-            <div id="family-tabs" class="flex gap-4 overflow-x-auto no-scrollbar text-[12px] font-bold uppercase border-t pt-4">
-                <button onclick="renderList('TODOS')" id="tab-TODOS" class="tab-btn active-tab pb-2">TODOS</button>
-                <button onclick="renderList('Maderas')" id="tab-Maderas" class="tab-btn text-slate-300 pb-2">Maderas</button>
-                <button onclick="renderList('Bronces')" id="tab-Bronces" class="tab-btn text-slate-300 pb-2">Bronces</button>
-                <button onclick="renderList('Cuerdas')" id="tab-Cuerdas" class="tab-btn text-slate-300 pb-2">Cuerdas</button>
-                <button onclick="renderList('Percusion')" id="tab-Percusion" class="tab-btn text-slate-300 pb-2">Percusión</button>
+            <p id="info-header" class="font-bold text-[13px] uppercase mb-3 text-slate-400"></p>
+            <button data-act="mark-all" class="w-full text-[11px] font-bold uppercase text-slate-600 bg-slate-50 border border-slate-200 rounded-xl py-3 mb-3">✔ MARCAR PRESENTES A LOS QUE FALTAN</button>
+            <div class="flex gap-4 overflow-x-auto no-scrollbar text-[12px] font-bold uppercase border-t pt-4">
+                <button data-sec="TODOS" class="tab-btn active-tab pb-2 whitespace-nowrap">TODOS</button>
+                <button data-sec="Maderas" class="tab-btn text-slate-300 pb-2 whitespace-nowrap">MADERAS</button>
+                <button data-sec="Bronces" class="tab-btn text-slate-300 pb-2 whitespace-nowrap">BRONCES</button>
+                <button data-sec="Cuerdas" class="tab-btn text-slate-300 pb-2 whitespace-nowrap">CUERDAS</button>
+                <button data-sec="Percusion" class="tab-btn text-slate-300 pb-2 whitespace-nowrap">PERCUSIÓN</button>
+                <button data-sec="Otros" class="tab-btn text-slate-300 pb-2 whitespace-nowrap">OTROS</button>
             </div>
         </div>
-        <div id="musicos-box" class="p-6 space-y-3"></div>
-        <div class="fixed bottom-0 bg-white/90 w-full p-4 border-t flex gap-2">
-            <button onclick="generateWAReport()" class="flex-1 bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">REPORTE WHATSAPP</button>
-            <button onclick="finalize()" class="flex-1 bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">GUARDAR ASISTENCIA</button>
+        <div id="musicos-box" class="p-6 space-y-3 max-w-md mx-auto"></div>
+        <div class="fixed bottom-0 left-0 bg-white/90 w-full p-4 safe-bottom border-t">
+            <div class="flex gap-2 max-w-md mx-auto">
+                <button data-act="wa-report" class="flex-1 bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">REPORTE WHATSAPP</button>
+                <button data-act="finalize" class="flex-1 bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[11px] leading-tight active:scale-95 transition-transform">GUARDAR ASISTENCIA</button>
+            </div>
         </div>
     </div>
 
     <!-- SUB-MENÚ INVENTARIO -->
-    <div id="screen-inventory-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
-        <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
+    <div id="screen-inventory-menu" class="screen hidden p-6 max-w-md mx-auto space-y-4">
+        <button data-nav="screen-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
         <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">INVENTARIO</h2>
-        <button onclick="prepareNewInstrument()" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">AGREGAR INSTRUMENTO +</span><span class="text-2xl">🎺</span></button>
-        <button onclick="openInventoryList()" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">VER INVENTARIO</span><span class="text-2xl">📦</span></button>
+        <button data-act="new-instrument" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">AGREGAR INSTRUMENTO +</span><span class="text-2xl">🎺</span></button>
+        <button data-nav="screen-inventory-list" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">VER INVENTARIO</span><span class="text-2xl">📦</span></button>
     </div>
 
-    <!-- PANTALLA LISTA INVENTARIO -->
-    <div id="screen-inventory-list" class="hidden p-6 max-w-md mx-auto pb-20">
+    <!-- LISTA INVENTARIO -->
+    <div id="screen-inventory-list" class="screen hidden p-6 max-w-md mx-auto pb-20">
         <div class="sticky top-0 bg-[#f8fafc] z-10 pt-2 pb-4">
-            <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
-            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ACTIVO</h2>
-            <input type="text" id="search-inv-input" onkeyup="filterInventory()" placeholder="Instrumento, Serial, Código..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold text-[15px] shadow-sm p-4">
+            <button data-nav="screen-inventory-menu" class="text-slate-400 font-bold mb-4 text-[12px] uppercase tracking-widest">← VOLVER</button>
+            <h2 class="text-lg font-bold uppercase text-slate-900 mb-4">BUSCAR ACTIVO <span id="inv-count" class="text-slate-300 text-[12px]"></span></h2>
+            <input type="search" id="search-inv-input" placeholder="Instrumento, serial, código, estado..." class="w-full bg-white border border-slate-200 rounded-xl font-semibold shadow-sm p-4">
+            <div class="flex gap-3 mt-3 text-[9px] font-bold uppercase text-slate-400">
+                <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-full bg-green-500 inline-block"></i>DISPONIBLE</span>
+                <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-full bg-red-500 inline-block"></i>ASIGNADO/PRÉSTAMO</span>
+                <span class="flex items-center gap-1"><i class="w-2 h-2 rounded-full bg-amber-500 inline-block"></i>REPARACIÓN</span>
+            </div>
         </div>
         <div id="inventory-list-container" class="space-y-3 mt-2"></div>
     </div>
 
-    <!-- PANTALLA FORMULARIO INVENTARIO -->
-    <div id="screen-form-inventory" class="hidden p-6 max-w-md mx-auto pb-20">
-        <button onclick="nav('screen-inventory-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+    <!-- FORMULARIO INVENTARIO -->
+    <div id="screen-form-inventory" class="screen hidden p-6 max-w-md mx-auto pb-20">
+        <button id="btn-back-inv" data-nav="screen-inventory-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 space-y-4">
             <h2 id="form-inv-title" class="text-lg font-bold uppercase text-slate-900">NUEVO INSTRUMENTO</h2>
-            <div><select id="inv-instrumento-select" onchange="checkOtroInst()" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase mb-2"></select><input type="text" id="inv-instrumento-input" placeholder="Escriba el nombre del instrumento..." class="hidden input-std"></div>
+            <div><select id="inv-instrumento-select" class="select-std mb-2"></select><input type="text" id="inv-instrumento-input" placeholder="Escriba el nombre del instrumento..." class="hidden input-std"></div>
             <div class="grid grid-cols-2 gap-2"><input type="text" id="inv-marca" placeholder="MARCA" class="input-std"><input type="text" id="inv-modelo" placeholder="MODELO" class="input-std"></div>
-            <div class="grid grid-cols-2 gap-2"><input type="text" id="inv-serial" placeholder="SERIAL (FÁBRICA)" class="input-std border-slate-300"><input type="text" id="inv-codigo" placeholder="CÓDIGO INTERNO" class="input-std"></div>
+            <div class="grid grid-cols-2 gap-2"><input type="text" id="inv-serial" placeholder="SERIAL" class="input-std"><input type="text" id="inv-codigo" placeholder="CÓDIGO INTERNO" class="input-std"></div>
             <input type="text" id="inv-color" placeholder="COLOR / ACABADO" class="input-std">
-            <select id="inv-condicion" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <select id="inv-estado" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <select id="inv-origen" class="w-full p-3 bg-slate-50 rounded-lg text-[12px] font-semibold uppercase"></select>
-            <textarea id="inv-accesorios" placeholder="ACCESORIOS (BOQUILLA, ESTUCHE...)" class="input-std h-24"></textarea>
-            <textarea id="inv-observaciones" placeholder="OBSERVACIONES GENERALES" class="input-std h-24"></textarea>
-            <button id="btn-save-inv" onclick="saveInstrument()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR ACTIVO</button>
-            <button id="btn-del-inv" onclick="deleteInstrument()" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ACTIVO 🗑️</button>
+            <select id="inv-condicion" class="select-std"></select>
+            <select id="inv-estado" class="select-std"></select>
+            <select id="inv-origen" class="select-std"></select>
+            <textarea id="inv-accesorios" placeholder="ACCESORIOS (BOQUILLA, ESTUCHE...)" class="input-std"></textarea>
+            <textarea id="inv-observaciones" placeholder="OBSERVACIONES GENERALES" class="input-std"></textarea>
+            <button id="btn-save-inv" data-act="save-instrument" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[13px] mt-2">GUARDAR ACTIVO</button>
+            <button id="btn-del-inv" data-act="delete-instrument" class="hidden w-full bg-red-50 text-red-600 p-4 rounded-xl font-bold uppercase text-[13px] mt-6 border border-red-100">ELIMINAR ACTIVO 🗑️</button>
         </div>
     </div>
 
-    <!-- PANTALLA FILTRO ESTADÍSTICAS -->
-    <div id="screen-stats-filter" class="hidden p-6 max-w-md mx-auto">
-        <button onclick="nav('screen-activity-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
+    <!-- FILTRO ESTADÍSTICAS -->
+    <div id="screen-stats-filter" class="screen hidden p-6 max-w-md mx-auto">
+        <button data-nav="screen-activity-menu" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER</button>
         <div class="bg-white p-8 rounded-3xl shadow-xl space-y-6">
             <h2 class="text-lg font-bold uppercase text-slate-900">CONSULTAR KARDEX</h2>
-            <div><label class="text-[10px] font-bold text-slate-400 uppercase mb-2 block">PROCESO</label><select id="stat-proceso" class="input-std"></select></div>
-            <div><label class="text-[10px] font-bold text-slate-400 uppercase mb-2 block">MES A CONSULTAR</label>
-                <select id="stat-mes" class="input-std">
-                    <option value="1">ENERO</option><option value="2">FEBRERO</option><option value="3">MARZO</option><option value="4">ABRIL</option><option value="5">MAYO</option><option value="6">JUNIO</option>
-                    <option value="7">JULIO</option><option value="8">AGOSTO</option><option value="9">SEPTIEMBRE</option><option value="10">OCTUBRE</option><option value="11">NOVIEMBRE</option><option value="12">DICIEMBRE</option>
-                </select>
+            <div><label for="stat-proceso" class="text-[10px] font-bold text-slate-400 uppercase mb-2 block">PROCESO</label><select id="stat-proceso" class="input-std"></select></div>
+            <div class="grid grid-cols-2 gap-2">
+                <div><label for="stat-mes" class="text-[10px] font-bold text-slate-400 uppercase mb-2 block">MES</label>
+                    <select id="stat-mes" class="input-std">
+                        <option value="1">ENERO</option><option value="2">FEBRERO</option><option value="3">MARZO</option><option value="4">ABRIL</option><option value="5">MAYO</option><option value="6">JUNIO</option>
+                        <option value="7">JULIO</option><option value="8">AGOSTO</option><option value="9">SEPTIEMBRE</option><option value="10">OCTUBRE</option><option value="11">NOVIEMBRE</option><option value="12">DICIEMBRE</option>
+                    </select>
+                </div>
+                <div><label for="stat-anio" class="text-[10px] font-bold text-slate-400 uppercase mb-2 block">AÑO</label><select id="stat-anio" class="input-std"></select></div>
             </div>
-            <button onclick="getReport()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[14px]">GENERAR REPORTE</button>
+            <button data-act="get-report" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold uppercase text-[14px]">GENERAR REPORTE</button>
         </div>
     </div>
 
     <!-- REPORTE ESTADÍSTICAS -->
-    <div id="screen-stats-report" class="hidden min-h-screen pb-20">
+    <div id="screen-stats-report" class="screen hidden min-h-screen pb-32">
         <div class="bg-white p-6 sticky top-0 z-20 shadow-sm border-b">
             <div class="flex justify-between items-center mb-4">
-                <button onclick="nav('screen-stats-filter')" class="text-slate-400 font-bold text-[12px] uppercase">← ATRÁS</button>
+                <button data-nav="screen-stats-filter" class="text-slate-400 font-bold text-[12px] uppercase">← ATRÁS</button>
                 <span id="report-events-count" class="text-[10px] bg-slate-100 text-slate-500 px-3 py-1 rounded-full font-bold uppercase">0 EVENTOS</span>
             </div>
             <h2 id="report-title-text" class="font-bold text-lg uppercase leading-tight text-slate-900">REPORTE</h2>
             <p id="report-mes-text" class="text-[11px] font-bold text-slate-400 uppercase mt-1">---</p>
         </div>
-        <div id="stats-container" class="p-6 space-y-3"></div>
+        <div id="stats-container" class="p-6 space-y-3 max-w-md mx-auto"></div>
+        <div class="fixed bottom-0 left-0 w-full p-4 safe-bottom bg-white/90 border-t">
+            <button data-act="wa-stats" class="w-full max-w-md mx-auto block bg-green-600 text-white p-4 rounded-xl font-bold uppercase text-[11px]">ENVIAR REPORTE POR WHATSAPP 📲</button>
+        </div>
     </div>
 
-    <!-- SUB-MENÚ ASISTENCIA -->
-    <div id="screen-activity-menu" class="hidden p-6 max-w-md mx-auto space-y-4">
-        <button onclick="nav('screen-menu')" class="text-slate-400 font-bold mb-6 text-[12px] uppercase tracking-widest">← VOLVER AL MENÚ</button>
-        <h2 class="text-xl font-bold uppercase text-slate-900 mb-6">ASISTENCIA</h2>
-        <button onclick="nav('screen-activity')" class="w-full bg-slate-900 text-white p-8 rounded-2xl shadow-lg flex justify-between items-center"><span class="font-bold text-[15px] uppercase">TOMAR ASISTENCIA +</span><span class="text-2xl">📝</span></button>
-        <button onclick="nav('screen-stats-filter')" class="w-full bg-white p-8 rounded-2xl shadow-sm border flex justify-between items-center"><span class="font-bold text-[15px] uppercase text-slate-700">ESTADÍSTICAS DE ASISTENCIA</span><span class="text-2xl">📊</span></button>
-    </div>
-
-    <!-- SCRIPT DE REGISTRO SERVICE WORKER -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW registrado', reg))
-                    .catch(err => console.log('SW error', err));
-            });
+            window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
         }
     </script>
 
     <script>
-        // URL ACTUALIZADA AL MOTOR RECIENTE (SOBRE-ESCRITURA VÁLIDA)
-        const MOTOR_URL = "https://script.google.com/macros/s/AKfycbxXUXNBcmXrYVawUjVOSa7O3O9RM4ne2P_zLJsQe3OlnFOEbzkZ0utr_NO6P3R3lLTxZQ/exec";
-        const VER = "v12.0"; 
-        
-        let session = JSON.parse(localStorage.getItem('atril_' + VER)) || { user: "", banda: "", sheetId: "", current: "screen-login", master: [], inventario: [], config: {}, horario: [] };
-        let record = JSON.parse(localStorage.getItem('atril_rec_' + VER)) || {};
-        let editingCell = null;
-        let isEditing = false;
-        let originalDoc = null;
-        let activeSection = 'TODOS';
-        let currentDirSection = 'TODOS';
-        let originalSerial = null; let originalCodigo = null; let originalRasgos = { inst: "", marca: "", modelo: "" };
+    // =====================================================================
+    //  CONFIGURACIÓN
+    // =====================================================================
+    const MOTOR_URL = "https://script.google.com/macros/s/AKfycby8yhGP8kzOanc3WYWunInGWEV1M4qYdCKiC9PU1EVEIIJhqrH_9nN8rHQ3750Fm25kwA/exec";
+    const VER = "v13.0";
+    const KEY_SESSION = 'atril_session';
+    const KEY_PEND = 'atril_pendiente';
+    const ESTADOS = ['PRESENTE', 'AUSENTE', 'RETARDO', 'EXCUSA'];
+    const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+    const SECCIONES = {
+        Maderas: ["flauta", "piccolo", "flautin", "oboe", "corno ingles", "fagot", "clarinete requinto", "clarinete soprano", "clarinete", "clarinete alto", "clarinete bajo", "saxofon soprano", "saxofon alto", "saxofon tenor", "saxofon baritono"],
+        Bronces: ["trompeta", "fliscorno", "corno", "corno frances", "trombon", "trombon bajo", "bombardino", "eufonio", "tuba"],
+        Cuerdas: ["violin", "viola", "cello", "violonchelo", "contrabajo"],
+        Percusion: ["percusion", "bateria", "timbales", "redoblante", "bombo", "platillos", "xilofono", "marimba", "lira"]
+    };
+    const ORDEN_INST = [...SECCIONES.Maderas, ...SECCIONES.Bronces, ...SECCIONES.Cuerdas, ...SECCIONES.Percusion];
+    const MESES = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 
-        // ACTUALIZACIÓN DE DÍAS (v12.0)
-        const DIAS_KEYS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
-        const SECCIONES = {
-            "Maderas": ["flauta", "oboe", "fagot", "clarinete requinto", "clarinete soprano", "clarinete bajo", "saxofon soprano", "saxofon alto", "saxofon tenor", "saxofon baritono"],
-            "Bronces": ["trompeta", "corno", "trombon", "eufonio", "tuba"],
-            "Cuerdas": ["cello", "contrabajo", "violin", "viola"],
-            "Percusion": ["percusion"]
-        };
-        const ORDEN_INST = [...SECCIONES.Maderas, ...SECCIONES.Bronces, ...SECCIONES.Cuerdas, ...SECCIONES.Percusion];
+    // =====================================================================
+    //  UTILIDADES
+    // =====================================================================
+    const $ = id => document.getElementById(id);
+    const norm = v => String(v ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const S = v => String(v ?? '').trim();
+    const nombreDe = m => `${S(m.nombres)} ${S(m.apellidos)}`.trim();
+    const hoyLocal = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+    const fechaBonita = iso => { const p = String(iso || '').split('-'); return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : iso; };
 
-        window.onload = async () => { 
-            if(session.user && session.sheetId) { loader(true, "SINCRONIZANDO..."); await fetchData(); } else { nav('screen-login'); }
-        };
-
-        function nav(id) {
-            session.current = id;
-            localStorage.setItem('atril_' + VER, JSON.stringify(session));
-            document.querySelectorAll('body > div').forEach(d => { if(d.id !== 'loader') d.classList.add('hidden'); d.classList.remove('flex'); });
-            const target = document.getElementById(id);
-            target.classList.remove('hidden');
-            if(id === 'screen-login') target.classList.add('flex');
-            if(id === 'screen-activity') document.getElementById('event-date').value = new Date().toISOString().split('T')[0];
-            if(id === 'screen-horario') {
-                if(!session.horario || session.horario.length === 0) {
-                     session.horario = [{hora: "HORA 1"}];
-                }
-                buildHorarioTable();
-            }
-            if(id === 'screen-directory') filterDirectory();
-            if(id === 'screen-inventory-list') filterInventory();
-            if(id === 'screen-stats-filter') restoreStatsFilter();
-            if(id === 'screen-grade-list') openGradeList();
-            if(id === 'screen-process-list') openProcessList();
+    function familiaDe(inst) {
+        const n = norm(inst);
+        for (const fam of Object.keys(SECCIONES)) {
+            if (SECCIONES[fam].includes(n)) return fam;
         }
+        if (n.includes('percusion')) return 'Percusion';
+        if (n.includes('saxo') || n.includes('clarinete') || n.includes('flauta')) return 'Maderas';
+        if (n.includes('trompeta') || n.includes('trombon') || n.includes('corno') || n.includes('tuba')) return 'Bronces';
+        return 'Otros';
+    }
+    function ordenInst(inst) { const i = ORDEN_INST.indexOf(norm(inst)); return i === -1 ? 999 : i; }
+    const porInstrumento = campoNombre => (a, b) => (ordenInst(a.instrumento) - ordenInst(b.instrumento)) || S(a[campoNombre]).localeCompare(S(b[campoNombre]), 'es', { sensitivity: 'base' });
+    const porApellido = (a, b) => S(a.apellidos).localeCompare(S(b.apellidos), 'es', { sensitivity: 'base' }) || S(a.nombres).localeCompare(S(b.nombres), 'es', { sensitivity: 'base' });
 
-        function loader(v, t) {
-            const l = document.getElementById('loader');
-            document.getElementById('loader-text').innerText = t || "CARGANDO...";
-            if(v) { 
-                l.classList.remove('hidden'); 
-            } else { 
-                l.classList.add('hidden'); 
-            }
-        }
+    function leer(key, def) { try { const v = JSON.parse(localStorage.getItem(key)); return v ?? def; } catch (e) { return def; } }
+    function escribir(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
 
-        async function loginProcess() {
-            const u = document.getElementById('user-input').value.trim(), p = document.getElementById('pass-input').value.trim();
-            if(!u || !p) return;
-            loader(true, "VERIFICANDO...");
-            try {
-                const r = await fetch(`${MOTOR_URL}?action=login&user=${encodeURIComponent(u)}&pass=${encodeURIComponent(p)}`, { method: 'GET', credentials: 'omit' });
-                const d = await r.json();
-                if(d.success) { session.user = u; session.banda = d.banda; session.sheetId = d.sheetId; loader(true, "DESCARGANDO DATOS..."); await fetchData(); } 
-                else { document.getElementById('login-error').innerText = d.message || "ERROR DE ACCESO"; document.getElementById('login-error').classList.remove('hidden'); loader(false); }
-            } catch(e) { alert("ERROR DE CONEXIÓN: " + e.message); loader(false); }
-        }
+    let toastTimer = null;
+    function aviso(msg, tipo) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.className = 'show' + (tipo ? ' ' + tipo : '');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.className = '', tipo === 'error' ? 4500 : 2500);
+    }
 
-        async function fetchData() {
-            try {
-                const r = await fetch(`${MOTOR_URL}?action=getDataInicial&sheetId=${session.sheetId}`, { method: 'GET', credentials: 'omit' });
-                const d = await r.json();
-                if (d.success) { session.master = d.integrantes || []; session.inventario = d.inventario || []; session.config = d.config || {}; session.horario = d.horario || []; localStorage.setItem('atril_' + VER, JSON.stringify(session)); restore(); nav('screen-menu'); } 
-                else { alert("ERROR DE DATOS: " + (d.error || 'Desconocido')); restore(); nav('screen-menu'); }
-            } catch(e) { console.error(e); alert("SIN CONEXIÓN: SE USARÁN DATOS GUARDADOS"); restore(); nav('screen-menu'); }
-            loader(false);
-        }
+    function loader(v, t) {
+        $('loader-text').textContent = t || "CARGANDO...";
+        $('loader').classList.toggle('hidden', !v);
+    }
 
-        function restore() {
-            if(!session.config) return; 
-            
-            const nombre = session.banda || "---";
-            const palabras = nombre.split(" ");
-            let htmlName = "";
-            
-            if (palabras.length <= 2) {
-                htmlName = `<span class="text-xl leading-tight block">${nombre}</span>`;
+    // Comunicación con Google Sheets (con tiempo límite de 45 segundos)
+    async function api(datos, metodo) {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 45000);
+        try {
+            let r;
+            if (metodo === 'GET') {
+                const qs = new URLSearchParams(datos).toString();
+                r = await fetch(`${MOTOR_URL}?${qs}`, { method: 'GET', credentials: 'omit', signal: ctrl.signal });
             } else {
-                const linea1 = palabras.slice(0, 2).join(" ");
-                const linea2 = palabras.slice(2).join(" ");
-                htmlName = `<span class="text-[13px] text-slate-400 block mb-1 font-medium tracking-wide uppercase">${linea1}</span><span class="text-xl leading-tight block font-bold">${linea2}</span>`;
+                r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(datos), signal: ctrl.signal });
             }
-            document.getElementById('display-band-name').innerHTML = htmlName;
+            return await r.json();
+        } finally { clearTimeout(timer); }
+    }
+    const errTxt = (res, def) => (res && (res.error || res.message)) || def;
 
-            if(session.config.proceso && session.config.proceso.length > 0) {
-                document.getElementById('process-buttons').innerHTML = session.config.proceso.map(p => `<button onclick="initAt('${p}')" class="w-full p-6 bg-white rounded-2xl shadow-sm border font-bold text-left uppercase text-[13px] text-slate-700">${p}</button>`).join('');
-                ['proceso','instrumento','grado'].forEach(k => {
-                    const s = document.getElementById(`add-${k}`);
-                    if(s && session.config[k]) { let opts = `<option disabled selected>${k.toUpperCase()}</option>`; opts += session.config[k].map(o => `<option value="${o}">${o}</option>`).join(''); s.innerHTML = opts; }
-                });
-                const sel = document.getElementById('stat-proceso');
-                if (sel) sel.innerHTML = session.config.proceso.map(p => `<option value="${p}">${p}</option>`).join('');
-                const mSel = document.getElementById('stat-mes');
-                if (mSel) mSel.value = new Date().getMonth() + 1;
+    // =====================================================================
+    //  ESTADO (se guarda en el celular)
+    // =====================================================================
+    function cargarSesion() {
+        let s = leer(KEY_SESSION, null);
+        if (!s) { // Recupera la sesión de versiones anteriores para no tener que volver a ingresar
+            for (const old of ['atril_v12.1', 'atril_v12.0', 'atril_v11.6']) { const o = leer(old, null); if (o && o.sheetId) { s = o; break; } }
+        }
+        s = s || {};
+        return { user: s.user || "", banda: s.banda || "", sheetId: s.sheetId || "", master: s.master || [], inventario: s.inventario || [], config: s.config || {}, horario: s.horario || [], sync: s.sync || null };
+    }
+    let session = cargarSesion();
+    // Asistencia en curso: { meta: {date, type, act, process}, marks: { "Nombre": "PRESENTE" } }
+    let pend = leer(KEY_PEND, null);
+    if (!pend) { // migración de versiones anteriores
+        const oldRec = leer('atril_rec_v12.1', null) || leer('atril_rec_v12.0', null);
+        if (oldRec && Object.keys(oldRec).length) pend = { meta: null, marks: oldRec };
+    }
+    let jornada = { date: "", type: "", act: "", process: "" };
+    let horarioSucio = false;
+    let editStudent = null;   // estudiante que se está editando
+    let editInst = null;      // instrumento que se está editando
+    let dirSection = 'TODOS', listSection = 'TODOS';
+
+    function guardarSesion() { escribir(KEY_SESSION, session); }
+    function guardarPend() { if (pend && Object.keys(pend.marks || {}).length) escribir(KEY_PEND, pend); else { try { localStorage.removeItem(KEY_PEND); } catch (e) {} } }
+
+    // =====================================================================
+    //  NAVEGACIÓN
+    // =====================================================================
+    function nav(id) {
+        if (horarioSucio && id !== 'screen-horario' && !confirm("Tienes cambios en el horario sin guardar. ¿Salir de todas formas?")) return;
+        if (id !== 'screen-horario') horarioSucio = false;
+        document.querySelectorAll('.screen').forEach(d => d.classList.add('hidden'));
+        const target = $(id);
+        target.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        if (id === 'screen-menu') pintarPendiente();
+        if (id === 'screen-activity') { $('event-date').value = hoyLocal(); toggleEventDesc(); }
+        if (id === 'screen-horario') { if (!session.horario || !session.horario.length) session.horario = [{ hora: "HORA 1" }]; buildHorarioTable(); }
+        if (id === 'screen-directory') filterDirectory();
+        if (id === 'screen-inventory-list') filterInventory();
+        if (id === 'screen-stats-filter') restoreStatsFilter();
+        if (id === 'screen-grade-list') openGradeList();
+        if (id === 'screen-process-list') openProcessList();
+    }
+
+    // =====================================================================
+    //  INICIO, LOGIN Y DATOS
+    // =====================================================================
+    window.addEventListener('DOMContentLoaded', async () => {
+        if (session.user && session.sheetId) {
+            restore();
+            nav('screen-menu');
+            await fetchData(true);
+        } else {
+            nav('screen-login');
+        }
+    });
+
+    async function loginProcess(ev) {
+        ev.preventDefault();
+        const u = $('user-input').value.trim(), p = $('pass-input').value.trim();
+        $('login-error').classList.add('hidden');
+        if (!u || !p) return;
+        loader(true, "VERIFICANDO...");
+        try {
+            const d = await api({ action: 'login', user: u, pass: p }, 'GET');
+            if (d.success) {
+                session = { user: u, banda: d.banda, sheetId: d.sheetId, master: [], inventario: [], config: {}, horario: [], sync: null };
+                guardarSesion();
+                loader(true, "DESCARGANDO DATOS...");
+                const ok = await fetchData(false);
+                if (ok) { restore(); nav('screen-menu'); }
+            } else {
+                $('login-error').textContent = d.message || d.error || "ERROR DE ACCESO";
+                $('login-error').classList.remove('hidden');
             }
-            if(session.config.instrumento) {
-                let instOpts = `<option disabled selected>SELECCIONE INSTRUMENTO</option>`;
-                session.config.instrumento.forEach(i => instOpts += `<option value="${i}">${i}</option>`);
-                instOpts += `<option value="OTRO">🔵 OTRO (Escribir manual)...</option>`;
-                document.getElementById('inv-instrumento-select').innerHTML = instOpts;
+        } catch (e) { aviso("ERROR DE CONEXIÓN. REVISA TU INTERNET.", 'error'); }
+        loader(false);
+    }
+
+    // silencioso = actualiza en segundo plano sin bloquear la pantalla
+    async function fetchData(silencioso) {
+        if (!silencioso) loader(true, "SINCRONIZANDO...");
+        try {
+            const d = await api({ action: 'getDataInicial', sheetId: session.sheetId }, 'GET');
+            if (d.success) {
+                session.master = (d.integrantes || []).map(m => ({ ...m, documento: S(m.documento) }));
+                session.inventario = d.inventario || [];
+                session.config = d.config || {};
+                if (!horarioSucio) session.horario = d.horario || [];
+                session.sync = new Date().toISOString();
+                guardarSesion();
+                restore();
+                if (!silencioso) loader(false);
+                return true;
             }
-            const loadSelect = (id, arr, ph) => { let opts = `<option disabled selected>${ph}</option>`; if(arr) arr.forEach(x => opts += `<option value="${x}">${x}</option>`); document.getElementById(id).innerHTML = opts; };
-            loadSelect('inv-condicion', session.config.condicion, 'CONDICIÓN (FÍSICA)');
-            loadSelect('inv-estado', session.config.estado, 'ESTADO (ADMINISTRATIVO)');
-            loadSelect('inv-origen', session.config.origen, 'ORIGEN / PROPIEDAD');
+            if (String(d.error || '').includes('NO AUTORIZADO')) { aviso(d.error, 'error'); setTimeout(() => cerrarSesion(true), 2500); return false; }
+            aviso("ERROR AL CARGAR DATOS: " + errTxt(d, 'DESCONOCIDO'), 'error');
+        } catch (e) {
+            aviso("SIN CONEXIÓN: SE USAN LOS DATOS GUARDADOS", 'error');
         }
+        if (!silencioso) loader(false);
+        return !!(session.master && session.master.length);
+    }
 
-        // --- GESTIÓN ESTUDIANTES ---
-        function prepareNewStudent() {
-            isEditing = false; originalDoc = null;
-            document.getElementById('form-title').innerText = "NUEVO INTEGRANTE";
-            document.getElementById('btn-save-student').innerText = "GUARDAR REGISTRO";
-            document.getElementById('btn-save-student').classList.remove('bg-blue-600');
-            document.getElementById('btn-save-student').classList.add('bg-slate-900');
-            document.getElementById('btn-del-student').classList.add('hidden');
-            document.getElementById('btn-back-student').setAttribute('onclick', "nav('screen-student-menu')");
-            document.querySelectorAll('#screen-form-student input').forEach(i => i.value = "");
-            document.querySelectorAll('#screen-form-student select').forEach(s => s.selectedIndex = 0);
-            let df = document.getElementById('add-fecha_nacimiento');
-            df.type = 'text'; 
-            document.getElementById('acudiente-box').classList.add('hidden');
-            nav('screen-form-student');
+    const opciones = (arr, ph) => (ph ? `<option value="" disabled selected>${esc(ph)}</option>` : '') + (arr || []).map(o => `<option value="${esc(o)}">${esc(o)}</option>`).join('');
+
+    function restore() {
+        const nombre = S(session.banda) || "---";
+        const palabras = nombre.split(/\s+/);
+        $('display-band-name').innerHTML = palabras.length <= 2
+            ? `<span class="text-xl leading-tight block">${esc(nombre)}</span>`
+            : `<span class="text-[13px] text-slate-400 block mb-1 font-medium tracking-wide uppercase">${esc(palabras.slice(0, 2).join(" "))}</span><span class="text-xl leading-tight block font-bold">${esc(palabras.slice(2).join(" "))}</span>`;
+        $('sync-info').textContent = session.sync ? 'ÚLTIMA SINCRONIZACIÓN: ' + new Date(session.sync).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' }) : '';
+
+        const cfg = session.config || {};
+        const procesos = cfg.proceso || [];
+        $('process-buttons').innerHTML = procesos.length
+            ? procesos.map((p, i) => `<button data-act="proc" data-i="${i}" class="w-full p-6 bg-white rounded-2xl shadow-sm border font-bold text-left uppercase text-[13px] text-slate-700">${esc(p)} <span class="text-slate-300 text-[11px] float-right">${session.master.filter(m => norm(m.proceso) === norm(p)).length} INTEGRANTES</span></button>`).join('')
+            : `<p class="text-center text-slate-400 text-[11px] font-bold uppercase py-10">NO HAY PROCESOS CONFIGURADOS</p>`;
+        $('add-proceso').innerHTML = opciones(procesos, 'PROCESO');
+        $('add-instrumento').innerHTML = opciones(cfg.instrumento, 'INSTRUMENTO');
+        $('add-grado').innerHTML = opciones(cfg.grado, 'GRADO');
+        $('inv-instrumento-select').innerHTML = opciones(cfg.instrumento, 'SELECCIONE INSTRUMENTO') + `<option value="OTRO">🔵 OTRO (ESCRIBIR MANUAL)...</option>`;
+        $('inv-condicion').innerHTML = opciones(cfg.condicion, 'CONDICIÓN (FÍSICA)');
+        $('inv-estado').innerHTML = opciones(cfg.estado, 'ESTADO (ADMINISTRATIVO)');
+        $('inv-origen').innerHTML = opciones(cfg.origen, 'ORIGEN / PROPIEDAD');
+        pintarPendiente();
+    }
+
+    function cerrarSesion(forzado) {
+        const n = pend ? Object.keys(pend.marks || {}).length : 0;
+        if (!forzado) {
+            const msg = n ? `Tienes ${n} marcaciones de asistencia SIN GUARDAR que se perderán.\n\n¿Cerrar sesión de todas formas?` : "¿Cerrar sesión?";
+            if (!confirm(msg)) return;
         }
+        ['atril_session', 'atril_pendiente', 'atril_v12.1', 'atril_v12.0', 'atril_v11.6', 'atril_rec_v12.1', 'atril_rec_v12.0'].forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+        location.reload();
+    }
 
-        function openDirectory() { nav('screen-directory'); }
+    // =====================================================================
+    //  ESTUDIANTES
+    // =====================================================================
+    function setSelect(id, val) {
+        const sel = $(id), v = S(val);
+        if (!v) { sel.selectedIndex = 0; return; }
+        let opt = [...sel.options].find(o => norm(o.value) === norm(v));
+        if (!opt) { opt = new Option(v, v); sel.add(opt); } // conserva valores que no estén en la configuración
+        sel.value = opt.value;
+    }
 
-        function setDirSection(sec) {
-            currentDirSection = sec;
-            document.querySelectorAll('.dirtab-btn').forEach(b => { b.classList.remove('active-tab', 'text-slate-900'); b.classList.add('text-slate-300'); });
-            document.getElementById(`dirtab-${sec}`).classList.add('active-tab', 'text-slate-900');
-            document.getElementById(`dirtab-${sec}`).classList.remove('text-slate-300');
-            filterDirectory();
-        }
+    function prepareNewStudent() {
+        editStudent = null;
+        $('form-title').textContent = "NUEVO INTEGRANTE";
+        const btn = $('btn-save-student');
+        btn.textContent = "GUARDAR REGISTRO"; btn.classList.remove('bg-blue-600'); btn.classList.add('bg-slate-900');
+        $('btn-del-student').classList.add('hidden');
+        $('btn-back-student').dataset.nav = 'screen-student-menu';
+        document.querySelectorAll('#screen-form-student input').forEach(i => i.value = "");
+        document.querySelectorAll('#screen-form-student select').forEach(s => s.selectedIndex = 0);
+        $('acudiente-box').classList.add('hidden');
+        nav('screen-form-student');
+    }
 
-        function filterDirectory() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            const list = document.getElementById('directory-list');
-            list.innerHTML = "";
-            if(!session.master) return;
-            let filtered = session.master.filter(m => (m.nombres + " " + m.apellidos + " " + m.instrumento).toLowerCase().includes(q));
-            if (currentDirSection !== 'TODOS') { filtered = filtered.filter(m => { const miFamilia = Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())); return miFamilia === currentDirSection; }); }
-            filtered.sort((a, b) => { const idxA = ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()); const idxB = ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()); if (idxA !== -1 && idxB !== -1) { if (idxA !== idxB) return idxA - idxB; return a.nombres.localeCompare(b.nombres); } if (idxA === -1) return 1; if (idxB === -1) return -1; });
-            if(filtered.length === 0) { list.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-4 font-bold uppercase">NO SE ENCONTRARON RESULTADOS</p>`; return; }
-            filtered.forEach(m => {
-                const item = document.createElement('div');
-                item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center transition-transform";
-                item.innerHTML = `
-                    <div class="flex-1">
-                        <p class="font-bold text-[13px] text-slate-800">${m.nombres} ${m.apellidos}</p>
-                        <p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${m.instrumento} • ${m.proceso}</p>
+    function filterDirectory() {
+        const q = norm($('search-input').value);
+        const list = $('directory-list');
+        let filtered = session.master.map((m, i) => ({ ...m, _i: i }))
+            .filter(m => norm(`${m.nombres} ${m.apellidos} ${m.instrumento} ${m.documento} ${m.proceso}`).includes(q));
+        if (dirSection !== 'TODOS') filtered = filtered.filter(m => familiaDe(m.instrumento) === dirSection);
+        filtered.sort(porInstrumento('nombres'));
+        $('dir-count').textContent = `(${filtered.length})`;
+        if (!filtered.length) { list.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-4 font-bold uppercase">NO SE ENCONTRARON RESULTADOS</p>`; return; }
+        list.innerHTML = filtered.map(m => `
+            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center gap-2">
+                <div class="flex-1 min-w-0">
+                    <p class="font-bold text-[13px] text-slate-800">${esc(nombreDe(m))}</p>
+                    <p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${esc(m.instrumento)} • ${esc(m.proceso)}${m.grado ? ' • ' + esc(m.grado) : ''}</p>
+                </div>
+                <div class="flex gap-2 shrink-0">
+                    <button data-act="share-student" data-i="${m._i}" aria-label="Compartir" class="w-10 h-10 flex items-center justify-center bg-green-50 text-green-600 rounded-xl border border-green-100 active:scale-90 transition-transform">📲</button>
+                    <button data-act="edit-student" data-i="${m._i}" aria-label="Editar" class="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl border border-slate-100 active:scale-90 transition-transform">✎</button>
+                </div>
+            </div>`).join('');
+    }
+
+    function setDirSection(sec) {
+        dirSection = sec;
+        document.querySelectorAll('.dirtab-btn').forEach(b => { const on = b.dataset.dir === sec; b.classList.toggle('active-tab', on); b.classList.toggle('text-slate-300', !on); });
+        filterDirectory();
+    }
+
+    function shareStudentWA(m) {
+        const text = `👤 *FICHA TÉCNICA - ATRIL DIGITAL*\n\n` +
+            `*ESTUDIANTE:* ${nombreDe(m)}\n*DOCUMENTO:* ${S(m.documento) || 'N/A'}\n*TELÉFONO:* ${S(m.telefono) || 'N/A'}\n` +
+            `*INSTRUMENTO:* ${S(m.instrumento) || 'N/A'}\n*PROCESO:* ${S(m.proceso) || 'N/A'}\n*GRADO:* ${S(m.grado) || 'N/A'}\n*EPS:* ${S(m.eps) || 'N/A'}\n\n` +
+            `👨‍👩‍👧 *DATOS ACUDIENTE*\n*NOMBRE:* ${S(m.acudiente) || 'N/A'}\n*TELÉFONO:* ${S(m.telefono_acud) || 'N/A'}\n\n` +
+            `_Reporte generado por: ${S(session.banda).toUpperCase()}_`;
+        abrirWA(text);
+    }
+
+    function loadStudentForEdit(m) {
+        editStudent = m;
+        $('form-title').textContent = "EDITAR ESTUDIANTE";
+        const btn = $('btn-save-student');
+        btn.textContent = "ACTUALIZAR DATOS"; btn.classList.remove('bg-slate-900'); btn.classList.add('bg-blue-600');
+        $('btn-del-student').classList.remove('hidden');
+        $('btn-back-student').dataset.nav = 'screen-directory';
+        $('add-nombres').value = S(m.nombres); $('add-apellidos').value = S(m.apellidos);
+        $('add-telefono').value = S(m.telefono); $('add-eps').value = S(m.eps);
+        $('add-documento').value = S(m.documento);
+        $('add-fecha_nacimiento').value = aFechaInput(m.fecha_nacimiento);
+        setSelect('add-proceso', m.proceso); setSelect('add-instrumento', m.instrumento); setSelect('add-grado', m.grado);
+        $('add-acudiente-nombre').value = S(m.acudiente); $('add-acudiente-telefono').value = S(m.telefono_acud);
+        $('acudiente-box').classList.toggle('hidden', !(m.acudiente || m.telefono_acud));
+        nav('screen-form-student');
+    }
+
+    // Acepta "2010-05-04", "2010-05-04T05:00:00.000Z" o "04/05/2010" y lo deja como AAAA-MM-DD
+    function aFechaInput(v) {
+        const t = S(v).replace(/'/g, '');
+        let m = t.match(/^(\d{4})-(\d{2})-(\d{2})/); if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+        m = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/); if (m) return `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}`;
+        return '';
+    }
+
+    function toggleAcudiente() {
+        const box = $('acudiente-box');
+        if (box.classList.contains('hidden')) box.classList.remove('hidden');
+        else { box.classList.add('hidden'); $('add-acudiente-nombre').value = ''; $('add-acudiente-telefono').value = ''; }
+    }
+
+    async function saveStudent() {
+        const d = {
+            nombres: $('add-nombres').value.trim(), apellidos: $('add-apellidos').value.trim(),
+            telefono: $('add-telefono').value.trim(), documento: $('add-documento').value.trim(),
+            fecha_nacimiento: $('add-fecha_nacimiento').value, proceso: $('add-proceso').value,
+            instrumento: $('add-instrumento').value, grado: $('add-grado').value,
+            eps: $('add-eps').value.trim(), acudiente: $('add-acudiente-nombre').value.trim(),
+            telefono_acud: $('add-acudiente-telefono').value.trim()
+        };
+        if (!d.nombres || !d.documento) return aviso("FALTAN DATOS OBLIGATORIOS: NOMBRES Y DOCUMENTO", 'error');
+        if (!d.proceso) return aviso("SELECCIONA EL PROCESO", 'error');
+        const editando = !!editStudent;
+        const otro = session.master.find(m => norm(m.documento) === norm(d.documento) && (!editando || norm(m.documento) !== norm(editStudent.documento)));
+        if (otro) return aviso(`YA EXISTE ${nombreDe(otro)} CON ESE DOCUMENTO`, 'error');
+
+        loader(true, editando ? "ACTUALIZANDO..." : "GUARDANDO...");
+        try {
+            const res = await api({ action: editando ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: editando ? editStudent.documento : null, fila: editando ? editStudent.fila : null });
+            if (res.success) {
+                aviso(editando ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO", 'ok');
+                await fetchData(false);
+                nav(editando ? 'screen-directory' : 'screen-student-menu');
+            } else aviso("ERROR: " + errTxt(res, "NO SE PUDO GUARDAR"), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN AL GUARDAR", 'error'); }
+        loader(false);
+    }
+
+    async function deleteStudent() {
+        if (!editStudent) return;
+        if (!confirm(`⚠️ ¿ELIMINAR A ${nombreDe(editStudent).toUpperCase()}?\n\nEsta acción no se puede deshacer.`)) return;
+        loader(true, "ELIMINANDO...");
+        try {
+            const res = await api({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: editStudent.documento, fila: editStudent.fila });
+            if (res.success) { aviso("ESTUDIANTE ELIMINADO", 'ok'); editStudent = null; await fetchData(false); nav('screen-directory'); }
+            else aviso("ERROR AL ELIMINAR: " + errTxt(res, ''), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN", 'error'); }
+        loader(false);
+    }
+
+    // =====================================================================
+    //  LISTAS POR GRADO Y POR PROCESO
+    // =====================================================================
+    function openGradeList() {
+        $('filter-grado-select').innerHTML = opciones(session.config.grado, 'SELECCIONE...');
+        $('grade-list-container').innerHTML = "";
+        $('btn-grade-wa').classList.add('hidden');
+    }
+    const listaGrado = g => session.master.filter(m => norm(m.grado) === norm(g)).sort(porApellido);
+
+    function tarjetaSimple(m, etiqueta, sub) {
+        return `<div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center gap-2">
+            <div class="min-w-0"><p class="font-bold text-[13px] text-slate-800">${esc(S(m.apellidos) + ' ' + S(m.nombres))}</p><p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${esc(sub)}</p></div>
+            <div class="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-1 rounded-lg uppercase shrink-0">${esc(etiqueta)}</div></div>`;
+    }
+
+    function renderGradeList() {
+        const grado = $('filter-grado-select').value, box = $('grade-list-container');
+        const lista = listaGrado(grado);
+        if (!lista.length) { box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY ESTUDIANTES EN ${esc(grado)}</p>`; $('btn-grade-wa').classList.add('hidden'); return; }
+        box.innerHTML = `<p class="text-[10px] font-bold text-slate-400 uppercase">${lista.length} ESTUDIANTES</p>` + lista.map(m => tarjetaSimple(m, m.grado, `${S(m.instrumento)} • ${S(m.proceso)}`)).join('');
+        $('btn-grade-wa').classList.remove('hidden');
+    }
+
+    function generateGradeWA() {
+        const grado = $('filter-grado-select').value; if (!grado) return;
+        const lista = listaGrado(grado); if (!lista.length) return aviso("LISTA VACÍA", 'error');
+        let msg = `🎓 *LISTADO GRADO ${grado}*\n${S(session.banda).toUpperCase()}\n\n`;
+        lista.forEach((m, i) => msg += `${i + 1}. ${S(m.apellidos)} ${S(m.nombres)} (${S(m.instrumento)})\n`);
+        abrirWA(msg);
+    }
+
+    function openProcessList() {
+        $('filter-process-select').innerHTML = opciones(session.config.proceso, 'SELECCIONE...');
+        $('process-list-container').innerHTML = "";
+        $('btn-process-wa').classList.add('hidden');
+    }
+    const listaProceso = p => session.master.filter(m => norm(m.proceso) === norm(p)).sort(porInstrumento('apellidos'));
+
+    function renderProcessList() {
+        const proceso = $('filter-process-select').value, box = $('process-list-container');
+        const lista = listaProceso(proceso);
+        if (!lista.length) { box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY ESTUDIANTES EN ${esc(proceso)}</p>`; $('btn-process-wa').classList.add('hidden'); return; }
+        box.innerHTML = `<p class="text-[10px] font-bold text-slate-400 uppercase">${lista.length} ESTUDIANTES</p>` + lista.map(m => tarjetaSimple(m, m.grado || m.proceso, S(m.instrumento))).join('');
+        $('btn-process-wa').classList.remove('hidden');
+    }
+
+    function generateProcessWA() {
+        const proceso = $('filter-process-select').value; if (!proceso) return;
+        const lista = listaProceso(proceso); if (!lista.length) return aviso("LISTA VACÍA", 'error');
+        let msg = `📜 *LISTADO OFICIAL - ${proceso}*\n${S(session.banda).toUpperCase()}\n\n`;
+        lista.forEach((m, i) => msg += `${i + 1}. ${S(m.apellidos)} ${S(m.nombres)} (${S(m.instrumento)} - ${S(m.grado) || 'S/G'})\n`);
+        abrirWA(msg);
+    }
+
+    function abrirWA(texto) { window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, '_blank'); }
+
+    // =====================================================================
+    //  INVENTARIO
+    // =====================================================================
+    function prepareNewInstrument() {
+        editInst = null;
+        $('form-inv-title').textContent = "NUEVO INSTRUMENTO";
+        const btn = $('btn-save-inv'); btn.textContent = "GUARDAR ACTIVO"; btn.classList.replace('bg-blue-600', 'bg-slate-900');
+        $('btn-del-inv').classList.add('hidden');
+        $('btn-back-inv').dataset.nav = 'screen-inventory-menu';
+        document.querySelectorAll('#screen-form-inventory input, #screen-form-inventory textarea').forEach(i => i.value = "");
+        document.querySelectorAll('#screen-form-inventory select').forEach(s => s.selectedIndex = 0);
+        checkOtroInst();
+        nav('screen-form-inventory');
+    }
+    function checkOtroInst() { $('inv-instrumento-input').classList.toggle('hidden', $('inv-instrumento-select').value !== 'OTRO'); }
+
+    function colorEstado(estado) {
+        const e = norm(estado);
+        if (e.includes('disponible')) return 'bg-green-500';
+        if (e.includes('asignado') || e.includes('prestamo')) return 'bg-red-500';
+        if (e.includes('reparacion')) return 'bg-amber-500';
+        return 'bg-slate-300';
+    }
+
+    function filterInventory() {
+        const q = norm($('search-inv-input').value), list = $('inventory-list-container');
+        const filtered = session.inventario.map((x, i) => ({ ...x, _i: i }))
+            .filter(i => norm(`${i.instrumento} ${i.marca} ${i.modelo} ${i.codigo} ${i.serial} ${i.estado} ${i.condicion}`).includes(q))
+            .sort((a, b) => (ordenInst(a.instrumento) - ordenInst(b.instrumento)) || S(a.codigo).localeCompare(S(b.codigo), 'es', { numeric: true }));
+        $('inv-count').textContent = `(${filtered.length})`;
+        if (!filtered.length) { list.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-4 font-bold uppercase">NO SE ENCONTRARON ACTIVOS</p>`; return; }
+        const na = v => { const t = S(v); return t && t.toUpperCase() !== 'N/A' ? t : ''; };
+        list.innerHTML = filtered.map(i => `
+            <button data-act="edit-instrument" data-i="${i._i}" class="w-full text-left bg-white p-4 rounded-xl border border-slate-100 shadow-sm active:scale-95 transition-transform">
+                <div class="flex justify-between items-start gap-2">
+                    <div class="min-w-0">
+                        <p class="font-bold text-[13px] text-slate-900">${esc(i.instrumento)}</p>
+                        <p class="text-[10px] font-bold text-slate-500">${esc([na(i.marca), na(i.modelo)].join(' ').trim() || '—')}</p>
+                        <p class="text-[9px] font-bold text-slate-300 mt-1 uppercase">S: ${esc(na(i.serial) || 'N/A')} | C: ${esc(na(i.codigo) || 'N/A')}${i.estado ? ' | ' + esc(i.estado) : ''}</p>
                     </div>
-                    <div class="flex gap-2">
-                         <button onclick="shareStudentWA(event, ${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-green-50 text-green-600 rounded-xl border border-green-100 active:scale-90 transition-transform">📲</button>
-                         <button onclick="loadStudentForEdit(${JSON.stringify(m).replace(/"/g, '&quot;')})" class="w-10 h-10 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl border border-slate-100 active:scale-90 transition-transform">✎</button>
-                    </div>`;
-                list.appendChild(item);
+                    <div class="w-3 h-3 rounded-full shrink-0 mt-1 ${colorEstado(i.estado)}"></div>
+                </div>
+            </button>`).join('');
+    }
+
+    function loadInstrumentForEdit(i) {
+        editInst = i;
+        $('form-inv-title').textContent = "EDITAR INSTRUMENTO";
+        const btn = $('btn-save-inv'); btn.textContent = "ACTUALIZAR ACTIVO"; btn.classList.replace('bg-slate-900', 'bg-blue-600');
+        $('btn-del-inv').classList.remove('hidden');
+        $('btn-back-inv').dataset.nav = 'screen-inventory-list';
+        const v = x => (S(x).toUpperCase() === "N/A" ? "" : S(x));
+        $('inv-marca').value = v(i.marca); $('inv-modelo').value = v(i.modelo);
+        $('inv-serial').value = v(i.serial); $('inv-codigo').value = v(i.codigo);
+        $('inv-color').value = v(i.color); $('inv-accesorios').value = v(i.accesorios); $('inv-observaciones').value = v(i.observaciones);
+        setSelect('inv-condicion', i.condicion); setSelect('inv-estado', i.estado); setSelect('inv-origen', i.origen);
+        const sel = $('inv-instrumento-select');
+        const opt = [...sel.options].find(o => o.value !== 'OTRO' && norm(o.value) === norm(i.instrumento));
+        if (opt) { sel.value = opt.value; $('inv-instrumento-input').value = ''; }
+        else { sel.value = "OTRO"; $('inv-instrumento-input').value = S(i.instrumento); }
+        checkOtroInst();
+        nav('screen-form-inventory');
+    }
+
+    async function saveInstrument() {
+        let instName = $('inv-instrumento-select').value;
+        if (instName === "OTRO") instName = $('inv-instrumento-input').value.trim();
+        if (!instName) return aviso("FALTA EL INSTRUMENTO", 'error');
+        const d = {
+            codigo: $('inv-codigo').value.trim(), instrumento: instName,
+            marca: $('inv-marca').value.trim(), modelo: $('inv-modelo').value.trim(),
+            serial: $('inv-serial').value.trim(), color: $('inv-color').value.trim(),
+            condicion: $('inv-condicion').value, estado: $('inv-estado').value,
+            origen: $('inv-origen').value, accesorios: $('inv-accesorios').value.trim(),
+            observaciones: $('inv-observaciones').value.trim()
+        };
+        if (!d.codigo && !d.serial) return aviso("ESCRIBE AL MENOS EL SERIAL O EL CÓDIGO INTERNO", 'error');
+        const editando = !!editInst;
+        loader(true, editando ? "ACTUALIZANDO..." : "GUARDANDO...");
+        try {
+            const res = await api({ action: editando ? 'editInstrumento' : 'addInstrumento', sheetId: session.sheetId, datos: d,
+                originalSerial: editando ? editInst.serial : null, originalCodigo: editando ? editInst.codigo : null, fila: editando ? editInst.fila : null });
+            if (res.success) { aviso(editando ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO", 'ok'); await fetchData(false); nav(editando ? 'screen-inventory-list' : 'screen-inventory-menu'); }
+            else aviso("ERROR: " + errTxt(res, "NO SE PUDO GUARDAR"), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN", 'error'); }
+        loader(false);
+    }
+
+    async function deleteInstrument() {
+        if (!editInst) return;
+        if (!confirm(`⚠️ ¿ELIMINAR ${S(editInst.instrumento).toUpperCase()} (${S(editInst.codigo || editInst.serial)})?\n\nEsta acción no se puede deshacer.`)) return;
+        loader(true, "ELIMINANDO...");
+        try {
+            const res = await api({ action: 'deleteInstrumento', sheetId: session.sheetId, serial: editInst.serial, codigo: editInst.codigo, fila: editInst.fila });
+            if (res.success) { aviso("ACTIVO ELIMINADO", 'ok'); editInst = null; await fetchData(false); nav('screen-inventory-list'); }
+            else aviso("ERROR AL ELIMINAR: " + errTxt(res, ''), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN", 'error'); }
+        loader(false);
+    }
+
+    // =====================================================================
+    //  HORARIO
+    // =====================================================================
+    function marcarSucio() { horarioSucio = true; $('horario-dirty').classList.remove('hidden'); }
+
+    function buildHorarioTable() {
+        const hBox = $('horario-body'); hBox.innerHTML = "";
+        $('horario-dirty').classList.toggle('hidden', !horarioSucio);
+        session.horario.forEach((fila, index) => {
+            const timeCell = document.createElement('div');
+            timeCell.className = "horario-cell";
+            const input = document.createElement('input');
+            input.type = "text"; input.className = "horario-time-input";
+            input.value = fila.hora || "";
+            input.placeholder = `HORA ${index + 1}`;
+            input.addEventListener('input', e => { session.horario[index].hora = e.target.value; marcarSucio(); });
+            timeCell.appendChild(input); hBox.appendChild(timeCell);
+            DIAS_KEYS.forEach(dia => {
+                const cell = document.createElement('div'); cell.className = "horario-cell";
+                const area = document.createElement('textarea'); area.className = "horario-input"; area.rows = 3;
+                area.value = fila[dia] || "";
+                area.addEventListener('input', e => { session.horario[index][dia] = e.target.value; marcarSucio(); });
+                cell.appendChild(area); hBox.appendChild(cell);
             });
-        }
-        
-        function shareStudentWA(event, m) {
-            event.stopPropagation();
-            const text = `👤 *FICHA TÉCNICA - ATRIL DIGITAL*\n\n` +
-                `*ESTUDIANTE:* ${m.nombres} ${m.apellidos}\n` +
-                `*DOCUMENTO:* ${m.documento}\n` +
-                `*TELÉFONO:* ${m.telefono}\n` +
-                `*INSTRUMENTO:* ${m.instrumento}\n` +
-                `*GRADO:* ${m.grado}\n` +
-                `*EPS:* ${m.eps}\n\n` +
-                `👨‍👩‍👧 *DATOS ACUDIENTE*\n` +
-                `*NOMBRE:* ${m.acudiente || 'N/A'}\n` +
-                `*TELÉFONO:* ${m.telefono_acud || 'N/A'}\n\n` +
-                `_Reporte generado por: ${session.banda.toUpperCase()}_`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-        }
+        });
+    }
+    function addHorarioRow() { session.horario.push({ hora: "" }); marcarSucio(); buildHorarioTable(); }
+    function removeHorarioRow() {
+        if (!session.horario.length) return;
+        const ult = session.horario[session.horario.length - 1];
+        const tieneDatos = DIAS_KEYS.some(d => S(ult[d])) || S(ult.hora);
+        if (tieneDatos && !confirm("La última fila tiene información. ¿Borrarla?")) return;
+        session.horario.pop(); marcarSucio(); buildHorarioTable();
+    }
 
-        function loadStudentForEdit(m) {
-            isEditing = true; originalDoc = m.documento;
-            document.getElementById('form-title').innerText = "EDITAR ESTUDIANTE";
-            const btn = document.getElementById('btn-save-student');
-            btn.innerText = "ACTUALIZAR DATOS";
-            btn.classList.remove('bg-slate-900'); btn.classList.add('bg-blue-600');
-            document.getElementById('btn-del-student').classList.remove('hidden'); 
-            document.getElementById('btn-back-student').setAttribute('onclick', "nav('screen-directory')");
-            document.getElementById('add-nombres').value = m.nombres; document.getElementById('add-apellidos').value = m.apellidos;
-            document.getElementById('add-telefono').value = m.telefono; document.getElementById('add-eps').value = m.eps;
-            document.getElementById('add-documento').value = m.documento;
-            let df = document.getElementById('add-fecha_nacimiento');
-            let rawDate = m.fecha_nacimiento ? String(m.fecha_nacimiento).replace(/'/g, '').trim() : "";
-            if(rawDate.includes('T') && rawDate.length > 10) rawDate = rawDate.split('T')[0];
-            df.type = 'text'; df.value = rawDate;
-            document.getElementById('add-proceso').value = m.proceso; document.getElementById('add-instrumento').value = m.instrumento; document.getElementById('add-grado').value = m.grado;
-            document.getElementById('add-acudiente-nombre').value = m.acudiente; document.getElementById('add-acudiente-telefono').value = m.telefono_acud;
-            if(m.acudiente || m.telefono_acud) document.getElementById('acudiente-box').classList.remove('hidden'); else document.getElementById('acudiente-box').classList.add('hidden');
-            nav('screen-form-student');
-        }
+    async function saveHorario() {
+        loader(true, "GUARDANDO HORARIO...");
+        const matriz = session.horario.map(f => [f.hora || "", ...DIAS_KEYS.map(d => f[d] || "")]);
+        try {
+            const res = await api({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz });
+            if (res.success) { horarioSucio = false; $('horario-dirty').classList.add('hidden'); guardarSesion(); aviso("HORARIO GUARDADO", 'ok'); }
+            else aviso("ERROR: " + errTxt(res, "NO SE PUDO GUARDAR"), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN AL GUARDAR", 'error'); }
+        loader(false);
+    }
 
-        function toggleAcudiente() { const box = document.getElementById('acudiente-box'); if(box.classList.contains('hidden')) { box.classList.remove('hidden'); } else { box.classList.add('hidden'); document.getElementById('add-acudiente-nombre').value = ''; document.getElementById('add-acudiente-telefono').value = ''; } }
-        async function saveStudent() {
-            const d = { 
-                nombres: document.getElementById('add-nombres').value, apellidos: document.getElementById('add-apellidos').value,
-                telefono: document.getElementById('add-telefono').value, documento: document.getElementById('add-documento').value, 
-                fecha_nacimiento: document.getElementById('add-fecha_nacimiento').value, proceso: document.getElementById('add-proceso').value, 
-                instrumento: document.getElementById('add-instrumento').value, grado: document.getElementById('add-grado').value, 
-                eps: document.getElementById('add-eps').value, acudiente: document.getElementById('add-acudiente-nombre').value,
-                telefono_acud: document.getElementById('add-acudiente-telefono').value
-            };
-            if(!d.nombres || !d.documento) return alert("FALTAN DATOS OBLIGATORIOS");
-            loader(true, isEditing ? "ACTUALIZANDO..." : "GUARDANDO...");
-            const payload = { action: isEditing ? 'editEstudiante' : 'addEstudiante', sheetId: session.sheetId, datos: d, originalDocumento: originalDoc };
-            try { 
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
-                const res = await r.json(); 
-                if(res.success) { alert(isEditing ? "DATOS ACTUALIZADOS" : "REGISTRADO CON ÉXITO"); await fetchData(); nav('screen-student-menu'); } else { alert("ERROR: " + (res.error || "No se pudo guardar")); } 
-            } catch(e) { alert("ERROR AL GUARDAR"); }
-            loader(false);
-        }
+    // La librería para hacer la imagen solo se descarga cuando se necesita
+    function cargarScript(src) {
+        return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = fail; document.head.appendChild(s); });
+    }
 
-        async function deleteStudent() {
-            if(!isEditing || !originalDoc) return;
-            if(!confirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará permanentemente al estudiante y no se puede deshacer.")) return;
-            loader(true, "ELIMINANDO...");
-            try {
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'deleteEstudiante', sheetId: session.sheetId, documento: originalDoc }) });
-                const res = await r.json();
-                if(res.success) { alert("ESTUDIANTE ELIMINADO"); await fetchData(); nav('screen-directory'); } 
-                else { alert("ERROR AL ELIMINAR: " + res.error); }
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
-            loader(false);
-        }
-
-        // --- LISTAS POR GRADOS ---
-        function openGradeList() {
-            const sel = document.getElementById('filter-grado-select');
-            if(session.config.grado) {
-                sel.innerHTML = `<option disabled selected>SELECCIONE...</option>` + session.config.grado.map(g => `<option value="${g}">${g}</option>`).join('');
+    async function exportarHorarioImg() {
+        loader(true, "GENERANDO IMAGEN...");
+        try {
+            if (!window.html2canvas) await cargarScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+            // Se arma una copia con texto normal (las cajas de texto no se dibujan bien en la imagen)
+            const src = $('horario-grid-export');
+            const copia = src.cloneNode(true);
+            copia.querySelectorAll('input, textarea').forEach((el, k) => {
+                const orig = src.querySelectorAll('input, textarea')[k];
+                const div = document.createElement('div');
+                div.className = el.className;
+                div.style.cssText = 'display:flex;align-items:center;justify-content:center;white-space:pre-wrap;text-align:center;';
+                div.textContent = orig.value;
+                el.replaceWith(div);
+            });
+            const titulo = document.createElement('div');
+            titulo.style.cssText = 'grid-column:1/-1;background:#fff;padding:14px;text-align:center;font-weight:700;font-size:14px;text-transform:uppercase;color:#0f172a;';
+            titulo.textContent = `HORARIO • ${S(session.banda)}`;
+            copia.prepend(titulo);
+            copia.style.position = 'fixed'; copia.style.left = '-10000px'; copia.style.top = '0';
+            document.body.appendChild(copia);
+            const canvas = await html2canvas(copia, { scale: 2, backgroundColor: "#ffffff" });
+            copia.remove();
+            const nombre = `HORARIO_${(S(session.banda) || 'ATRIL').replace(/\s+/g, '_')}.png`;
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+            const file = new File([blob], nombre, { type: 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                loader(false);
+                await navigator.share({ files: [file], title: 'Horario' }).catch(() => {});
+            } else {
+                const link = document.createElement('a');
+                link.download = nombre; link.href = URL.createObjectURL(blob); link.click();
+                setTimeout(() => URL.revokeObjectURL(link.href), 5000);
             }
-            document.getElementById('grade-list-container').innerHTML = "";
-            document.getElementById('btn-grade-wa').classList.add('hidden');
-        }
+        } catch (e) { aviso("ERROR AL GENERAR LA IMAGEN", 'error'); }
+        loader(false);
+    }
 
-        function renderGradeList() {
-            const grado = document.getElementById('filter-grado-select').value;
-            const box = document.getElementById('grade-list-container');
-            const btnWA = document.getElementById('btn-grade-wa');
-            box.innerHTML = "";
-            if(!session.master) return;
-            let filtered = session.master.filter(m => m.grado === grado);
-            filtered.sort((a, b) => a.apellidos.localeCompare(b.apellidos, 'es', {sensitivity: 'base'}));
-            if(filtered.length === 0) {
-                box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY ESTUDIANTES EN ${grado}</p>`;
-                btnWA.classList.add('hidden');
-                return;
+    // =====================================================================
+    //  ASISTENCIA
+    // =====================================================================
+    function toggleEventDesc() { $('event-desc-box').classList.toggle('hidden', $('event-type').value !== 'PRESENTACIÓN'); }
+
+    function prepareProcess() {
+        jornada.date = $('event-date').value;
+        jornada.type = $('event-type').value;
+        jornada.act = (jornada.type === 'ENSAYO' ? 'ENSAYO' : $('event-desc').value.trim()).toUpperCase();
+        if (!jornada.date) return aviso("FALTA LA FECHA", 'error');
+        if (!jornada.act) return aviso("ESCRIBE EL NOMBRE DEL EVENTO", 'error');
+        if (!(session.config.proceso || []).length) return aviso("NO SE CARGARON LOS PROCESOS. TOCA ↻ ACTUALIZAR DATOS EN EL MENÚ.", 'error');
+        nav('screen-process');
+    }
+
+    const mismaJornada = (a, b) => a && b && a.date === b.date && norm(a.act) === norm(b.act) && norm(a.process) === norm(b.process);
+    const descJornada = m => m ? `${m.process} • ${m.act} • ${fechaBonita(m.date)}` : 'JORNADA ANTERIOR';
+
+    function initAt(p) {
+        const meta = { ...jornada, process: p };
+        const n = pend ? Object.keys(pend.marks || {}).length : 0;
+        if (n && !mismaJornada(pend.meta, meta)) {
+            if (pend.meta && confirm(`Tienes ${n} marcaciones SIN GUARDAR de:\n${descJornada(pend.meta)}\n\n¿Quieres CONTINUAR esa lista? (Cancelar = descartarla y empezar la nueva)`)) {
+                return resumePending();
             }
-            filtered.forEach(m => {
-                const item = document.createElement('div');
-                item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center";
-                item.innerHTML = `<div><p class="font-bold text-[13px] text-slate-800">${m.apellidos} ${m.nombres}</p><p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${m.instrumento} • ${m.proceso}</p></div><div class="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-1 rounded-lg uppercase">${m.grado}</div>`;
-                box.appendChild(item);
-            });
-            btnWA.classList.remove('hidden');
+            if (!pend.meta && !confirm(`Hay ${n} marcaciones sin guardar de una versión anterior. ¿Descartarlas?`)) return;
+            pend = null;
         }
+        if (!pend) pend = { meta, marks: {} };
+        pend.meta = meta;
+        guardarPend();
+        abrirLista();
+    }
 
-        function generateGradeWA() {
-            const grado = document.getElementById('filter-grado-select').value;
-            if(!grado) return;
-            let filtered = session.master.filter(m => m.grado === grado);
-            filtered.sort((a, b) => a.apellidos.localeCompare(b.apellidos, 'es', {sensitivity: 'base'}));
-            if(filtered.length === 0) return alert("LISTA VACÍA");
-            let msg = `🎓 *LISTADO GRADO ${grado}* \n${session.banda.toUpperCase()}\n\n`;
-            filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento})\n`; });
-            const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        }
+    function resumePending() {
+        if (!pend || !pend.meta) return;
+        jornada = { ...pend.meta };
+        abrirLista();
+    }
 
-        // --- LISTAS POR PROCESO ---
-        function openProcessList() {
-            const sel = document.getElementById('filter-process-select');
-            if(session.config.proceso) {
-                sel.innerHTML = `<option disabled selected>SELECCIONE...</option>` + session.config.proceso.map(p => `<option value="${p}">${p}</option>`).join('');
-            }
-            document.getElementById('process-list-container').innerHTML = "";
-            document.getElementById('btn-process-wa').classList.add('hidden');
-        }
+    function abrirLista() {
+        $('info-header').textContent = descJornada(pend.meta);
+        listSection = 'TODOS';
+        nav('screen-list');
+        renderList('TODOS');
+    }
 
-        function renderProcessList() {
-            const proceso = document.getElementById('filter-process-select').value;
-            const box = document.getElementById('process-list-container');
-            const btnWA = document.getElementById('btn-process-wa');
-            box.innerHTML = "";
-            if(!session.master) return;
-            let filtered = session.master.filter(m => String(m.proceso) === String(proceso));
-            
-            // Ordenar por Instrumento
-            filtered.sort((a, b) => {
-                const idxA = ORDEN_INST.indexOf(String(a.instrumento).toLowerCase());
-                const idxB = ORDEN_INST.indexOf(String(b.instrumento).toLowerCase());
-                if (idxA !== -1 && idxB !== -1) {
-                    if (idxA !== idxB) return idxA - idxB;
-                    return a.apellidos.localeCompare(b.apellidos);
-                }
-                return 0;
-            });
+    function pintarPendiente() {
+        const n = pend && pend.meta ? Object.keys(pend.marks || {}).length : 0;
+        $('pending-banner').classList.toggle('hidden', !n);
+        if (n) $('pending-text').textContent = `${n} MARCADOS • ${descJornada(pend.meta)}`;
+    }
 
-            if(filtered.length === 0) {
-                box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY ESTUDIANTES EN ${proceso}</p>`;
-                btnWA.classList.add('hidden');
-                return;
-            }
-            filtered.forEach(m => {
-                const item = document.createElement('div');
-                item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex justify-between items-center";
-                item.innerHTML = `<div><p class="font-bold text-[13px] text-slate-800">${m.apellidos} ${m.nombres}</p><p class="text-[10px] font-bold text-slate-400 mt-0.5 uppercase">${m.instrumento}</p></div><div class="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-1 rounded-lg uppercase">${m.proceso}</div>`;
-                box.appendChild(item);
-            });
-            btnWA.classList.remove('hidden');
-        }
+    const integrantesJornada = () => session.master.filter(m => norm(m.proceso) === norm(pend.meta.process)).sort(porInstrumento('nombres'));
 
-        function generateProcessWA() {
-            const proceso = document.getElementById('filter-process-select').value;
-            if(!proceso) return;
-            let filtered = session.master.filter(m => String(m.proceso) === String(proceso));
-            filtered.sort((a, b) => {
-                const idxA = ORDEN_INST.indexOf(String(a.instrumento).toLowerCase());
-                const idxB = ORDEN_INST.indexOf(String(b.instrumento).toLowerCase());
-                if (idxA !== -1 && idxB !== -1) {
-                    if (idxA !== idxB) return idxA - idxB;
-                    return a.apellidos.localeCompare(b.apellidos);
-                }
-                return 0;
-            });
+    function renderList(secc) {
+        listSection = secc;
+        document.querySelectorAll('.tab-btn').forEach(b => { const on = b.dataset.sec === secc; b.classList.toggle('active-tab', on); b.classList.toggle('text-slate-300', !on); });
+        const todos = integrantesJornada();
+        const lista = secc === 'TODOS' ? todos : todos.filter(m => familiaDe(m.instrumento) === secc);
+        const box = $('musicos-box');
+        if (!lista.length) box.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-10 font-bold uppercase">NO HAY INTEGRANTES EN ESTA SECCIÓN</p>`;
+        else box.innerHTML = lista.map(m => {
+            const n = nombreDe(m), s = pend.marks[n] || '', idx = session.master.indexOf(m);
+            return `<div class="bg-white p-4 rounded-2xl shadow-sm border ${s ? '' : 'border-amber-200'}">
+                <div class="mb-3"><p class="font-bold text-[13px] text-slate-800">${esc(n)}</p><p class="text-[10px] font-bold text-slate-400 mt-1 uppercase">${esc(m.instrumento)}${m.grado ? ' • ' + esc(m.grado) : ''}</p></div>
+                <div class="grid grid-cols-4 gap-1">${ESTADOS.map(st => `<button data-act="mark" data-i="${idx}" data-st="${st}" class="btn-status border ${s === st ? getCol(st) : 'bg-slate-50 text-slate-400 border-slate-50'}">${st}</button>`).join('')}</div>
+            </div>`;
+        }).join('');
+        const marcados = todos.filter(m => pend.marks[nombreDe(m)]).length;
+        $('counter').textContent = `${marcados} / ${todos.length} MARCADOS`;
+    }
 
-            if(filtered.length === 0) return alert("LISTA VACÍA");
-            let msg = `📜 *LISTADO OFICIAL - ${proceso}* \n${session.banda.toUpperCase()}\n\n`;
-            filtered.forEach((m, i) => { msg += `${i+1}. ${m.apellidos} ${m.nombres} (${m.instrumento} - ${m.grado || 'S/G'})\n`; });
-            const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        }
+    function mark(m, st) {
+        const n = nombreDe(m);
+        if (pend.marks[n] === st) delete pend.marks[n]; else pend.marks[n] = st;
+        guardarPend();
+        renderList(listSection);
+    }
 
-        // --- GESTIÓN INVENTARIO ---
-        function prepareNewInstrument() {
-            isEditing = false; originalSerial = null; originalCodigo = null; originalRasgos = {};
-            document.getElementById('form-inv-title').innerText = "NUEVO INSTRUMENTO";
-            document.getElementById('btn-save-inv').innerText = "GUARDAR ACTIVO";
-            document.getElementById('btn-save-inv').classList.replace('bg-blue-600', 'bg-slate-900');
-            document.getElementById('btn-del-inv').classList.add('hidden');
-            document.querySelectorAll('#screen-form-inventory input, #screen-form-inventory textarea').forEach(i => i.value = "");
-            document.querySelectorAll('#screen-form-inventory select').forEach(s => s.selectedIndex = 0);
-            checkOtroInst();
-            nav('screen-form-inventory');
-        }
-        function checkOtroInst() { const sel = document.getElementById('inv-instrumento-select').value; const inp = document.getElementById('inv-instrumento-input'); if(sel === 'OTRO') inp.classList.remove('hidden'); else inp.classList.add('hidden'); }
-        function openInventoryList() { nav('screen-inventory-list'); }
-        function filterInventory() {
-            const q = document.getElementById('search-inv-input').value.toLowerCase();
-            const list = document.getElementById('inventory-list-container');
-            list.innerHTML = "";
-            if(!session.inventario) return;
-            let filtered = session.inventario.filter(i => (i.instrumento + " " + i.marca + " " + i.codigo + " " + i.serial).toLowerCase().includes(q));
-            if(filtered.length === 0) { list.innerHTML = `<p class="text-center text-slate-400 text-[11px] mt-4 font-bold uppercase">NO SE ENCONTRARON ACTIVOS</p>`; return; }
-            filtered.forEach(i => {
-                const item = document.createElement('div');
-                item.className = "bg-white p-4 rounded-xl border border-slate-100 shadow-sm cursor-pointer active:scale-95 transition-transform";
-                item.onclick = () => loadInstrumentForEdit(i);
-                let dotColor = "bg-slate-300";
-                if(i.estado.includes("Disponible")) dotColor = "bg-green-500";
-                else if(i.estado.includes("Asignado") || i.estado.includes("Préstamo")) dotColor = "bg-red-500";
-                else if(i.estado.includes("Reparación")) dotColor = "bg-amber-500";
-                item.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="font-bold text-[13px] text-slate-900">${i.instrumento}</p>
-                            <p class="text-[10px] font-bold text-slate-500">${i.marca} ${i.modelo}</p>
-                            <p class="text-[9px] font-bold text-slate-300 mt-1 uppercase">S: ${i.serial || 'N/A'} | C: ${i.codigo || 'N/A'}</p>
-                        </div>
-                        <div class="w-3 h-3 rounded-full ${dotColor}"></div>
-                    </div>`;
-                list.appendChild(item);
-            });
-        }
-        function loadInstrumentForEdit(i) {
-            isEditing = true; originalSerial = i.serial; originalCodigo = i.codigo; originalRasgos = { inst: i.instrumento, marca: i.marca, modelo: i.modelo };
-            document.getElementById('form-inv-title').innerText = "EDITAR INSTRUMENTO";
-            const btn = document.getElementById('btn-save-inv');
-            btn.innerText = "ACTUALIZAR ACTIVO";
-            btn.classList.replace('bg-slate-900', 'bg-blue-600');
-            document.getElementById('btn-del-inv').classList.remove('hidden'); 
-            document.getElementById('inv-marca').value = i.marca === "N/A" ? "" : i.marca;
-            document.getElementById('inv-modelo').value = i.modelo === "N/A" ? "" : i.modelo;
-            document.getElementById('inv-serial').value = i.serial === "N/A" ? "" : i.serial;
-            document.getElementById('inv-codigo').value = i.codigo === "N/A" ? "" : i.codigo;
-            document.getElementById('inv-color').value = i.color === "N/A" ? "" : i.color;
-            document.getElementById('inv-accesorios').value = i.accesorios === "N/A" ? "" : i.accesorios;
-            document.getElementById('inv-observaciones').value = i.observaciones === "N/A" ? "" : i.observaciones;
-            document.getElementById('inv-condicion').value = i.condicion;
-            document.getElementById('inv-estado').value = i.estado;
-            document.getElementById('inv-origen').value = i.origen;
-            const sel = document.getElementById('inv-instrumento-select');
-            const exists = [...sel.options].some(o => o.value === i.instrumento);
-            if(exists) { sel.value = i.instrumento; document.getElementById('inv-instrumento-input').classList.add('hidden'); } 
-            else { sel.value = "OTRO"; document.getElementById('inv-instrumento-input').classList.remove('hidden'); document.getElementById('inv-instrumento-input').value = i.instrumento; }
-            nav('screen-form-inventory');
-        }
-        async function saveInstrument() {
-            let instName = document.getElementById('inv-instrumento-select').value;
-            if (instName === "OTRO") instName = document.getElementById('inv-instrumento-input').value;
-            if (!instName) return alert("FALTA EL INSTRUMENTO");
-            const d = {
-                codigo: document.getElementById('inv-codigo').value, instrumento: instName,
-                marca: document.getElementById('inv-marca').value, modelo: document.getElementById('inv-modelo').value,
-                serial: document.getElementById('inv-serial').value, color: document.getElementById('inv-color').value,
-                condicion: document.getElementById('inv-condicion').value, estado: document.getElementById('inv-estado').value,
-                origen: document.getElementById('inv-origen').value, accesorios: document.getElementById('inv-accesorios').value,
-                observaciones: document.getElementById('inv-observaciones').value
-            };
-            loader(true, isEditing ? "ACTUALIZANDO..." : "GUARDANDO...");
-            const payload = { action: isEditing ? 'editInstrumento' : 'addInstrumento', sheetId: session.sheetId, datos: d, originalSerial: originalSerial, originalCodigo: originalCodigo, originalInstrumento: originalRasgos.inst, originalMarca: originalRasgos.marca, originalModelo: originalRasgos.modelo };
-            try { 
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) }); 
-                const res = await r.json(); 
-                if(res.success) { alert(isEditing ? "ACTIVO ACTUALIZADO" : "ACTIVO GUARDADO"); await fetchData(); nav('screen-inventory-menu'); } else { alert("ERROR: NO SE PUDO GUARDAR/EDITAR"); } 
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
-            loader(false);
-        }
+    function markAllPresent() {
+        const todos = integrantesJornada();
+        const lista = listSection === 'TODOS' ? todos : todos.filter(m => familiaDe(m.instrumento) === listSection);
+        let c = 0;
+        lista.forEach(m => { const n = nombreDe(m); if (!pend.marks[n]) { pend.marks[n] = 'PRESENTE'; c++; } });
+        guardarPend();
+        renderList(listSection);
+        aviso(c ? `${c} MARCADOS COMO PRESENTE` : 'TODOS YA ESTABAN MARCADOS');
+    }
 
-        async function deleteInstrument() {
-            if(!isEditing) return;
-            if(!confirm("⚠️ ¿ESTÁS SEGURO?\n\nEsta acción eliminará el instrumento del inventario y no se puede deshacer.")) return;
-            loader(true, "ELIMINANDO...");
-            try {
-                const payload = { action: 'deleteInstrumento', sheetId: session.sheetId, serial: originalSerial, codigo: originalCodigo, instrumento: originalRasgos.inst };
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify(payload) });
-                const res = await r.json();
-                if(res.success) { alert("ACTIVO ELIMINADO"); await fetchData(); nav('screen-inventory-list'); } 
-                else { alert("ERROR AL ELIMINAR: " + res.error); }
-            } catch(e) { alert("ERROR DE CONEXIÓN"); }
-            loader(false);
-        }
+    function getCol(s) { return { PRESENTE: 'bg-slate-900 text-white border-slate-900', AUSENTE: 'bg-red-50 text-red-600 border-red-100', RETARDO: 'bg-amber-50 text-amber-600 border-amber-100', EXCUSA: 'bg-blue-50 text-blue-600 border-blue-100' }[s]; }
 
-        // --- HORARIO DINÁMICO ---
-        function buildHorarioTable() {
-            const hBox = document.getElementById('horario-body'); hBox.innerHTML = "";
-            session.horario.forEach((fila, index) => {
-                const timeCell = document.createElement('div');
-                timeCell.className = "horario-cell p-0";
-                const input = document.createElement('input');
-                input.type = "text";
-                input.className = "horario-time-input";
-                input.value = fila.hora || `HORA ${index + 1}`;
-                input.onchange = (e) => { session.horario[index].hora = e.target.value; };
-                timeCell.appendChild(input);
-                hBox.appendChild(timeCell);
+    async function finalize() {
+        const marks = pend ? pend.marks : {};
+        const n = Object.keys(marks).length;
+        if (!n) return aviso("NO HAY MARCACIONES", 'error');
+        const total = integrantesJornada().length;
+        if (n < total && !confirm(`Solo has marcado ${n} de ${total} integrantes.\n\n¿Guardar de todas formas?`)) return;
+        loader(true, "GUARDANDO...");
+        const m = pend.meta;
+        const data = Object.entries(marks).map(([musico, estado]) => ({ fecha: m.date, tipo_actividad: m.type, nombre_actividad: m.act, proceso: m.process, musico, estado }));
+        try {
+            const res = await api({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data });
+            if (res.success) { pend = null; guardarPend(); aviso("¡ASISTENCIA GUARDADA!", 'ok'); nav('screen-menu'); }
+            else aviso("NO SE GUARDÓ: " + errTxt(res, "ERROR") + ". TUS MARCACIONES SIGUEN EN EL CELULAR.", 'error');
+        } catch (e) { aviso("SIN CONEXIÓN. TUS MARCACIONES SIGUEN GUARDADAS EN EL CELULAR, INTENTA DE NUEVO.", 'error'); }
+        loader(false);
+    }
 
-                DIAS_KEYS.forEach((dia, dIndex) => {
-                    const cell = document.createElement('div'); 
-                    cell.className = "horario-cell";
-                    const area = document.createElement('textarea');
-                    area.className = "horario-input";
-                    area.value = fila[dia] || "";
-                    area.onchange = (e) => { session.horario[index][dia] = e.target.value; };
-                    cell.appendChild(area);
-                    hBox.appendChild(cell);
-                });
-            });
-        }
+    function generateWAReport() {
+        const marks = pend ? pend.marks : {};
+        if (!Object.keys(marks).length) return aviso("NO HAS MARCADO ASISTENCIA AÚN", 'error');
+        const grupos = { AUSENTE: [], RETARDO: [], EXCUSA: [] };
+        let presentes = 0;
+        integrantesJornada().forEach(m => {
+            const n = nombreDe(m), st = marks[n];
+            if (st === 'PRESENTE') presentes++;
+            if (grupos[st]) grupos[st].push(`${n} (${S(m.instrumento)})`);
+        });
+        const meta = pend.meta;
+        let msg = `📅 *REPORTE ASISTENCIA ${S(session.banda).toUpperCase()}*\nProceso: ${meta.process}\nActividad: ${meta.act}\nFecha: ${fechaBonita(meta.date)}\n\n✅ Presentes: ${presentes}\n\n`;
+        const titulos = { AUSENTE: '🔴 *AUSENTES:*', RETARDO: '🟡 *RETARDOS:*', EXCUSA: '🔵 *EXCUSAS:*' };
+        Object.keys(grupos).forEach(k => { if (grupos[k].length) { msg += titulos[k] + '\n'; grupos[k].forEach((x, i) => msg += `${i + 1}. ${x}\n`); msg += '\n'; } });
+        abrirWA(msg);
+    }
 
-        function addHorarioRow() {
-            session.horario.push({ hora: "" });
-            buildHorarioTable();
-        }
+    // =====================================================================
+    //  ESTADÍSTICAS
+    // =====================================================================
+    let ultimoReporte = null;
 
-        function removeHorarioRow() {
-            if(session.horario.length > 0) {
-                session.horario.pop();
-                buildHorarioTable();
-            }
-        }
+    function restoreStatsFilter() {
+        const sel = $('stat-proceso'), prev = sel.value;
+        sel.innerHTML = opciones(session.config.proceso);
+        if (prev) setSelect('stat-proceso', prev);
+        const y = new Date().getFullYear(), anioSel = $('stat-anio'), prevY = anioSel.value;
+        anioSel.innerHTML = [y, y - 1, y - 2].map(a => `<option value="${a}">${a}</option>`).join('');
+        anioSel.value = prevY || y;
+        if (!$('stat-mes').dataset.set) { $('stat-mes').value = new Date().getMonth() + 1; $('stat-mes').dataset.set = '1'; }
+    }
 
-        async function saveHorario() { 
-            loader(true, "GUARDANDO HORARIO..."); 
-            const matriz = session.horario.map(fila => {
-                return [
-                    fila.hora || "", fila.lunes || "", fila.martes || "", fila.miercoles || "",
-                    fila.jueves || "", fila.viernes || "", fila.sabado || "", fila.domingo || ""
-                ];
-            });
+    async function getReport() {
+        const proc = $('stat-proceso').value, mes = $('stat-mes').value, anio = $('stat-anio').value;
+        if (!proc) return aviso("SELECCIONA UN PROCESO", 'error');
+        loader(true, "CALCULANDO KARDEX...");
+        try {
+            const d = await api({ action: 'getEstadisticas', sheetId: session.sheetId, proceso: proc, mes, anio }, 'GET');
+            if (d.success) {
+                $('report-title-text').textContent = proc;
+                $('report-mes-text').textContent = `${MESES[mes - 1]} ${anio}`;
+                $('report-events-count').textContent = `${d.totalEventos} EVENTOS`;
+                renderReportCards(d.stats || {}, d.totalEventos, proc, `${MESES[mes - 1]} ${anio}`);
+                nav('screen-stats-report');
+            } else aviso("ERROR: " + errTxt(d, "NO SE PUDIERON OBTENER LAS ESTADÍSTICAS"), 'error');
+        } catch (e) { aviso("ERROR DE CONEXIÓN AL OBTENER ESTADÍSTICAS", 'error'); }
+        loader(false);
+    }
 
-            try { 
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveHorario', sheetId: session.sheetId, datosHorario: matriz })}); 
-                const res = await r.json(); 
-                if(res.success) { 
-                    localStorage.setItem('atril_' + VER, JSON.stringify(session)); 
-                    alert("HORARIO GUARDADO"); 
-                } 
-            } catch(e) { alert("ERROR AL GUARDAR"); } 
-            loader(false); 
-        }
+    function renderReportCards(statsRaw, total, proc, periodo) {
+        // Agrupa sin importar mayúsculas o tildes en los nombres
+        const stats = {};
+        Object.entries(statsRaw).forEach(([k, v]) => {
+            const key = norm(k);
+            stats[key] = stats[key] || { P: 0, A: 0, R: 0, E: 0 };
+            ['P', 'A', 'R', 'E'].forEach(x => stats[key][x] += (v[x] || 0));
+        });
+        const box = $('stats-container');
+        const lista = listaProceso(proc);
+        if (!lista.length) { box.innerHTML = `<p class="text-center text-slate-400 font-bold uppercase py-10">NO HAY ESTUDIANTES EN ESTE PROCESO</p>`; ultimoReporte = null; return; }
+        const filas = lista.map(m => {
+            const n = nombreDe(m), s = stats[norm(n)] || { P: 0, A: 0, R: 0, E: 0 };
+            const pct = total ? Math.round(((s.P + s.R) / total) * 100) : 0;
+            return { m, n, s, pct };
+        });
+        ultimoReporte = { proc, periodo, total, filas };
+        box.innerHTML = filas.map(({ m, n, s, pct }) => {
+            const color = !total ? 'text-slate-300' : pct >= 80 ? 'text-green-600' : pct >= 60 ? 'text-amber-600' : 'text-red-600';
+            return `<div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                <div class="mb-3 border-b border-slate-50 pb-2 flex justify-between items-start gap-2">
+                    <div class="min-w-0"><p class="font-bold text-[14px] text-slate-800">${esc(n)}</p><p class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">${esc(m.instrumento)}</p></div>
+                    <div class="text-right shrink-0"><p class="text-[18px] font-bold ${color} leading-none">${total ? pct + '%' : '—'}</p><p class="text-[8px] font-bold text-slate-400 uppercase">ASISTENCIA</p></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-[11px] font-bold">
+                    <div class="bg-slate-50 text-slate-900 px-3 py-2 rounded-lg flex justify-between items-center"><span>PRESENTE</span><span class="text-[14px]">${s.P}</span></div>
+                    <div class="bg-red-50 text-red-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>AUSENTE</span><span class="text-[14px]">${s.A}</span></div>
+                    <div class="bg-amber-50 text-amber-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>RETARDO</span><span class="text-[14px]">${s.R}</span></div>
+                    <div class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>EXCUSA</span><span class="text-[14px]">${s.E}</span></div>
+                </div></div>`;
+        }).join('');
+    }
 
-        // --- ASISTENCIA & ESTADÍSTICAS ---
-        function restoreStatsFilter() {
-            const sel = document.getElementById('stat-proceso');
-            if (session.config && session.config.proceso) {
-                sel.innerHTML = session.config.proceso.map(p => `<option value="${p}">${p}</option>`).join('');
-            }
-            document.getElementById('stat-mes').value = new Date().getMonth() + 1;
-        }
+    function generateStatsWA() {
+        if (!ultimoReporte) return aviso("NO HAY REPORTE", 'error');
+        const r = ultimoReporte;
+        let msg = `📊 *KARDEX DE ASISTENCIA*\n${S(session.banda).toUpperCase()}\nProceso: ${r.proc}\nPeríodo: ${r.periodo}\nEventos: ${r.total}\n\n`;
+        r.filas.forEach((f, i) => msg += `${i + 1}. ${f.n} — ${r.total ? f.pct + '%' : '—'} (P:${f.s.P} A:${f.s.A} R:${f.s.R} E:${f.s.E})\n`);
+        abrirWA(msg);
+    }
 
-        async function getReport() {
-            const proc = document.getElementById('stat-proceso').value;
-            const mes = document.getElementById('stat-mes').value;
-            const mesNombre = document.getElementById('stat-mes').options[document.getElementById('stat-mes').selectedIndex].text;
-            
-            loader(true, "CALCULANDO KARDEX...");
-            try {
-                const r = await fetch(`${MOTOR_URL}?action=getEstadisticas&sheetId=${session.sheetId}&proceso=${encodeURIComponent(proc)}&mes=${mes}`, { method: 'GET', credentials: 'omit' });
-                const d = await r.json();
-                if(d.success) {
-                    document.getElementById('report-title-text').innerText = proc;
-                    document.getElementById('report-mes-text').innerText = mesNombre;
-                    document.getElementById('report-events-count').innerText = `${d.totalEventos} EVENTOS`;
-                    renderReportCards(d.stats, d.totalEventos, proc);
-                    nav('screen-stats-report');
-                }
-            } catch(e) { alert("ERROR AL OBTENER ESTADÍSTICAS"); }
-            loader(false);
-        }
+    // =====================================================================
+    //  BOTONES (un solo "escuchador" para toda la app)
+    // =====================================================================
+    const ACCIONES = {
+        'logout': () => cerrarSesion(false),
+        'refresh': async () => { if (await fetchData(false)) aviso("DATOS ACTUALIZADOS", 'ok'); },
+        'resume': resumePending,
+        'new-student': prepareNewStudent,
+        'share-student': b => shareStudentWA(session.master[b.dataset.i]),
+        'edit-student': b => loadStudentForEdit(session.master[b.dataset.i]),
+        'toggle-acud': toggleAcudiente,
+        'save-student': saveStudent,
+        'delete-student': deleteStudent,
+        'wa-grade': generateGradeWA,
+        'wa-process': generateProcessWA,
+        'new-instrument': prepareNewInstrument,
+        'edit-instrument': b => loadInstrumentForEdit(session.inventario[b.dataset.i]),
+        'save-instrument': saveInstrument,
+        'delete-instrument': deleteInstrument,
+        'export-horario': exportarHorarioImg,
+        'add-row': addHorarioRow,
+        'del-row': removeHorarioRow,
+        'save-horario': saveHorario,
+        'prepare-process': prepareProcess,
+        'proc': b => initAt(session.config.proceso[b.dataset.i]),
+        'mark': b => mark(session.master[b.dataset.i], b.dataset.st),
+        'mark-all': markAllPresent,
+        'finalize': finalize,
+        'wa-report': generateWAReport,
+        'get-report': getReport,
+        'wa-stats': generateStatsWA
+    };
 
-        function renderReportCards(stats, total, proc) {
-            const box = document.getElementById('stats-container'); box.innerHTML = "";
-            let filtrados = session.master.filter(m => String(m.proceso) === String(proc));
-            filtrados.sort((a, b) => {
-                const idxA = ORDEN_INST.indexOf(String(a.instrumento).toLowerCase());
-                const idxB = ORDEN_INST.indexOf(String(b.instrumento).toLowerCase());
-                return idxA - idxB;
-            });
-            if(filtrados.length === 0) { box.innerHTML = `<p class="text-center text-slate-400 font-bold uppercase py-10">NO HAY ESTUDIANTES EN ESTE PROCESO</p>`; return; }
-            
-            filtrados.forEach(m => {
-                const nombreCompleto = `${m.nombres} ${m.apellidos}`;
-                const s = stats[nombreCompleto] || { P: 0, A: 0, R: 0, E: 0 };
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-2xl border border-slate-100 shadow-sm"; 
-                card.innerHTML = `
-                    <div class="mb-3 border-b border-slate-50 pb-2">
-                        <p class="font-bold text-[14px] text-slate-800">${nombreCompleto}</p>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">${m.instrumento}</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 text-[11px] font-bold">
-                        <div class="bg-slate-50 text-slate-900 px-3 py-2 rounded-lg flex justify-between items-center"><span>PRESENTE</span> <span class="text-[14px]">${s.P}</span></div>
-                        <div class="bg-red-50 text-red-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>AUSENTE</span> <span class="text-[14px]">${s.A}</span></div>
-                        <div class="bg-amber-50 text-amber-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>RETARDO</span> <span class="text-[14px]">${s.R}</span></div>
-                        <div class="bg-blue-50 text-blue-600 px-3 py-2 rounded-lg flex justify-between items-center"><span>EXCUSA</span> <span class="text-[14px]">${s.E}</span></div>
-                    </div>`;
-                box.appendChild(card);
-            });
-        }
+    document.addEventListener('click', e => {
+        const b = e.target.closest('[data-act], [data-nav], [data-dir], [data-sec]');
+        if (!b) return;
+        if (b.dataset.nav) return nav(b.dataset.nav);
+        if (b.dataset.dir) return setDirSection(b.dataset.dir);
+        if (b.dataset.sec) return renderList(b.dataset.sec);
+        const fn = ACCIONES[b.dataset.act];
+        if (fn) fn(b);
+    });
 
-        function prepareProcess() {
-            session.date = document.getElementById('event-date').value;
-            session.type = document.getElementById('event-type').value;
-            session.act = (session.type === 'ENSAYO' ? 'ENSAYO' : document.getElementById('event-desc').value).toUpperCase();
-            if(!session.date || !session.act) return alert("FALTAN DATOS");
-            if(!session.config.proceso || session.config.proceso.length === 0) return alert("ERROR: NO SE CARGARON LOS PROCESOS. REINICIA SESIÓN.");
-            nav('screen-process');
-        }
-        function initAt(p) { session.process = p; document.getElementById('info-header').innerText = `${p} • ${session.act}`; nav('screen-list'); renderList('TODOS'); }
-        function renderList(secc) {
-            activeSection = secc;
-            document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active-tab'); b.classList.add('text-slate-300'); });
-            document.getElementById(`tab-${secc}`).classList.add('active-tab');
-            const box = document.getElementById('musicos-box'); box.innerHTML = "";
-            if(!session.master) return;
-            let filtered = session.master.filter(m => String(m.proceso) === String(session.process)).sort((a, b) => ORDEN_INST.indexOf(String(a.instrumento).toLowerCase()) - ORDEN_INST.indexOf(String(b.instrumento).toLowerCase()));
-            if (activeSection !== 'TODOS') { filtered = filtered.filter(m => { const miFamilia = Object.keys(SECCIONES).find(key => SECCIONES[key].includes(String(m.instrumento).toLowerCase())); return miFamilia === activeSection; }); }
-            filtered.forEach(m => {
-                const n = `${m.nombres} ${m.apellidos}`; 
-                const s = record[n] || '';
-                const card = document.createElement('div'); card.className = "bg-white p-4 rounded-2xl shadow-sm border";
-                card.innerHTML = `<div class="mb-3"><p class="font-bold text-[13px] text-slate-800">${n}</p><p class="text-[10px] font-bold text-slate-400 mt-1 uppercase">${m.instrumento} • ${m.grado}</p></div><div class="grid grid-cols-4 gap-1">${['PRESENTE','AUSENTE','RETARDO','EXCUSA'].map(st => `<button onclick="mark('${n}','${st}')" class="btn-status border ${s === st ? getCol(st) : 'bg-slate-50 text-slate-400 border-slate-50'}">${st}</button>`).join('')}</div>`;
-                box.appendChild(card);
-            });
-            document.getElementById('counter').innerText = `${Object.keys(record).length} MARCADOS`;
-        }
-        function mark(n, st) { if (record[n] === st) { delete record[n]; } else { record[n] = st; } localStorage.setItem('atril_rec_' + VER, JSON.stringify(record)); renderList(activeSection); }
-        function getCol(s) { return { 'PRESENTE': 'bg-slate-900 text-white border-slate-900', 'AUSENTE': 'bg-red-50 text-red-600 border-red-100', 'RETARDO': 'bg-amber-50 text-amber-600 border-amber-100', 'EXCUSA': 'bg-blue-50 text-blue-600 border-blue-100'}[s]; }
-        async function finalize() {
-            if(!Object.keys(record).length) return alert("NO HAY MARCACIONES");
-            loader(true, "GUARDANDO...");
-            const data = Object.entries(record).map(([n, e]) => ({ fecha: session.date, tipo_actividad: session.type, nombre_actividad: session.act, proceso: session.process, musico: n, estado: e }));
-            try { 
-                const r = await fetch(MOTOR_URL, { method: 'POST', credentials: 'omit', body: JSON.stringify({ action: 'saveAsistencia', sheetId: session.sheetId, asistencia: data })}); 
-                const res = await r.json(); 
-                if(res.success) { alert("¡GUARDADO!"); record = {}; localStorage.removeItem('atril_rec_' + VER); nav('screen-menu'); } 
-            } catch(e) { alert("ERROR DE COMUNICACIÓN"); }
-            loader(false);
-        }
-        function generateWAReport() {
-            if(Object.keys(record).length === 0) return alert("NO HAS MARCADO ASISTENCIA AÚN.");
-            let ausentes = []; let retardos = [];
-            for (const [nombre, estado] of Object.entries(record)) {
-                let estudiante = session.master.find(m => `${m.nombres} ${m.apellidos}` === nombre);
-                let inst = estudiante ? estudiante.instrumento : "";
-                if (estado === 'AUSENTE') ausentes.push(`${nombre} (${inst})`);
-                if (estado === 'RETARDO') retardos.push(`${nombre} (${inst})`);
-            }
-            if(ausentes.length === 0 && retardos.length === 0) return alert("NO HAY AUSENTES NI RETARDOS PARA REPORTAR.");
-            const fechaParts = session.date.split('-'); const fechaFormato = `${fechaParts[2]}/${fechaParts[1]}/${fechaParts[0]}`;
-            let msg = `📅 REPORTE ASISTENCIA ${session.banda.toUpperCase()}\nProceso: ${session.process}\nFecha: ${fechaFormato}\n\n`;
-            if(ausentes.length > 0) { msg += `🔴 *AUSENTES:*\n`; ausentes.forEach((a, i) => msg += `${i+1}. ${a}\n`); msg += `\n`; }
-            if(retardos.length > 0) { msg += `🟡 *RETARDOS:*\n`; retardos.forEach((r, i) => msg += `${i+1}. ${r}\n`); msg += `\n`; }
-            const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        }
-        function toggleEventDesc() { document.getElementById('event-desc-box').classList.toggle('hidden', document.getElementById('event-type').value !== 'PRESENTACIÓN'); }
-        function logout() { localStorage.clear(); location.reload(); }
+    $('login-form').addEventListener('submit', loginProcess);
+    $('search-input').addEventListener('input', filterDirectory);
+    $('search-inv-input').addEventListener('input', filterInventory);
+    $('filter-grado-select').addEventListener('change', renderGradeList);
+    $('filter-process-select').addEventListener('change', renderProcessList);
+    $('inv-instrumento-select').addEventListener('change', checkOtroInst);
+    $('event-type').addEventListener('change', toggleEventDesc);
+    $('stat-mes').addEventListener('change', () => $('stat-mes').dataset.set = '1');
+    window.addEventListener('beforeunload', e => { if (horarioSucio) { e.preventDefault(); e.returnValue = ''; } });
     </script>
 </body>
 </html>
